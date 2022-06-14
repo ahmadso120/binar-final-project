@@ -1,8 +1,8 @@
 package com.binar.secondhand.data
 
-import com.binar.secondhand.data.source.local.BuyerLocalDataSource
+import com.binar.secondhand.data.source.local.BuyerProductLocalDataSource
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
-import com.binar.secondhand.data.source.remote.BuyerRemoteDataSource
+import com.binar.secondhand.data.source.remote.BuyerProductRemoteDataSource
 import com.binar.secondhand.data.source.remote.NetworkBoundResource
 import com.binar.secondhand.data.source.remote.network.ApiResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
@@ -15,14 +15,14 @@ interface BuyerRepository {
 }
 
 class BuyerRepositoryImpl(
-    private val buyerLocalDataSource: BuyerLocalDataSource,
-    private val buyerRemoteDataSource: BuyerRemoteDataSource,
+    private val buyerProductLocalDataSource: BuyerProductLocalDataSource,
+    private val buyerProductRemoteDataSource: BuyerProductRemoteDataSource,
     private val appExecutors: AppExecutors
 ) : BuyerRepository {
     override fun getBuyerProducts(categoryId: Int?): Flow<Result<List<BuyerProductEntity>>> =
         object : NetworkBoundResource<List<BuyerProductEntity>, List<BuyerProductResponse>>() {
             override fun loadFromDB(): Flow<List<BuyerProductEntity>> {
-                return buyerLocalDataSource.getBuyerProducts()
+                return buyerProductLocalDataSource.getBuyerProducts()
             }
 
             override fun shouldFetch(data: List<BuyerProductEntity>?): Boolean {
@@ -30,11 +30,11 @@ class BuyerRepositoryImpl(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<BuyerProductResponse>>> =
-                buyerRemoteDataSource.getBuyerProducts(categoryId)
+                buyerProductRemoteDataSource.getBuyerProducts(categoryId)
 
             override suspend fun saveCallResult(data: List<BuyerProductResponse>) {
                 val dataList = DataMapper.mapResponsesToEntities(data)
-                buyerLocalDataSource.insertBuyerProducts(dataList)
+                buyerProductLocalDataSource.insertBuyerProducts(dataList)
             }
         }.asFlow()
 }

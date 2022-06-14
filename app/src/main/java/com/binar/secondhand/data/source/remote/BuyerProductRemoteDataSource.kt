@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class BuyerRemoteDataSource(
+class BuyerProductRemoteDataSource(
     private val apiService: ApiService
 ) {
     suspend fun getBuyerProducts(categoryId: Int? = null): Flow<ApiResponse<List<BuyerProductResponse>>> {

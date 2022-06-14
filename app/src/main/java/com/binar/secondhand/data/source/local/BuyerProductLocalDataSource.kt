@@ -4,7 +4,7 @@ import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.data.source.local.room.BuyerProductDao
 import kotlinx.coroutines.flow.Flow
 
-class BuyerLocalDataSource (
+class BuyerProductLocalDataSource (
     private val buyerProductDao: BuyerProductDao
 ) {
     fun getBuyerProducts(): Flow<List<BuyerProductEntity>> =
