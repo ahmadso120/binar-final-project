@@ -1,7 +1,8 @@
 package com.binar.secondhand.data.source.remote
 
 import com.binar.secondhand.data.source.remote.network.ApiResponse
-import com.binar.secondhand.data.source.remote.network.ApiService
+import com.binar.secondhand.data.source.remote.network.AuthService
+import com.binar.secondhand.data.source.remote.network.BuyerProductService
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.loge
@@ -11,15 +12,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class BuyerProductRemoteDataSource(
-    private val apiService: ApiService
+    private val buyerProductService: BuyerProductService
 ) {
     suspend fun getBuyerProducts(categoryId: Int? = null): Flow<ApiResponse<List<BuyerProductResponse>>> {
         return flow {
             try {
                 val data: List<BuyerProductResponse> = if (categoryId != null){
-                    apiService.getBuyerProductByCategory(categoryId)
+                    buyerProductService.getBuyerProductByCategory(categoryId)
                 } else {
-                    apiService.getBuyerProduct()
+                    buyerProductService.getBuyerProduct()
                 }
 
                 if (data.isNotEmpty()) {
