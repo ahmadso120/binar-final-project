@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Second Hand</string>
+
+    <string name="preference_file_key">second_hand_app_pref</string>
+    <string name="text_label_home">Home</string>
+    <string name="text_label_notification">Notifikasi</string>
+    <string name="text_label_sell">Jual</string>
+    <string name="text_label_sell_list">Daftar Jual</string>
+    <string name="text_label_account">Akun</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

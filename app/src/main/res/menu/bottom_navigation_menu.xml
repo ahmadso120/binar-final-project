@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/fi_home"
+        android:title="@string/text_label_home" />
+
+    <item
+        android:id="@+id/notificationFragment"
+        android:icon="@drawable/fi_bell"
+        android:title="@string/text_label_notification" />
+
+    <item
+        android:id="@+id/sellFragment"
+        android:icon="@drawable/fi_plus_circle"
+        android:title="@string/text_label_sell" />
+
+    <item
+        android:id="@+id/sellListFragment"
+        android:icon="@drawable/fi_list"
+        android:title="@string/text_label_sell_list" />
+
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/fi_user"
+        android:title="@string/text_label_account" />
+</menu>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.binar.secondhand.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.binar.secondhand.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/sellListFragment"
+        android:name="com.binar.secondhand.ui.selllist.SellListFragment"
+        android:label="fragment_sell_list"
+        tools:layout="@layout/fragment_sell_list" />
+    <fragment
+        android:id="@+id/sellFragment"
+        android:name="com.binar.secondhand.ui.sell.SellFragment"
+        android:label="fragment_sell"
+        tools:layout="@layout/fragment_sell" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.binar.secondhand.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.binar.secondhand.ui.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <action
+        android:id="@+id/action_global_to_homeFragment"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+</navigation>
