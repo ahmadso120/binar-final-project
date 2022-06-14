@@ -1,12 +1,9 @@
 package com.binar.secondhand.data.source.local.room
 
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.binar.secondhand.data.source.local.entity.CategoryEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
-import java.util.*
 
 class Converters {
 //    @TypeConverter

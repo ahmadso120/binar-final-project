@@ -1,7 +1,6 @@
 package com.binar.secondhand.data.source.remote.network
 
 import com.binar.secondhand.storage.AppLocalData
-import com.binar.secondhand.utils.loge
 import okhttp3.Interceptor
 import okhttp3.Response
 
