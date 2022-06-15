@@ -2,7 +2,6 @@ package com.binar.secondhand.ui.account.editaccount
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -36,12 +35,15 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
                 }
                 is Result.Success -> {
-                    binding.nameEdt.setText(it.data.fullName)
-                    binding.addressEdt.setText(it.data.address)
-                    binding.phoneNumberEdt.setText(it.data.phoneNumber)
-                    if (it.data.imageUrl != null){
-                       binding.profileImageView.loadPhotoUrl(it.data.imageUrl)
+                    binding.apply {
+                        nameEdt.setText(it.data.fullName)
+                        addressEdt.setText(it.data.address)
+                        phoneNumberEdt.setText(it.data.phoneNumber)
+                        if (it.data.imageUrl != null){
+                            with(profileImageView) { loadPhotoUrl(it.data.imageUrl) }
+                        }
                     }
+
                 }
             }
         }
