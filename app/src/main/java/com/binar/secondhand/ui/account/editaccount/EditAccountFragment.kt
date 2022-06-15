@@ -40,11 +40,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                     binding.nameEdt.setText(it.data.fullName)
                     binding.addressEdt.setText(it.data.address)
                     binding.phoneNumberEdt.setText(it.data.phoneNumber)
-                    Glide.with(requireActivity())
-                        .load(it.data.imageUrl)
-                        .error(R.drawable.ic_rectangle)
-                        .apply(RequestOptions.centerCropTransform())
-                        .into(binding.profileImageView)
+                    binding.profileImageView
                 }
             }
         }

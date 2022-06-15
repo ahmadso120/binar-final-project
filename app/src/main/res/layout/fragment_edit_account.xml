@@ -150,20 +150,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:src="@drawable/ic_rectangle"
+        android:src="@drawable/ic_avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_camera_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_Image_View"
-        app:layout_constraintEnd_toEndOf="@+id/profile_Image_View"
-        app:layout_constraintStart_toStartOf="@+id/profile_Image_View"
-        app:layout_constraintTop_toTopOf="@+id/profile_Image_View" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
