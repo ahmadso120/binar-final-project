@@ -11,7 +11,7 @@ class EditAccountViewModel(
 ) : ViewModel() {
 
 
-    private fun getAccount(): LiveData<Result<GetAccountResponse>> {
+     fun getAccount(): LiveData<Result<GetAccountResponse>> {
         return accountRepository.getAccount()
     }
 
