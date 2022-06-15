@@ -2,13 +2,27 @@ package com.binar.secondhand.ui.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
+import com.binar.secondhand.ui.common.ProductAdapter
+import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.logd
+import com.binar.secondhand.utils.showShortSnackbar
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
@@ -16,23 +30,69 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val binding: FragmentHomeBinding by viewBinding()
 
-    private val viewModel by viewModel<HomeViewModel>()
+    private val viewModel by sharedViewModel<HomeViewModel>()
+
+    private lateinit var productAdapter: ProductAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.buyerProductsMediatorData.observe(viewLifecycleOwner) {
+        binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
+        setupAdapter()
+
+        observeUi(view)
+    }
+
+    private fun observeUi(view: View) {
+        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.Error -> {
-
+                    showErrorState()
+                    view.showShortSnackbar(it.error.toString())
                 }
-                Result.Loading -> {
-
-                }
+                Result.Loading -> { showLoadingState() }
                 is Result.Success -> {
-                    logd(it.data.toString())
+                    showSuccessState()
+                    productAdapter.submitList(it.data)
                 }
             }
         }
+
+        viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
+//            findNavController().navigate()
+        })
+    }
+
+    private fun setupAdapter() {
+        productAdapter = ProductAdapter {
+            viewModel.onBuyerProductClicked(it)
+        }
+        binding.recyclerView.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            setHasFixedSize(true)
+            adapter = productAdapter
+        }
+    }
+
+    private fun showFilterBottomSheet() {
+        HomeProductFilterBottomSheet
+            .newInstance()
+            .show(childFragmentManager, HomeProductFilterBottomSheet.TAG)
+    }
+
+    private fun showSuccessState() {
+        binding.recyclerView.isVisible = true
+        binding.contentLoadingLayout.hide()
+    }
+
+    private fun showErrorState() {
+        binding.recyclerView.isVisible = true
+        binding.contentLoadingLayout.hide()
+    }
+
+    private fun showLoadingState() {
+        binding.recyclerView.isVisible = false
+        binding.contentLoadingLayout.show()
     }
 }

@@ -22,7 +22,7 @@ object DataMapper {
                 it.description,
                 it.id,
                 it.imageName,
-                it.image_url,
+                it.imageUrl,
                 it.location,
                 it.name,
                 it.status,

@@ -3,32 +3,35 @@ package com.binar.secondhand.ui.home
 import androidx.lifecycle.*
 import com.binar.secondhand.data.BuyerRepository
 import com.binar.secondhand.data.Result
+import com.binar.secondhand.data.SellerCategoryRepository
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
+import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
+import com.binar.secondhand.utils.Event
 
 class HomeViewModel(
-    private val buyerRepository: BuyerRepository
+    private val buyerRepository: BuyerRepository,
+    private val sellerCategoryRepository: SellerCategoryRepository
 ) : ViewModel() {
 
-    private val _buyerProductsLiveData = buyerRepository.getBuyerProducts(null).asLiveData()
-    val buyerProductsMediatorData = MediatorLiveData<Result<List<BuyerProductEntity>>>()
-    private var _filterBuyerProductsLiveData: LiveData<Result<List<BuyerProductEntity>>>
-    private val _updateCategoryIdLiveData = MutableLiveData<String>()
+    var categoryId: Int = 0
 
-    init {
-        _filterBuyerProductsLiveData = _updateCategoryIdLiveData.switchMap {
-            buyerRepository.getBuyerProducts(it.toInt()).asLiveData()
-        }
+    private val _filterCategoryProductLiveData = MutableLiveData(categoryId)
 
-        buyerProductsMediatorData.addSource(_buyerProductsLiveData) {
-            buyerProductsMediatorData.value = it
-        }
-
-        buyerProductsMediatorData.addSource(_filterBuyerProductsLiveData) {
-            buyerProductsMediatorData.value = it
-        }
+    val buyerProductsLiveData: LiveData<Result<List<BuyerProductResponse>>> = _filterCategoryProductLiveData.switchMap {
+        buyerRepository.getBuyerProducts(it)
     }
 
-    fun onCategoryIdUpdated(categoryId: Int) {
-        _updateCategoryIdLiveData.value = categoryId.toString()
+    fun filterCategoryProductHome(categoryId: Int) {
+        _filterCategoryProductLiveData.value = categoryId
+    }
+
+    val categories = sellerCategoryRepository.getCategories()
+
+    private val _navigateToBuyerProductDetail = MutableLiveData<Event<BuyerProductResponse>>()
+    val navigateToBuyerProductDetail: LiveData<Event<BuyerProductResponse>>
+        get() = _navigateToBuyerProductDetail
+
+    fun onBuyerProductClicked(buyerProductResponse: BuyerProductResponse) {
+        _navigateToBuyerProductDetail.value = Event(buyerProductResponse)
     }
 }
