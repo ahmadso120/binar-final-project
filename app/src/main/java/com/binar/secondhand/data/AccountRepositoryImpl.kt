@@ -4,20 +4,20 @@ package com.binar.secondhand.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.binar.secondhand.data.source.remote.AccountRemoteDataSource
-import com.binar.secondhand.data.source.remote.response.GetAccountResponse
+import com.binar.secondhand.data.source.remote.response.AccountResponse
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
 
 
 interface AccountRepository {
-    fun getAccount(): LiveData<Result<GetAccountResponse>>
+    fun getAccount(): LiveData<Result<AccountResponse>>
 }
 
 class AccountRepositoryImpl(
     private val accountRemoteDataSource: AccountRemoteDataSource
 ) : AccountRepository {
-    override fun getAccount(): LiveData<Result<GetAccountResponse>> =
+    override fun getAccount(): LiveData<Result<AccountResponse>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
