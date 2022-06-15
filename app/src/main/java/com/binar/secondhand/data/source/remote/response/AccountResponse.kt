@@ -15,7 +15,7 @@ data class AccountResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("password")
     val password: String,
     @SerializedName("phone_number")
