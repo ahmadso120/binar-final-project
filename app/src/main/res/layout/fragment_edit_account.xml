@@ -112,11 +112,11 @@
         android:layout_height="wrap_content"
         android:text="No Handphone"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/textFieldPassword"
+        app:layout_constraintBottom_toTopOf="@+id/textFieldPhoneNumber"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textFieldPassword"
+        android:id="@+id/textFieldPhoneNumber"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textFieldAddress">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_edt"
+            android:id="@+id/phoneNumber_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
@@ -143,7 +143,7 @@
         android:text="Simpan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textFieldPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/textFieldPhoneNumber" />
 
     <ImageView
         android:id="@+id/profile_Image_View"

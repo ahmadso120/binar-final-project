@@ -9,6 +9,8 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentEditAccountBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -35,7 +37,14 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
                 }
                 is Result.Success -> {
-                Log.d("account", it.data.toString())
+                    binding.nameEdt.setText(it.data.fullName)
+                    binding.addressEdt.setText(it.data.address)
+                    binding.phoneNumberEdt.setText(it.data.phoneNumber)
+                    Glide.with(requireActivity())
+                        .load(it.data.imageUrl)
+                        .error(R.drawable.ic_rectangle)
+                        .apply(RequestOptions.centerCropTransform())
+                        .into(binding.profileImageView)
                 }
             }
         }
