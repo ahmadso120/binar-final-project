@@ -9,4 +9,7 @@
     <string name="text_label_account">Akun</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sort_by">Sortir Dengan</string>
+    <string name="apply">Terapkan</string>
+    <string name="product_item_image">Picture of product</string>
 </resources>
