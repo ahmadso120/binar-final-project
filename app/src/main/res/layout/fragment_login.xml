@@ -25,7 +25,6 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -36,14 +35,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -67,14 +64,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
-
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="textPassword" />
-
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
