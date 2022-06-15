@@ -36,7 +36,11 @@
         android:id="@+id/accountFragment"
         android:name="com.binar.secondhand.ui.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.binar.secondhand.ui.notification.NotificationFragment"
