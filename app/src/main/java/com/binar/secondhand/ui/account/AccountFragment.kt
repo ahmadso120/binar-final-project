@@ -10,6 +10,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.databinding.FragmentAccountBinding
+
+
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.utils.LogoutProcess
@@ -26,7 +28,6 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
     private val viewModel by viewModel<AccountViewModel>()
     private val appLocalData: AppLocalData by inject()
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeUI()
@@ -34,18 +35,17 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
 
 
         binding.imgCam.setOnClickListener {
-            val product = getItem()
 
+
+/*
 
             if (!response.data.imageUrl.isNullOrEmpty) {
                 binding.imgCam.loadPhotoUrl(response.data.imageUrl)
             } else {
-            // ambil dari drawable
+                // ambil dari drawable
                 R.drawable.imguser
             }
-
-
-
+*/
 
 
         }
@@ -66,10 +66,8 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         }
 
 
-
     }
 
 }
 
 
-}

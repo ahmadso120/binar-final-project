@@ -11,7 +11,8 @@ data class BuyerProductResponse(
     val id: Int,
     @field:SerializedName("image_name")
     val imageName: String?,
-    val image_url: String?,
+    @field:SerializedName("image_url")
+    val imageUrl: String?,
     val location: String,
     val name: String,
     val status: String,

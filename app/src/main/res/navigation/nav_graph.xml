@@ -15,13 +15,20 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.binar.secondhand.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment2"
+            app:destination="@id/notificationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sellListFragment"
         android:name="com.binar.secondhand.ui.selllist.SellListFragment"
@@ -38,8 +45,13 @@
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
+<<<<<<< HEAD
             android:id="@+id/action_accountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+=======
+            android:id="@+id/action_accountFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
+>>>>>>> 676ceb6ef71f5175a3f98ad94aebbfd92076099c
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -52,4 +64,40 @@
         app:destination="@id/homeFragment"
         app:popUpTo="@id/loginFragment"
         app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/sellerProductFragment"
+        android:name="com.binar.secondhand.ui.sellerproduct.SellerProductFragment"
+        android:label="fragment_seller_product"
+        tools:layout="@layout/fragment_seller_product" />
+
+    <fragment
+        android:id="@+id/editAccountFragment"
+        android:name="com.binar.secondhand.ui.account.editaccount.EditAccountFragment"
+        android:label="fragment_edit_account"
+        tools:layout="@layout/fragment_edit_account" >
+        <action
+            android:id="@+id/action_editAccountFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_editAccountFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/editAccountFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+     <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.binar.secondhand.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.binar.secondhand.ui.camera.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
 </navigation>
