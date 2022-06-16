@@ -12,4 +12,5 @@
     <string name="sort_by">Sortir Dengan</string>
     <string name="apply">Terapkan</string>
     <string name="product_item_image">Picture of product</string>
+    <string name="text_label_product">Produk</string>
 </resources>

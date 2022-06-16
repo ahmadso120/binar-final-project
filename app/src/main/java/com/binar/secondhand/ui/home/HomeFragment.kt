@@ -1,12 +1,10 @@
 package com.binar.secondhand.ui.home
 
+import android.content.Context
+import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -15,13 +13,10 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
-import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.showShortSnackbar
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
@@ -39,9 +34,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 
+        setBadgeCountNotification(3)
+
         setupAdapter()
 
         observeUi(view)
+    }
+
+    private fun setBadgeCountNotification(count: Int) {
+        val badgeDrawable = BadgeDrawable.create(requireContext())
+        badgeDrawable.number = count
+        BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.notification)
     }
 
     private fun observeUi(view: View) {
