@@ -24,9 +24,6 @@ class AppLocalData (private var storage: Storage){
     val getAccessToken: String?
         get() = storage.getString(KEY_ACCESS_TOKEN)
 
-    val getName: String?
-        get() = storage.getString(KEY_NAME)
-
     companion object {
         const val KEY_ACCESS_TOKEN = "access_token"
         const val KEY_NAME = "name"
