@@ -1,7 +1,5 @@
 package com.binar.secondhand.ui.home
 
-import android.content.Context
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,11 +9,13 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
+import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.showShortSnackbar
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -29,16 +29,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private lateinit var productAdapter: ProductAdapter
 
+    private val appLocalData: AppLocalData by inject()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
+        val name = appLocalData.getName
+        setTitleToolbar(name ?: "Home")
 
         setBadgeCountNotification(3)
 
         setupAdapter()
 
         observeUi(view)
+    }
+
+    private fun setTitleToolbar(title: String) {
+        binding.toolbar.title = title
     }
 
     private fun setBadgeCountNotification(count: Int) {
