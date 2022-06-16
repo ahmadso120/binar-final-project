@@ -48,4 +48,12 @@
         app:destination="@id/homeFragment"
         app:popUpTo="@id/loginFragment"
         app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/sellerProductFragment"
+        android:name="com.binar.secondhand.ui.sellerproduct.SellerProductFragment"
+        android:label="fragment_seller_product"
+        tools:layout="@layout/fragment_seller_product" />
+
+
 </navigation>
