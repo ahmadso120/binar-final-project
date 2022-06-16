@@ -33,6 +33,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 viewModel.doLoginRequest(loginRequest)
                 loginBtn.isEnabled = false
             }
+            registerTv.setOnClickListener {
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            }
         }
 
         observeUi()
