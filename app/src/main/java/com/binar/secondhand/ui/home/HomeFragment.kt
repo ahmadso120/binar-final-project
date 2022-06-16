@@ -1,7 +1,5 @@
 package com.binar.secondhand.ui.home
 
-import android.content.Context
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -16,9 +14,10 @@ import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.showShortSnackbar
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
+@ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -33,6 +32,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
 
         setBadgeCountNotification(3)
 

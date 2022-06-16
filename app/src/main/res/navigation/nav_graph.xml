@@ -45,13 +45,13 @@
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >
         <action
-<<<<<<< HEAD
+
             android:id="@+id/action_accountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-=======
+        <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
->>>>>>> 676ceb6ef71f5175a3f98ad94aebbfd92076099c
+
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
