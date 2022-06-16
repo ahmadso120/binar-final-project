@@ -59,7 +59,11 @@
         android:id="@+id/editAccountFragment"
         android:name="com.binar.secondhand.ui.account.editaccount.EditAccountFragment"
         android:label="fragment_edit_account"
-        tools:layout="@layout/fragment_edit_account" />
+        tools:layout="@layout/fragment_edit_account" >
+        <action
+            android:id="@+id/action_editAccountFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
      <fragment
         android:id="@+id/registerFragment"
         android:name="com.binar.secondhand.ui.register.RegisterFragment"
@@ -70,4 +74,9 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.binar.secondhand.ui.camera.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" />
 </navigation>
