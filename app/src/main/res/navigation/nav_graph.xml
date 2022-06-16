@@ -15,6 +15,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
 
     <fragment
@@ -40,7 +43,11 @@
         android:id="@+id/accountFragment"
         android:name="com.binar.secondhand.ui.account.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.binar.secondhand.ui.notification.NotificationFragment"
@@ -59,5 +66,19 @@
         android:label="fragment_seller_product"
         tools:layout="@layout/fragment_seller_product" />
 
+    <fragment
+        android:id="@+id/editAccountFragment"
+        android:name="com.binar.secondhand.ui.account.editaccount.EditAccountFragment"
+        android:label="fragment_edit_account"
+        tools:layout="@layout/fragment_edit_account" />
+     <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.binar.secondhand.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
 
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
