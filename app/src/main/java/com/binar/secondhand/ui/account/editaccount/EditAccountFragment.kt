@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -16,12 +17,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
+import com.binar.secondhand.data.source.remote.request.AccountRequest
 import com.binar.secondhand.databinding.FragmentEditAccountBinding
 import com.binar.secondhand.ui.camera.CameraFragment.Companion.RESULT_KEY
-import com.binar.secondhand.utils.loadPhotoUrl
-import com.binar.secondhand.utils.rotateBitmap
-import com.binar.secondhand.utils.showShortSnackbar
-import com.binar.secondhand.utils.uriToFile
+import com.binar.secondhand.utils.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -40,13 +43,49 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.profileImageView.setOnClickListener {
-         chooseImageDialog()
+            chooseImageDialog()
 
+        }
+        binding.saveBtn.setOnClickListener {
+            updateAccount()
         }
         observeUI()
         setupObserver()
 
 
+    }
+
+    private fun updateAccount() {
+        if (getFile != null) {
+            val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "image",
+                file.name,
+                requestImageFile
+            )
+            logd("img $imageMultipart")
+            val fullName = binding.nameEdt.text.toString().createPartFromString()
+            val address = binding.addressEdt.text.toString().createPartFromString()
+            val phoneNumber = binding.phoneNumberEdt.text.toString().createPartFromString()
+            val password = "12345678".createPartFromString()
+            val email = "aditya10355@gmail.com".createPartFromString()
+
+            val map = HashMap<String, RequestBody>().apply {
+                put("full_name", fullName)
+                put("address", address)
+                put("phone_number", phoneNumber)
+                put("password", password)
+                put("email", email)
+            }
+
+            val accountRequest = AccountRequest(
+                imageMultipart,
+                map
+            )
+            logd("acc $accountRequest")
+            viewModel.doUpdateAccountRequest(accountRequest)
+        }
     }
 
     private fun chooseImageDialog() {
@@ -90,7 +129,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         val observerResultKey = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME
                 && navBackStackEntry.savedStateHandle.contains(RESULT_KEY)
-                ) {
+            ) {
                 val result = navBackStackEntry.savedStateHandle.get<Bundle>(RESULT_KEY)
                 val myFile = result?.getSerializable("picture") as File
                 isBackCamera = result.getBoolean("isBackCamera", true)
@@ -102,7 +141,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                     BitmapFactory.decodeFile(getFile?.path),
                     isBackCamera
                 )
-                    binding.profileImageView.setImageBitmap(resultFile)
+                binding.profileImageView.setImageBitmap(resultFile)
             }
         }
         navBackStackEntry.lifecycle.addObserver(observerResultKey)
@@ -128,13 +167,31 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                         nameEdt.setText(it.data.fullName)
                         addressEdt.setText(it.data.address)
                         phoneNumberEdt.setText(it.data.phoneNumber)
-                        if (it.data.imageUrl != null || getFile == null) {
-                            with(profileImageView) { it.data.imageUrl?.let { it1 -> loadPhotoUrl(it1) } }
+                        if (it.data.imageUrl != null) {
+                            if (getFile == null){
+                                with(profileImageView) { it.data.imageUrl?.let { it1 -> loadPhotoUrl(it1) } }
+                            }
+
                         }
                     }
 
                 }
             }
+        }
+
+        viewModel.updateAccount.observe(viewLifecycleOwner){
+        when(it){
+            is Result.Error -> {
+                Toast.makeText(requireContext(),"Update Failed",Toast.LENGTH_SHORT).show()
+            }
+            Result.Loading -> {
+
+            }
+            is Result.Success ->{
+                Toast.makeText(requireContext(),"Update Success",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_editAccountFragment_to_homeFragment)
+            }
+        }
         }
     }
 }
