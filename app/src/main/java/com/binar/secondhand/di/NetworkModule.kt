@@ -1,6 +1,7 @@
 package com.binar.secondhand.di
 
 import com.binar.secondhand.data.source.remote.network.AccessTokenInterceptor
+import com.binar.secondhand.data.source.remote.network.AccountSettingService
 import com.binar.secondhand.data.source.remote.network.AuthService
 import com.binar.secondhand.data.source.remote.network.BuyerProductService
 import com.binar.secondhand.storage.AppLocalData
@@ -20,6 +21,7 @@ val networkModule = module {
     factory { createConverterFactory() }
     factory { createService<AuthService>(get(), get()) }
     factory { createService<BuyerProductService>(get(), get()) }
+    factory { createService<AccountSettingService>(get(), get()) }
 }
 
 private fun createOkHttpClient(accessTokenInterceptor: AccessTokenInterceptor): OkHttpClient {
