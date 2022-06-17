@@ -5,30 +5,70 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
-import com.binar.secondhand.databinding.FragmentAccountSettingBinding
+
+import com.binar.secondhand.databinding.FragmentAccountBinding
+import androidx.navigation.fragment.findNavController
+
+import com.binar.secondhand.databinding.FragmentHomeBinding
+import com.binar.secondhand.storage.AppLocalData
+import com.binar.secondhand.utils.LogoutProcess
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AccountFragment : BaseFragment(R.layout.fragment_account) {
 
-    private val binding: FragmentAccountSettingBinding by viewBinding()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false)
-    }
+    private val binding: FragmentAccountBinding by viewBinding()
+    override var bottomNavigationViewVisibility = View.GONE
+
+
+    private val viewModel by viewModel<AccountViewModel>()
+    private val appLocalData: AppLocalData by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.button.setOnClickListener{
+        observeUI()
+
+
+
+        binding.imgCam.setOnClickListener {
+
+
+/*
+
+            if (!response.data.imageUrl.isNullOrEmpty) {
+                binding.imgCam.loadPhotoUrl(response.data.imageUrl)
+            } else {
+                // ambil dari drawable
+                R.drawable.imguser
+            }
+*/
+
+
+        }
+        binding.icEdit.setOnClickListener {
+            /*findNavController().navigate(R.id.)
+*/
+        }
+        binding.icSettings.setOnClickListener {
             findNavController().navigate(R.id.action_accountFragment_to_accountSettingFragment2)
         }
+/*        binding.icLogout.setOnClickListener {
+            LogoutProcess.execute(appLocalData, binding)        }*/
     }
 
+    private fun observeUI() {
+        binding.icLogout.setOnClickListener {
+            LogoutProcess.execute(appLocalData, binding)
+        }
+
+
+    }
 
 }
+
+

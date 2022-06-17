@@ -6,9 +6,9 @@
         android:title="@string/text_label_home" />
 
     <item
-        android:id="@+id/notificationFragment"
-        android:icon="@drawable/fi_bell"
-        android:title="@string/text_label_notification" />
+        android:id="@+id/sellerProductFragment"
+        android:icon="@drawable/fi_shopping_bag"
+        android:title="@string/text_label_product" />
 
     <item
         android:id="@+id/sellFragment"

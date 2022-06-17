@@ -12,4 +12,6 @@
     <color name="dark_blue_04">#7126B5</color>
     <color name="dark_blue_03">#A06ECE</color>
     <color name="dark_blue_01">#E2D4F0</color>
+
+    <color name="red">#FA2C5A</color>
 </resources>
