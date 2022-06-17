@@ -5,12 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
-import com.binar.secondhand.databinding.FragmentAccountBinding
 
+import com.binar.secondhand.databinding.FragmentAccountBinding
+import androidx.navigation.fragment.findNavController
 
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.storage.AppLocalData
@@ -54,7 +55,7 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
 */
         }
         binding.icSettings.setOnClickListener {
-
+            findNavController().navigate(R.id.action_accountFragment_to_accountSettingFragment2)
         }
 /*        binding.icLogout.setOnClickListener {
             LogoutProcess.execute(appLocalData, binding)        }*/
