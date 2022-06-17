@@ -14,8 +14,9 @@ import org.json.JSONObject
 
 interface AccountRepository {
     fun getAccount(): LiveData<Result<AccountResponse>>
-    fun updateAccount(file: MultipartBody.Part,
-                      partMap: Map<String, RequestBody>): LiveData<Result<AccountResponse>>
+    fun updateAccount(
+        file: MultipartBody.Part?,
+        partMap: Map<String, RequestBody>): LiveData<Result<AccountResponse>>
 }
 
 class AccountRepositoryImpl(
@@ -48,7 +49,7 @@ class AccountRepositoryImpl(
         }
 
     override fun updateAccount(
-        file: MultipartBody.Part,
+        file: MultipartBody.Part?,
         partMap: Map<String, RequestBody>): LiveData<Result<AccountResponse>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)

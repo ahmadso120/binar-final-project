@@ -16,7 +16,7 @@ interface AccountService {
     @JvmSuppressWildcards
     @PUT("auth/user/1")
     suspend fun updateAccount(
-        @Part file: MultipartBody.Part,
+        @Part file: MultipartBody.Part?,
         @PartMap partMap: Map<String, RequestBody>,
         ): Response<AccountResponse>
 
