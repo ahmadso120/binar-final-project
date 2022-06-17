@@ -3,13 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell_list.xml" value="0.25416666666666665" />
+
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_bell.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_camera.xml" value="0.1455" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_edit.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_home.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_list.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_plus_circle.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_search.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_settings.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_user.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_launcher_background.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
+
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_list.xml" value="0.1955" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_plus_circle.xml" value="0.1955" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_user.xml" value="0.1955" />
@@ -21,6 +30,11 @@
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.17647058823529413" />
+
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.1" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account_setting.xml" value="0.25" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.21145833333333333" />

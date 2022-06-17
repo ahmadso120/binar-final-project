@@ -2,7 +2,11 @@ package com.binar.secondhand.di
 
 import com.binar.secondhand.data.*
 import com.binar.secondhand.data.source.local.BuyerProductLocalDataSource
+
+import com.binar.secondhand.data.source.remote.AccSettDataSource
+
 import com.binar.secondhand.data.source.remote.AccountRemoteDataSource
+
 import com.binar.secondhand.data.source.remote.AuthRemoteDataSource
 import com.binar.secondhand.data.source.remote.BuyerProductRemoteDataSource
 import com.binar.secondhand.data.source.remote.SellerCategoryDataSource
@@ -14,17 +18,25 @@ val repositoryModule = module {
     single { BuyerProductRemoteDataSource(get()) }
     single { AuthRemoteDataSource(get()) }
 
+    single { AccSettDataSource(get()) }
+
+
     single {AccountRemoteDataSource(get())}
 
     single { SellerCategoryDataSource(get()) }
+
 
     factory { AppExecutors() }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get()) }
 
+    single<AccSettRepo> { AccSettRepoImpl(get()) }
+
+
     single<AccountRepository>{AccountRepositoryImpl(get())}
 
     single<SellerCategoryRepository> { SellerCategoryRepositoryImpl(get()) }
+
 
 }
