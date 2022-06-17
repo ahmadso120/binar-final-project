@@ -43,11 +43,9 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
-
         materialToolbar.setNavigationOnClickListener {
-            activity?.onBackPressed()
+            findNavController().navigateUp()
         }
 
         binding.profileImageView.setOnClickListener {
@@ -187,7 +185,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                         phoneNumberEdt.setText(it.data.phoneNumber)
                         if (getFile == null) {
                             if (it.data.imageUrl.isNullOrEmpty()){
-                                binding.profileImageView.setImageResource(R.drawable.ic_avatar)
+                                profileImageView.setImageResource(R.drawable.ic_avatar)
                             }else{
                                 with(profileImageView) { it.data.imageUrl.let { url -> loadPhotoUrl(url) } }
                             }
