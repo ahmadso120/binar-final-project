@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
@@ -140,7 +141,8 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private fun setupObserver() {
         val navController = findNavController()
         val navBackStackEntry = navController.getBackStackEntry(R.id.editAccountFragment)
-
+       val window = activity?.window
+        window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.white)
         val observerResultKey = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME
                 && navBackStackEntry.savedStateHandle.contains(RESULT_KEY)
