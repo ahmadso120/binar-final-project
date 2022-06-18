@@ -7,6 +7,6 @@ import retrofit2.http.PartMap
 
 
 data class AccountRequest(
-@Part val file: MultipartBody.Part,
+@Part val file: MultipartBody.Part?,
 @PartMap val partMap: Map<String, RequestBody>
 )
