@@ -10,9 +10,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
+import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
+import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.showShortSnackbar
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
@@ -48,7 +50,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeUi(view: View) {
-        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) {
+        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) { it ->
             when(it) {
                 is Result.Error -> {
                     showErrorState()
