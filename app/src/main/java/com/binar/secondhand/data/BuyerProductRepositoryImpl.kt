@@ -8,7 +8,10 @@ import com.binar.secondhand.data.source.remote.network.ApiResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.AppExecutors
 import com.binar.secondhand.utils.DataMapper
+import com.binar.secondhand.utils.RateLimiter
+import com.binar.secondhand.utils.connection.HasInternetCapability
 import kotlinx.coroutines.flow.Flow
+import java.util.concurrent.TimeUnit
 
 interface BuyerRepository {
     fun getBuyerProducts(categoryId: Int): Flow<Result<List<BuyerProductWithCategories>>>
@@ -17,8 +20,12 @@ interface BuyerRepository {
 class BuyerRepositoryImpl(
     private val buyerProductLocalDataSource: BuyerProductLocalDataSource,
     private val buyerProductRemoteDataSource: BuyerProductRemoteDataSource,
+    private val hasInternetCapability: HasInternetCapability,
     private val appExecutors: AppExecutors
 ) : BuyerRepository {
+
+    private val rateLimiter = RateLimiter<String>(5, TimeUnit.MINUTES)
+
     override fun getBuyerProducts(categoryId: Int): Flow<Result<List<BuyerProductWithCategories>>> =
         object : NetworkBoundResource<List<BuyerProductWithCategories>, List<BuyerProductResponse>>() {
             override fun loadFromDB(): Flow<List<BuyerProductWithCategories>> {
@@ -26,7 +33,8 @@ class BuyerRepositoryImpl(
             }
 
             override fun shouldFetch(data: List<BuyerProductWithCategories >?): Boolean {
-                return true
+                if (!hasInternetCapability.isConnected) return false
+                return data.isNullOrEmpty() || rateLimiter.shouldFetch(LIST_BUYER_PRODUCT)
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<BuyerProductResponse>>> =
@@ -45,5 +53,14 @@ class BuyerRepositoryImpl(
                     buyerProductLocalDataSource.insertCategoryBuyerProductCrossRef(categoryBuyerProductCrossRef)
                 }
             }
+
+            override fun onFetchFailed() {
+                super.onFetchFailed()
+                rateLimiter.shouldFetch(LIST_BUYER_PRODUCT)
+            }
         }.asFlow()
+
+    companion object {
+        private const val LIST_BUYER_PRODUCT = "LIST_BUYER_PRODUCT"
+    }
 }

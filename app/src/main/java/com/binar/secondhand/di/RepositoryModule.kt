@@ -21,7 +21,7 @@ val repositoryModule = module {
     factory { AppExecutors() }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
-    single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get()) }
+    single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
 
     single<AccountRepository>{AccountRepositoryImpl(get())}
 

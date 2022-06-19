@@ -39,14 +39,8 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-            connectionViewModel.hasConnection.observe(this@MainActivity) {
-                if (it) {
-                    banner.isVisible = false
-                } else {
-                    banner.show()
-                    banner.isVisible = true
-                }
-            }
+
+            checkConnectivity()
 
             val navHostFragment =
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -57,6 +51,19 @@ class MainActivity : AppCompatActivity() {
 
             if (!token.isNullOrEmpty()) {
                 navController.navigate(R.id.action_loginFragment_to_homeFragment)
+            }
+        }
+    }
+
+    private fun checkConnectivity() {
+        binding.apply {
+            connectionViewModel.hasConnection.observe(this@MainActivity) {
+                if (it) {
+                    banner.isVisible = false
+                } else {
+                    banner.show()
+                    banner.isVisible = true
+                }
             }
         }
     }
