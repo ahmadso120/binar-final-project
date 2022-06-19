@@ -6,9 +6,11 @@ import com.binar.secondhand.data.source.remote.network.AuthService
 import com.binar.secondhand.data.source.remote.network.BuyerProductService
 import com.binar.secondhand.data.source.remote.network.SellerCategoryService
 import com.binar.secondhand.storage.AppLocalData
+import com.binar.secondhand.utils.connection.HasInternetCapability
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,6 +19,8 @@ import java.util.concurrent.TimeUnit
 private const val BASE_URL = "https://market-final-project.herokuapp.com/"
 
 val networkModule = module {
+    single { HasInternetCapability(androidContext()) }
+
     single { createOkHttpClient(get()) }
     factory { createAccessTokenInterceptor(get()) }
     factory { createConverterFactory() }

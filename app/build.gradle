@@ -95,6 +95,8 @@ dependencies {
 
     // Lottie Animation
     implementation 'com.airbnb.android:lottie:5.2.0'
+
+    implementation 'com.github.cesarferreira:MaterialComponent.Banner:0.14.0'
 }
 
 def getBaseUrl() {

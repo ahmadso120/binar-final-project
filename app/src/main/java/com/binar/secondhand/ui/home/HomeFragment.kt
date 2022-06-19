@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             when(it) {
                 is Result.Error -> {
                     showErrorState()
-                    view.showShortSnackbar(it.error.toString())
+//                    view.showShortSnackbar(it.error.toString())
                 }
                 Result.Loading -> { showLoadingState() }
                 is Result.Success -> {
