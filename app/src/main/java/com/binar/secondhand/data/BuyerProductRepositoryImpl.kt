@@ -32,9 +32,10 @@ class BuyerRepositoryImpl(
                 return buyerProductLocalDataSource.getBuyerProducts()
             }
 
-            override fun shouldFetch(data: List<BuyerProductWithCategories >?): Boolean {
+            override fun shouldFetch(data: List<BuyerProductWithCategories>?): Boolean {
+                if (categoryId != DEFAULT_CATEGORY_ID) return true
                 if (!hasInternetCapability.isConnected) return false
-                return data.isNullOrEmpty() || rateLimiter.shouldFetch(LIST_BUYER_PRODUCT)
+                return data.isNullOrEmpty()
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<BuyerProductResponse>>> =
@@ -54,13 +55,14 @@ class BuyerRepositoryImpl(
                 }
             }
 
-            override fun onFetchFailed() {
-                super.onFetchFailed()
-                rateLimiter.shouldFetch(LIST_BUYER_PRODUCT)
-            }
+//            override fun onFetchFailed() {
+//                super.onFetchFailed()
+//                rateLimiter.shouldFetch(LIST_BUYER_PRODUCT)
+//            }
         }.asFlow()
 
     companion object {
         private const val LIST_BUYER_PRODUCT = "LIST_BUYER_PRODUCT"
+        private const val DEFAULT_CATEGORY_ID = 0
     }
 }
