@@ -1,7 +1,7 @@
 package com.binar.secondhand.data.source.remote.network
 
 
-import com.binar.secondhand.data.source.remote.request.AccountReq
+import com.binar.secondhand.data.source.remote.request.AccountSettingRequest
 import com.binar.secondhand.data.source.remote.response.AccountSettingResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -13,5 +13,5 @@ interface AccountSettingService {
     suspend fun getUser(): Response<AccountSettingResponse>
 
     @PUT("auth/user/1")
-    suspend fun changePassEmail(@Body bodyAccount : AccountReq): Response<AccountSettingResponse>
+    suspend fun changePassEmail(@Body bodyAccount : AccountSettingRequest): Response<AccountSettingResponse>
 }

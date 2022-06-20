@@ -2,12 +2,14 @@ package com.binar.secondhand.data.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
+import com.binar.secondhand.data.source.local.entity.CategoryBuyerProductCrossRef
 import com.binar.secondhand.data.source.local.entity.CategoryEntity
 
 @Database(
-    entities = [BuyerProductEntity::class, CategoryEntity::class],
+    entities = [BuyerProductEntity::class, CategoryEntity::class, CategoryBuyerProductCrossRef::class],
     version = 1,
     exportSchema = false
 )
