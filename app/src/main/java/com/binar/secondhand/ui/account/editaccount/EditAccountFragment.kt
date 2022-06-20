@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ import com.binar.secondhand.data.source.remote.request.AccountRequest
 import com.binar.secondhand.databinding.FragmentEditAccountBinding
 import com.binar.secondhand.ui.camera.CameraFragment.Companion.RESULT_KEY
 import com.binar.secondhand.utils.*
+import com.google.android.material.appbar.MaterialToolbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -42,6 +44,10 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val materialToolbar: MaterialToolbar = binding.materialToolbar2
+        materialToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.profileImageView.setOnClickListener {
             chooseImageDialog()
@@ -57,6 +63,19 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     }
 
     private fun updateAccount() {
+        val fullName = binding.nameEdt.text.toString().createPartFromString()
+        val address = binding.addressEdt.text.toString().createPartFromString()
+        val phoneNumber = binding.phoneNumberEdt.text.toString().createPartFromString()
+        val password = "12345678".createPartFromString()
+        val email = getEmail?.createPartFromString()
+
+        val map = HashMap<String, RequestBody>().apply {
+            put("full_name", fullName)
+            put("address", address)
+            put("phone_number", phoneNumber)
+            put("password", password)
+            email?.let { put("email", it) }
+        }
         if (getFile != null) {
             val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -66,19 +85,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                 requestImageFile
             )
             logd("img $imageMultipart")
-            val fullName = binding.nameEdt.text.toString().createPartFromString()
-            val address = binding.addressEdt.text.toString().createPartFromString()
-            val phoneNumber = binding.phoneNumberEdt.text.toString().createPartFromString()
-            val password = "12345678".createPartFromString()
-            val email = getEmail?.createPartFromString()
 
-            val map = HashMap<String, RequestBody>().apply {
-                put("full_name", fullName)
-                put("address", address)
-                put("phone_number", phoneNumber)
-                put("password", password)
-                email?.let { put("email", it) }
-            }
 
             val accountRequest = AccountRequest(
                 imageMultipart,
@@ -86,6 +93,14 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
             )
             logd("acc $accountRequest")
             viewModel.doUpdateAccountRequest(accountRequest)
+        }else{
+            val accountRequest = AccountRequest(
+                file = null,
+                map
+            )
+            logd("acc $accountRequest")
+            viewModel.doUpdateAccountRequest(accountRequest)
+
         }
     }
 
@@ -126,7 +141,8 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private fun setupObserver() {
         val navController = findNavController()
         val navBackStackEntry = navController.getBackStackEntry(R.id.editAccountFragment)
-
+       val window = activity?.window
+        window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.white)
         val observerResultKey = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME
                 && navBackStackEntry.savedStateHandle.contains(RESULT_KEY)
@@ -169,9 +185,11 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                         nameEdt.setText(it.data.fullName)
                         addressEdt.setText(it.data.address)
                         phoneNumberEdt.setText(it.data.phoneNumber)
-                        if (it.data.imageUrl != null) {
-                            if (getFile == null){
-                                with(profileImageView) { it.data.imageUrl?.let { it1 -> loadPhotoUrl(it1) } }
+                        if (getFile == null) {
+                            if (it.data.imageUrl.isNullOrEmpty()){
+                                profileImageView.setImageResource(R.drawable.ic_avatar)
+                            }else{
+                                with(profileImageView) { it.data.imageUrl.let { url -> loadPhotoUrl(url) } }
                             }
 
                         }
@@ -185,8 +203,17 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         when(it){
             is Result.Error -> {
                 Toast.makeText(requireContext(),"Update Failed",Toast.LENGTH_SHORT).show()
+                binding.apply {
+                    saveBtn.text = "Simpan"
+                    saveBtn.isEnabled = true
+                }
+
             }
             Result.Loading -> {
+                binding.apply {
+                    saveBtn.text = "Loading...."
+                    saveBtn.isEnabled = false
+                }
 
             }
             is Result.Success ->{
