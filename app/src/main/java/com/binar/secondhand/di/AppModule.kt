@@ -3,9 +3,11 @@ package com.binar.secondhand.di
 
 import com.binar.secondhand.ui.account.accountsetting.AccountSettingViewModel
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
+import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
 import com.binar.secondhand.ui.login.LoginViewModel
 import com.binar.secondhand.ui.register.RegisterViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,4 +24,5 @@ val viewModelModule = module {
 
     viewModel{RegisterViewModel(get())}
 
+    viewModel{ ConnectionViewModel(androidContext()) }
 }
