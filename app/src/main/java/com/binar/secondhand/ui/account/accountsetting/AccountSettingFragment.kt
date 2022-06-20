@@ -53,7 +53,7 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
                 val accReq = AccountSettingRequest(
                     email =emailEdt.text.toString(),
                     password = passwordEdt.text.toString(),
-                   
+
                 )
                 viewModel.getDataChange(accReq)
 
