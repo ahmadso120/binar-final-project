@@ -38,7 +38,14 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
 
         }
         observeUI()
+        setupObserve()
     }
+    private fun setupObserve(){
+        binding.materialToolbar2.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
     private fun observeUI(){
         viewModel.register.observe(viewLifecycleOwner){
             when(it){
