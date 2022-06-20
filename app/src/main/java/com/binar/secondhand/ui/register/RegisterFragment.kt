@@ -25,15 +25,14 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             registerBtn.setOnClickListener {
-                val phoneNumber = phoneNumberEdt.text.toString().toInt()
                 val registerRequest = RegisterRequest(
                     full_name = nameEdt.text.toString().trim(),
                     email = emailEdt.text.toString().trim(),
                     password = passwordEdt.text.toString().trim(),
-                    phone_number = phoneNumber,
-                    address = addressEdt.text.toString().trim()
+                    phone_number = phoneNumberEdt.text.toString(),
+                    address = addressEdt.text.toString().trim(),
+                    city = cityEdt.text.toString().trim()
                 )
-                logd("Register fragment => $phoneNumber")
                 viewModel.doRegisterRequest(registerRequest)
             }
 

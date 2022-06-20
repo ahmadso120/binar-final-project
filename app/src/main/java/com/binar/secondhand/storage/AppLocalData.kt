@@ -9,7 +9,6 @@ class AppLocalData (private var storage: Storage){
             setString(KEY_EMAIL, user.email)
         }
     }
-
     fun dropUserLoggedIn() {
         storage.apply {
             remove(KEY_ACCESS_TOKEN)
@@ -17,7 +16,6 @@ class AppLocalData (private var storage: Storage){
             remove(KEY_EMAIL)
         }
     }
-
     val isUserHasLoggedIn: Boolean
         get() = !storage.getString(KEY_ACCESS_TOKEN).isNullOrEmpty()
 

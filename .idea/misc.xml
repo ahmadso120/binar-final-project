@@ -15,6 +15,28 @@
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_user.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_launcher_background.xml" value="0.142" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.5" />
+
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_arrow_left.xml" value="0.112" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_avatar.xml" value="0.162" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_camera_icon.xml" value="0.162" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_capture.xml" value="0.162" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.162" />
+
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_edit_account.xml" value="0.6" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_register.xml" value="0.264" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell_list.xml" value="0.25416666666666665" />
+
+
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.25" />
+
+
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_list.xml" value="0.1955" />
@@ -29,6 +51,7 @@
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.17647058823529413" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.1" />
+
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account_setting.xml" value="0.25" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
