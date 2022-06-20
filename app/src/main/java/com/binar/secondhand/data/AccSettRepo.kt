@@ -3,7 +3,7 @@ package com.binar.secondhand.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.binar.secondhand.data.source.remote.AccSettDataSource
-import com.binar.secondhand.data.source.remote.request.AccountReq
+import com.binar.secondhand.data.source.remote.request.AccountSettingRequest
 import com.binar.secondhand.data.source.remote.response.AccountSettingResponse
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +12,7 @@ import org.json.JSONObject
 
 interface AccSettRepo {
     fun getUser (): LiveData<Result<AccountSettingResponse>>
-    fun putUser (body : AccountReq): LiveData<Result<AccountSettingResponse>>
+    fun putUser (body : AccountSettingRequest): LiveData<Result<AccountSettingResponse>>
 }
 
 class AccSettRepoImpl(
@@ -43,7 +43,7 @@ class AccSettRepoImpl(
         }
     }
 
-    override fun putUser(body: AccountReq): LiveData<Result<AccountSettingResponse>> = liveData(Dispatchers.IO) {
+    override fun putUser(body: AccountSettingRequest): LiveData<Result<AccountSettingResponse>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
             val response = source.putUser(body)
