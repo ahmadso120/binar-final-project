@@ -25,37 +25,27 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showData()
         changePassEmail()
         getResp()
     }
-    private fun showData(){
-        viewModel.getUser().observe(viewLifecycleOwner){
-            binding.apply {
-                when(it){
-                    is Result.Error ->{
 
-                    }is Result.Loading -> {
-
-                    }is Result.Success -> {
-                        val email = it.data.email
-                        emailEdt.setText(email)
-                    }
-                }
-            }
-        }
-    }
 
     private fun changePassEmail (){
 
         binding.apply {
+            val newPassword = passwordEdt.text.toString()
+            val confirmPassword = repeatPassEdt.text.toString()
             button.setOnClickListener{
                 val accReq = AccountSettingRequest(
-                    email =emailEdt.text.toString(),
-                    password = passwordEdt.text.toString(),
-
+                    password = newPassword,
                 )
-                viewModel.getDataChange(accReq)
+                if(newPassword != confirmPassword){
+                    view?.showShortSnackbar("password dan konfirmasi password berbeda")
+                }else if (newPassword.isEmpty() && confirmPassword.isEmpty()){
+                    view?.showShortSnackbar("password kosong")
+                }else{
+                    viewModel.getDataChange(accReq)
+                }
 
             }
 
@@ -76,7 +66,8 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
 
                     }
                     is Result.Success -> {
-                        view?.showShortSnackbar(it.data.email)
+                        val name = it.data.fullName
+                        view?.showShortSnackbar("Halo ${name},passwordmu sudah diganti")
                         LogoutProcess.execute(appLocalData, binding)
 
                     }
