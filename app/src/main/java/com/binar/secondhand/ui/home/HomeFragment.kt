@@ -19,7 +19,6 @@ import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
 
 import com.binar.secondhand.utils.logd
-import com.binar.secondhand.utils.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 
 import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE

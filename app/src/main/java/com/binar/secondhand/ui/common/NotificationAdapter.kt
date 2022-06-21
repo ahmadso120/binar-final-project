@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.remote.response.NotificationResponseItem
 import com.binar.secondhand.databinding.ItemNotificationBinding
-import com.binar.secondhand.utils.loadPhotoUrl
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class NotificationAdapter(private val item : List<NotificationResponseItem>,val onClick : (NotificationResponseItem) -> Unit
 ):RecyclerView.Adapter<NotificationAdapter.ViewHolder>()
