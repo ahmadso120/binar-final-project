@@ -1,10 +1,7 @@
 package com.binar.secondhand.ui.account
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -15,11 +12,10 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentAccountBinding
 import androidx.navigation.fragment.findNavController
 
-import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.utils.LogoutProcess
-import com.binar.secondhand.utils.loadPhotoUrl
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File

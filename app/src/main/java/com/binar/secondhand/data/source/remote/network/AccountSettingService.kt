@@ -9,9 +9,9 @@ import retrofit2.http.GET
 import retrofit2.http.PUT
 
 interface AccountSettingService {
-    @GET("auth/user/1")
+    @GET("auth/user")
     suspend fun getUser(): Response<AccountSettingResponse>
 
-    @PUT("auth/user/1")
+    @PUT("auth/user")
     suspend fun changePassEmail(@Body bodyAccount : AccountSettingRequest): Response<AccountSettingResponse>
 }

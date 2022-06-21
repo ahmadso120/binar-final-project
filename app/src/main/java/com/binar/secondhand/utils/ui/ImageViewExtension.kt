@@ -1,4 +1,4 @@
-package com.binar.secondhand.utils
+package com.binar.secondhand.utils.ui
 
 import android.widget.ImageView
 import com.binar.secondhand.GlideApp

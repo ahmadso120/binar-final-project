@@ -1,4 +1,4 @@
-package com.binar.secondhand.utils
+package com.binar.secondhand.utils.ui
 
 import android.view.View
 import com.google.android.material.snackbar.Snackbar

@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.local.entity.BuyerProductWithCategories
 import com.binar.secondhand.databinding.ListItemProductBinding
-import com.binar.secondhand.utils.loadPhotoUrl
-import java.text.NumberFormat
-import java.util.*
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class ProductAdapter(
     private var onDetailClick: (BuyerProductWithCategories) -> Unit
