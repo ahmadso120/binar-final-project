@@ -1,10 +1,7 @@
 package com.binar.secondhand.ui.register
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -13,7 +10,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.RegisterRequest
 import com.binar.secondhand.databinding.FragmentRegisterBinding
 import com.binar.secondhand.utils.logd
-import com.binar.secondhand.utils.showShortSnackbar
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

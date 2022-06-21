@@ -13,6 +13,8 @@
     <string name="apply">Terapkan</string>
     <string name="product_item_image">Picture of product</string>
     <string name="text_label_product">Produk</string>
+    <string name="interested">Diminati</string>
+    <string name="sold">Terjual</string>
     <string name="ubah_password">Ubah Password</string>
     <string name="password_baru">Password baru</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>

@@ -10,7 +10,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.LoginRequest
 import com.binar.secondhand.databinding.FragmentLoginBinding
 import com.binar.secondhand.storage.UserLoggedIn
-import com.binar.secondhand.utils.showShortSnackbar
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {

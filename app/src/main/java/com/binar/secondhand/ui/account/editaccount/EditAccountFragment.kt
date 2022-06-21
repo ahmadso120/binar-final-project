@@ -22,6 +22,8 @@ import com.binar.secondhand.data.source.remote.request.AccountRequest
 import com.binar.secondhand.databinding.FragmentEditAccountBinding
 import com.binar.secondhand.ui.camera.CameraFragment.Companion.RESULT_KEY
 import com.binar.secondhand.utils.*
+import com.binar.secondhand.utils.ui.loadPhotoUrl
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
