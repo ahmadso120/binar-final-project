@@ -13,7 +13,7 @@ data class NotificationResponseItem(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("read")

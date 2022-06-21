@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/product_imageView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
         android:layout_marginTop="4dp"
         android:text="Jam Tangan Casio"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/product_imageView"
         app:layout_constraintTop_toBottomOf="@+id/notification_type_textView" />
 
@@ -47,7 +45,7 @@
         android:layout_marginTop="4dp"
         android:text="Rp. 250.000"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/product_imageView"
         app:layout_constraintTop_toBottomOf="@+id/produk_text_view" />
 
@@ -57,10 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Ditawar Rp. 200.000"
         android:textColor="#000000"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_imageView"
         app:layout_constraintTop_toBottomOf="@+id/base_price_text_view" />
@@ -70,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:text="21 Juli, 11:36"
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/date_text_view"
         app:layout_constraintStart_toEndOf="@+id/date_text_view"
         app:layout_constraintTop_toTopOf="@+id/date_text_view"
