@@ -13,4 +13,6 @@
     <string name="apply">Terapkan</string>
     <string name="product_item_image">Picture of product</string>
     <string name="text_label_product">Produk</string>
+    <string name="interested">Diminati</string>
+    <string name="sold">Terjual</string>
 </resources>

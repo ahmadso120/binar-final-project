@@ -103,6 +103,8 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.2.0-alpha02"
     implementation "androidx.camera:camera-view:1.2.0-alpha02"
 
+    // ViewPager 2
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }
 
 def getBaseUrl() {
