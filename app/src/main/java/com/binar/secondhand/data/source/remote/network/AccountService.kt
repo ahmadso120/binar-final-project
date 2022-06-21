@@ -9,14 +9,14 @@ import retrofit2.http.*
 
 interface AccountService {
 
-    @GET("auth/user/1")
+    @GET("auth/user")
     suspend fun getAccount(): Response<AccountResponse>
 
     @Multipart
     @JvmSuppressWildcards
-    @PUT("auth/user/1")
+    @PUT("auth/user")
     suspend fun updateAccount(
-        @Part file: MultipartBody.Part,
+        @Part file: MultipartBody.Part?,
         @PartMap partMap: Map<String, RequestBody>,
         ): Response<AccountResponse>
 

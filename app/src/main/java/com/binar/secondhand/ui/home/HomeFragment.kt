@@ -1,10 +1,14 @@
 package com.binar.secondhand.ui.home
 
-import android.content.Context
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+
+import androidx.navigation.fragment.findNavController
+
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -13,12 +17,19 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
-import com.binar.secondhand.utils.showShortSnackbar
+
+import com.binar.secondhand.utils.logd
+import com.google.android.material.appbar.MaterialToolbar
+
+import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE
+import com.binar.secondhand.utils.setupLayoutManager
+
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
+@ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -31,8 +42,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //sementara
+        val toolbar: MaterialToolbar = binding.toolbar
+        toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.notification ->{
+                    findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
 
         setBadgeCountNotification(3)
 
@@ -48,11 +71,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeUi(view: View) {
-        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) {
+        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) { it ->
             when(it) {
                 is Result.Error -> {
                     showErrorState()
-                    view.showShortSnackbar(it.error.toString())
+//                    view.showShortSnackbar(it.error.toString())
                 }
                 Result.Loading -> { showLoadingState() }
                 is Result.Success -> {
@@ -68,13 +91,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun setupAdapter() {
+        val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_normal)
+
         productAdapter = ProductAdapter {
             viewModel.onBuyerProductClicked(it)
         }
         binding.recyclerView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-            setHasFixedSize(true)
+            layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL).apply {
+                gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
+            }
             adapter = productAdapter
+            setupLayoutManager(
+                spacing = itemSpacing
+            )
+            setItemViewCacheSize(RECYCLER_VIEW_CACHE_SIZE)
         }
     }
 

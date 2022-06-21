@@ -17,6 +17,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     emitAll(loadFromDB().map { Result.Success(it) })
                 }
                 is ApiResponse.Empty -> {
+                    saveCallResult(null)
                     emitAll(loadFromDB().map { Result.Success(it) })
                 }
                 is ApiResponse.Error -> {
@@ -37,7 +38,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     protected abstract suspend fun createCall(): Flow<ApiResponse<RequestType>>
 
-    protected abstract suspend fun saveCallResult(data: RequestType)
+    protected abstract suspend fun saveCallResult(data: RequestType?)
 
     fun asFlow(): Flow<Result<ResultType>> = result
 }

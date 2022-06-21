@@ -40,6 +40,8 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        window = activity?.window
+       window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.black)
 
         if (allPermissionsGranted()) {
             startCamera()
@@ -47,7 +49,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
-        window = activity?.window
+
         appCtx = requireActivity().application as Application
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -55,17 +57,14 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
             switchCamera.setOnClickListener {
                 cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) CameraSelector.DEFAULT_FRONT_CAMERA
                 else CameraSelector.DEFAULT_BACK_CAMERA
-
                 startCamera()
             }
-
             captureImage.setOnClickListener { takePhoto() }
         }
     }
 
     override fun onResume() {
         super.onResume()
-        hideSystemUI()
         startCamera()
     }
 
@@ -116,6 +115,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                     findNavController().apply {
                         previousBackStackEntry?.savedStateHandle?.set(RESULT_KEY, bundle)
                         popBackStack()
+                        window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.white)
                     }
                 }
 
@@ -124,18 +124,6 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
                 }
             }
         )
-    }
-
-    private fun hideSystemUI() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window?.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window?.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

@@ -2,9 +2,11 @@ package com.binar.secondhand.ui.account
 
 import android.os.Bundle
 import android.view.View
+
 import android.widget.Adapter
 import android.widget.AdapterView
 import androidx.navigation.fragment.findNavController
+
 
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -13,12 +15,13 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 
 import com.binar.secondhand.databinding.FragmentAccountBinding
+import androidx.navigation.fragment.findNavController
 
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.utils.LogoutProcess
-import com.binar.secondhand.utils.loadPhotoUrl
 import kotlinx.coroutines.NonDisposableHandle.parent
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -28,8 +31,6 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
     private var getFile: File? = null
     private val binding: FragmentAccountBinding by viewBinding()
     override var bottomNavigationViewVisibility = View.VISIBLE
-
-
     private val viewModel by viewModel<EditAccountViewModel>()
     private val appLocalData: AppLocalData by inject()
 
@@ -50,7 +51,7 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                     findNavController().navigate(R.id.action_accountFragment_to_editAccountFragment)
                 }
                 1 -> {
-                    /*     findNavController().navigate(R.id.action)*/
+                         findNavController().navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
                 2 -> {
                     LogoutProcess.execute(appLocalData, binding)
@@ -59,18 +60,6 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         }
     }
 }
-/*
-        binding.icEdit.setOnClickListener {
-            findNavController().navigate(R.id.action_accountFragment_to_editAccountFragment)
-
-        }
-        binding.icSettings.setOnClickListener {
-
-            findNavController().navigate(R.id.action_accountFragment_to_accountSettingFragment)
-
-        }
-        }*/
-
 
 
 

@@ -17,33 +17,25 @@ import retrofit2.Response
 class BuyerProductRemoteDataSource(
     private val buyerProductService: BuyerProductService
 ) {
-//    suspend fun getBuyerProducts(categoryId: Int): Flow<ApiResponse<List<BuyerProductResponse>>> {
-//        return flow {
-//            try {
-//                val data: List<BuyerProductResponse> = if (categoryId > 0){
-//                    buyerProductService.getBuyerProductByCategory(categoryId)
-//                } else {
-//                    buyerProductService.getBuyerProduct()
-//                }
-//
-//                if (data.isNotEmpty()) {
-//                    logd("getBuyerProducts() => $data")
-//                    emit(ApiResponse.Success(data))
-//                } else {
-//                    emit(ApiResponse.Empty)
-//                }
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.toString()))
-//                loge("getBuyerProducts() => $e")
-//            }
-//        }.flowOn(Dispatchers.IO)
-//    }
+    suspend fun getBuyerProducts(categoryId: Int): Flow<ApiResponse<List<BuyerProductResponse>>> {
+        return flow {
+            try {
+                val data: List<BuyerProductResponse> = if (categoryId > 0){
+                    buyerProductService.getBuyerProductByCategory(categoryId)
+                } else {
+                    buyerProductService.getBuyerProduct()
+                }
 
-    suspend fun getBuyerProducts(categoryId: Int): Response<List<BuyerProductResponse>> {
-        return if (categoryId > 0) {
-            buyerProductService.getBuyerProductByCategory(categoryId)
-        } else {
-            buyerProductService.getBuyerProduct()
-        }
+                if (data.isNotEmpty()) {
+                    logd("getBuyerProducts() => $data")
+                    emit(ApiResponse.Success(data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                loge("getBuyerProducts() => $e")
+            }
+        }.flowOn(Dispatchers.IO)
     }
 }
