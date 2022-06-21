@@ -3,8 +3,12 @@ package com.binar.secondhand.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+
+import androidx.navigation.fragment.findNavController
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -13,8 +17,14 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
+
+import com.binar.secondhand.utils.logd
+import com.binar.secondhand.utils.showShortSnackbar
+import com.google.android.material.appbar.MaterialToolbar
+
 import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.setupLayoutManager
+
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
@@ -33,6 +43,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //sementara
+        val toolbar: MaterialToolbar = binding.toolbar
+        toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.notification ->{
+                    findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 

@@ -1,14 +1,7 @@
 package com.binar.secondhand.di
 
-import com.binar.secondhand.data.source.remote.network.AccessTokenInterceptor
+import com.binar.secondhand.data.source.remote.network.*
 
-import com.binar.secondhand.data.source.remote.network.AccountSettingService
-
-import com.binar.secondhand.data.source.remote.network.AccountService
-
-import com.binar.secondhand.data.source.remote.network.AuthService
-import com.binar.secondhand.data.source.remote.network.BuyerProductService
-import com.binar.secondhand.data.source.remote.network.SellerCategoryService
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.utils.connection.HasInternetCapability
 import okhttp3.Interceptor
@@ -35,7 +28,7 @@ val networkModule = module {
 
 
     factory { createService<AccountService>(get(),get()) }
-
+    factory { createService<NotificationService>(get(),get()) }
     factory { createService<SellerCategoryService>(get(), get()) }
 
 }
