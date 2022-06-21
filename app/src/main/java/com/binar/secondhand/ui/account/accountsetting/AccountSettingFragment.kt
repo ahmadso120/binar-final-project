@@ -10,7 +10,7 @@ import com.binar.secondhand.data.source.remote.request.AccountSettingRequest
 import com.binar.secondhand.databinding.FragmentAccountSettingBinding
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.utils.LogoutProcess
-import com.binar.secondhand.utils.showShortSnackbar
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
