@@ -67,12 +67,14 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         val fullName = binding.nameEdt.text.toString().createPartFromString()
         val address = binding.addressEdt.text.toString().createPartFromString()
         val phoneNumber = binding.phoneNumberEdt.text.toString().createPartFromString()
+        val city = binding.cityEdt.text.toString().createPartFromString()
 
 
         val map = HashMap<String, RequestBody>().apply {
             put("full_name", fullName)
             put("address", address)
             put("phone_number", phoneNumber)
+            put("city", city)
         }
         if (getFile != null) {
             val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
