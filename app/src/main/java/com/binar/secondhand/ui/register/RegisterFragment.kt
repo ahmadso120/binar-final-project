@@ -25,7 +25,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             registerBtn.setOnClickListener {
-                val phoneNumber = phoneNumberEdt.text.toString().toInt()
+                val phoneNumber = phoneNumberEdt.text.toString()
                 val registerRequest = RegisterRequest(
                     full_name = nameEdt.text.toString().trim(),
                     email = emailEdt.text.toString().trim(),

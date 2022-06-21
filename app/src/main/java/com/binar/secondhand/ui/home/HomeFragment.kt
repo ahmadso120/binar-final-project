@@ -17,9 +17,10 @@ import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.setupLayoutManager
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-
+@ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -34,6 +35,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
 
         setBadgeCountNotification(3)
 

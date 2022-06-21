@@ -3,7 +3,7 @@ package com.binar.secondhand.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class AccountResponse(
+data class AccountSettingResponse(
     @SerializedName("address")
     val address: String,
     @SerializedName("createdAt")
@@ -15,11 +15,11 @@ data class AccountResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image_url")
-    val imageUrl: String?,
+    val imageUrl: Any,
     @SerializedName("password")
     val password: String,
     @SerializedName("phone_number")
-    val phoneNumber: String,
+    val phoneNumber: Long,
     @SerializedName("updatedAt")
     val updatedAt: String
 )

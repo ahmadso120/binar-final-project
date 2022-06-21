@@ -1,5 +1,7 @@
 package com.binar.secondhand.di
 
+
+import com.binar.secondhand.ui.account.accountsetting.AccountSettingViewModel
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
@@ -11,6 +13,10 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
+
+   
+    viewModel { AccountSettingViewModel(get()) }
+
 
     viewModel { HomeViewModel(get(),get()) }
 

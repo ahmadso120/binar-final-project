@@ -6,6 +6,19 @@
     android:layout_margin="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.register.RegisterFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -42,7 +55,9 @@
             android:id="@+id/name_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext" />
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    email-->
@@ -96,7 +111,7 @@
             android:id="@+id/password_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
@@ -121,7 +136,9 @@
             android:id="@+id/phoneNumber_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <TextView
         android:id="@+id/textView6"
@@ -145,7 +162,9 @@
             android:id="@+id/address_edt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone" />
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_btn"
