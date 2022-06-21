@@ -15,4 +15,8 @@
     <string name="text_label_product">Produk</string>
     <string name="interested">Diminati</string>
     <string name="sold">Terjual</string>
+    <string name="ubah_password">Ubah Password</string>
+    <string name="password_baru">Password baru</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="ubah">Ubah</string>
 </resources>

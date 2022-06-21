@@ -1,7 +1,7 @@
 package com.binar.secondhand.data.source.remote
 
 import com.binar.secondhand.data.source.remote.network.AccountSettingService
-import com.binar.secondhand.data.source.remote.request.AccountReq
+import com.binar.secondhand.data.source.remote.request.AccountSettingRequest
 
 
 class AccSettDataSource(
@@ -9,5 +9,5 @@ class AccSettDataSource(
 ) {
     suspend fun getUser()= acc.getUser()
 
-    suspend fun putUser(body : AccountReq)=acc.changePassEmail(body)
+    suspend fun putUser(body : AccountSettingRequest)=acc.changePassEmail(body)
 }
