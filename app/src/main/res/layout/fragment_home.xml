@@ -29,8 +29,9 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp"
-                android:visibility="gone"
+                android:paddingStart="@dimen/padding_recyclerview"
+                android:paddingEnd="@dimen/padding_recyclerview"
+                android:paddingTop="@dimen/padding_recyclerview"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +39,7 @@
 
             <com.binar.secondhand.ui.widget.ContentLoadingLayout
                 android:id="@+id/content_loading_layout"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:background="?attr/colorSurface"
                 app:layout_constraintBottom_toBottomOf="parent"

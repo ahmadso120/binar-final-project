@@ -17,8 +17,8 @@ class StaggeredGridItemOffsetDecoration(
         outRect.apply {
             left = spacing / (spanCount * 2)
             right = spacing / (spanCount * 2)
-            top = spacing / spanCount
-            bottom = spacing / spanCount
+            top = spacing / (spanCount * 2)
+            bottom = spacing / (spanCount * 2)
         }
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="badge_count_textsize">6sp</dimen>
-
+    <dimen name="padding_recyclerview">12dp</dimen>
     <!--
 		# Material Design Dimensions
 		These common dimensions for spacing and typepography that
