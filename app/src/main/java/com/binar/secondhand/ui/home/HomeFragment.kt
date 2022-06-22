@@ -36,12 +36,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 
-
         setBadgeCountNotification(3)
 
         setupAdapter()
 
-        observeUi(view)
+        observeUi()
     }
 
     private fun setBadgeCountNotification(count: Int) {
@@ -50,12 +49,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.notification)
     }
 
-    private fun observeUi(view: View) {
-        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) { it ->
+    private fun observeUi() {
+        viewModel.buyerProducts.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.Error -> {
                     showErrorState()
-//                    view.showShortSnackbar(it.error.toString())
                 }
                 Result.Loading -> { showLoadingState() }
                 is Result.Success -> {
@@ -76,6 +74,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         productAdapter = ProductAdapter {
             viewModel.onBuyerProductClicked(it)
         }
+
         binding.recyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL).apply {
                 gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
