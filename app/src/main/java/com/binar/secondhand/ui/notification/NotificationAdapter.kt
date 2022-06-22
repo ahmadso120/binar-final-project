@@ -1,4 +1,4 @@
-package com.binar.secondhand.ui.common
+package com.binar.secondhand.ui.notification
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
