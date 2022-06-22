@@ -1,6 +1,8 @@
 package com.binar.secondhand.ui.account.accountsetting
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -30,21 +32,31 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
     }
 
 
+
+
     private fun changePassEmail (){
 
         binding.apply {
-            val newPassword = passwordEdt.text.toString()
-            val confirmPassword = repeatPassEdt.text.toString()
+
             button.setOnClickListener{
+                val newPassword = passwordEdt.text.toString()
+                val confirmPassword = repeatPassEdt.text.toString()
                 val accReq = AccountSettingRequest(
                     password = newPassword,
+                    city = ""
                 )
-                if(newPassword != confirmPassword){
-                    view?.showShortSnackbar("password dan konfirmasi password berbeda")
-                }else if (newPassword.isEmpty() && confirmPassword.isEmpty()){
-                    view?.showShortSnackbar("password kosong")
+                if (newPassword=="" || confirmPassword==""){
+//                    view?.showShortSnackbar("isi terlebih dahulu")
+                    errorText.text = "isi terlebih dahulu"
+                    errorText.visibility = View.VISIBLE
+                }else if(newPassword != confirmPassword){
+//                    view?.showShortSnackbar("password dan konfirmasi password berbeda")
+                    errorText.text = "password dan konfirmasi password berbeda"
+                    errorText.visibility = View.VISIBLE
                 }else{
                     viewModel.getDataChange(accReq)
+                    button.isEnabled=false
+                    errorText.visibility = View.GONE
                 }
 
             }
