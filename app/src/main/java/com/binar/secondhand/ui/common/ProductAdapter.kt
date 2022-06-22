@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.databinding.ListItemProductBinding
 import com.binar.secondhand.utils.currencyFormatter
-import com.binar.secondhand.utils.loadPhotoUrl
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class ProductAdapter(
     private var onDetailClick: (BuyerProductEntity) -> Unit

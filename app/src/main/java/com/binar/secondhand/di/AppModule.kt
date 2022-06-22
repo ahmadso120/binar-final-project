@@ -6,6 +6,7 @@ import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
 import com.binar.secondhand.ui.login.LoginViewModel
+import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.ui.register.RegisterViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -25,4 +26,6 @@ val viewModelModule = module {
     viewModel{RegisterViewModel(get())}
 
     viewModel{ ConnectionViewModel(androidContext()) }
+
+    viewModel {NotificationViewModel(get())}
 }
