@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.databinding.ListItemProductBinding
+import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.loadPhotoUrl
 
 class ProductAdapter(
@@ -27,7 +28,9 @@ class ProductAdapter(
             }
             productNameTv.text = product.name
             locationTv.text = product.location
-            priceTv.text = "Rp. " + product.basePrice
+            product.basePrice?.let {
+                priceTv.text = "Rp. ${it.currencyFormatter()}"
+            }
         }
     }
 
