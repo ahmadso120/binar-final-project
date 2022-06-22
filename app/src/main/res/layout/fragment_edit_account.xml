@@ -23,7 +23,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp"
+                android:layout_margin= "@dimen/margin_normal"
                 android:layout_marginTop="108dp">
 
                 <ImageView
@@ -105,7 +105,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="96dp"
                         android:imeOptions="actionNext"
-                        android:inputType="textMultiLine" />
+                        android:inputType="textMultiLine"
+                        android:gravity="top|start"
+                        android:maxLines="5"
+                        android:scrollbars="vertical"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

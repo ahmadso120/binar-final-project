@@ -14,6 +14,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentNotificationBinding
 import com.binar.secondhand.ui.common.NotificationAdapter
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.divider.MaterialDividerItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -47,8 +48,10 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
                     binding.recyclerview.adapter= NotificationAdapter(it.data){
                         Toast.makeText(requireContext(),"clicked ${it.id}",Toast.LENGTH_SHORT).show()
                     }
-                    binding.recyclerview.addItemDecoration(
-                        DividerItemDecoration(activity?.baseContext,layoutManager.orientation))
+                    val divider = MaterialDividerItemDecoration(requireContext(), layoutManager.orientation)
+                    divider.dividerInsetStart = 32
+                    divider.dividerInsetEnd = 32
+                    binding.recyclerview.addItemDecoration(divider)
 
                 }
             }
