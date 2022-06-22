@@ -38,6 +38,3 @@ jobs:
       - store_artifacts:  
           path: app/build/outputs/apk/debug/
           destination: artifact-file
-      - run:
-          name: Delete local.properties
-          command: rm local.properties
