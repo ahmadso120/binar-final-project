@@ -16,6 +16,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ChipTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabBackground">@drawable/selector_tab</item>
+        <item name="tabSelectedTextColor">?colorSurface</item>
+        <item name="tabTextColor">?colorOnSurface</item>
+    </style>
+
     <style name="Theme.SecondHand.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

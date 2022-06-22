@@ -22,6 +22,8 @@ import com.binar.secondhand.data.source.remote.request.AccountRequest
 import com.binar.secondhand.databinding.FragmentEditAccountBinding
 import com.binar.secondhand.ui.camera.CameraFragment.Companion.RESULT_KEY
 import com.binar.secondhand.utils.*
+import com.binar.secondhand.utils.ui.loadPhotoUrl
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -35,7 +37,6 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
-    private var getEmail : String? = null
     private val binding: FragmentEditAccountBinding by viewBinding()
 
     override var bottomNavigationViewVisibility = View.GONE
@@ -66,15 +67,14 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         val fullName = binding.nameEdt.text.toString().createPartFromString()
         val address = binding.addressEdt.text.toString().createPartFromString()
         val phoneNumber = binding.phoneNumberEdt.text.toString().createPartFromString()
-        val password = "12345678".createPartFromString()
-        val email = getEmail?.createPartFromString()
+        val city = binding.cityEdt.text.toString().createPartFromString()
+
 
         val map = HashMap<String, RequestBody>().apply {
             put("full_name", fullName)
             put("address", address)
             put("phone_number", phoneNumber)
-            put("password", password)
-            email?.let { put("email", it) }
+            put("city", city)
         }
         if (getFile != null) {
             val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
@@ -180,10 +180,10 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
                 }
                 is Result.Success -> {
-                    getEmail = it.data.email
                     binding.apply {
                         nameEdt.setText(it.data.fullName)
                         addressEdt.setText(it.data.address)
+                        cityEdt.setText(it.data.city)
                         phoneNumberEdt.setText(it.data.phoneNumber)
                         if (getFile == null) {
                             if (it.data.imageUrl.isNullOrEmpty()){
