@@ -30,7 +30,7 @@ class ConnectionViewModel(context: Context) : ViewModel() {
 
     private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
-            logd("onAvailable: ${network}")
+            logd("onAvailable: $network")
             val networkCapabilities = cm.getNetworkCapabilities(network)
             if (networkCapabilities == null) _hasConnection.postValue(false)
             val hasInternetCapability = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)

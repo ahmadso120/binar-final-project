@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.BottomSheetHomeProductFilterBinding
-import com.binar.secondhand.utils.logd
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -87,12 +87,21 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.applyButton.setOnClickListener { dismiss() }
+        if (viewModel.categoryId > 0) {
+            binding.resetTv.isVisible = true
+            binding.resetTv.setOnClickListener {
+                viewModel.filterCategoryProduct(0)
+                catId = 0
+                viewModel.categoryId = 0
+                dismiss()
+            }
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         if (homeParametersChanged) {
-            viewModel.filterCategoryProductHome(catId)
+            viewModel.filterCategoryProduct(catId)
         }
     }
 
