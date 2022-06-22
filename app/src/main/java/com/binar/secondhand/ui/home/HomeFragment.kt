@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
-
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -16,7 +14,6 @@ import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.ui.setupLayoutManager
-
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
@@ -35,7 +32,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.notification ->{
@@ -88,9 +84,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         binding.recyclerView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL).apply {
-                gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
-            }
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productAdapter
             setupLayoutManager(
                 spacing = itemSpacing

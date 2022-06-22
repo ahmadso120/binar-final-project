@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -86,12 +87,21 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.applyButton.setOnClickListener { dismiss() }
+        if (viewModel.categoryId > 0) {
+            binding.resetTv.isVisible = true
+            binding.resetTv.setOnClickListener {
+                viewModel.filterCategoryProduct(0)
+                catId = 0
+                viewModel.categoryId = 0
+                dismiss()
+            }
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         if (homeParametersChanged) {
-            viewModel.filterCategoryProduct.value = catId
+            viewModel.filterCategoryProduct(catId)
         }
     }
 

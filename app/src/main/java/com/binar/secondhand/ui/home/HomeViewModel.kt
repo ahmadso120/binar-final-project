@@ -5,24 +5,22 @@ import com.binar.secondhand.data.BuyerRepository
 import com.binar.secondhand.data.SellerCategoryRepository
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.utils.Event
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flatMapLatest
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModel(
     private val buyerRepository: BuyerRepository,
     sellerCategoryRepository: SellerCategoryRepository
 ) : ViewModel() {
 
     var categoryId: Int = 0
-    val filterCategoryProduct = MutableStateFlow(categoryId)
+    private val _filterCategoryProduct = MutableLiveData(categoryId)
 
-    private val buyerProductsFlow = filterCategoryProduct.flatMapLatest {
-        buyerRepository.getBuyerProducts(it)
+    val buyerProducts = _filterCategoryProduct.switchMap {
+        buyerRepository.getBuyerProducts(it).asLiveData()
     }
 
-    val buyerProducts = buyerProductsFlow.asLiveData()
+    fun filterCategoryProduct(categoryId: Int) {
+        _filterCategoryProduct.value = categoryId
+    }
 
     val categories = sellerCategoryRepository.getCategories()
 
