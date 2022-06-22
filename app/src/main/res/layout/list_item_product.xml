@@ -39,12 +39,12 @@
             tools:text="Parfum" />
 
         <TextView
-            android:id="@+id/categories_tv"
+            android:id="@+id/location_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/product_name_tv"
-            tools:text="Aksesoris, Jam"
+            tools:text="Jakarta"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="11sp"
@@ -62,7 +62,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/categories_tv"
+            app:layout_constraintTop_toBottomOf="@+id/location_tv"
             tools:text="Rp 300.000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
