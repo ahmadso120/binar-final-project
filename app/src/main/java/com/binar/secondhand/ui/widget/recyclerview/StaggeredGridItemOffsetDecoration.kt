@@ -16,14 +16,13 @@ class StaggeredGridItemOffsetDecoration(
         state: RecyclerView.State
     ) {
         val position = parent.getChildAdapterPosition(view)
-        val column = position % spanCount
-        outRect.left =
-            spacing - column * spacing / spanCount
-        outRect.right =
-            (column + 1) * spacing / spanCount
-        if (position < spanCount) {
-            outRect.top = spacing
+        outRect.apply {
+            left = spacing / (spanCount * 2)
+            right = spacing / (spanCount * 2)
+            if (position < spanCount) {
+                top = spacing
+            }
+            bottom = spacing
         }
-        outRect.bottom = spacing
     }
 }
