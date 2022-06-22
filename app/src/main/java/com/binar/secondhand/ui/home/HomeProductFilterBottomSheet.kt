@@ -15,7 +15,6 @@ import com.binar.secondhand.R
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.BottomSheetHomeProductFilterBinding
-import com.binar.secondhand.utils.logd
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
