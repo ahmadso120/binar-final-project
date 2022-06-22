@@ -1,4 +1,4 @@
-package com.binar.secondhand.utils
+package com.binar.secondhand.utils.ui
 
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.ui.widget.recyclerview.StaggeredGridItemOffsetDecoration

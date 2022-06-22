@@ -14,9 +14,8 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.utils.EventObserver
-import com.google.android.material.appbar.MaterialToolbar
-import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE
-import com.binar.secondhand.utils.setupLayoutManager
+import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
+import com.binar.secondhand.utils.ui.setupLayoutManager
 
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
