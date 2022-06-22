@@ -92,7 +92,7 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         if (homeParametersChanged) {
-            viewModel.filterCategoryProductHome(catId)
+            viewModel.filterCategoryProduct.value = catId
         }
     }
 
