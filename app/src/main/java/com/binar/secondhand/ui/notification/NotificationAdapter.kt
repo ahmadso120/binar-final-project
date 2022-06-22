@@ -1,5 +1,7 @@
-package com.binar.secondhand.ui.common
+package com.binar.secondhand.ui.notification
 
+import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ class NotificationAdapter(private val item : List<NotificationResponseItem>,val 
         return ViewHolder(ItemNotificationBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             item[position].imageUrl?.let { productImageView.loadPhotoUrl(it) }
@@ -24,7 +27,12 @@ class NotificationAdapter(private val item : List<NotificationResponseItem>,val 
             dateTextView.text = item[position].createdAt
             when(item[position].status){
                 "bid" -> notificationTypeTextView.text = "Penawaran produk"
-                "accepted" -> notificationTypeTextView.text = "Penawaran disetujui"
+                "accepted" ->{
+                    notificationTypeTextView.text = "Penawaran disetujui"
+                    bidPriceTextView.text= "Berhasil Ditawar Rp. "+ item[position].bidPrice
+                    basePriceTextView.paintFlags= basePriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    isaccetetdTextView.visibility = View.VISIBLE
+                }
 
                 else -> {notificationTypeTextView.text = "Penwaran Ditolak"}
             }

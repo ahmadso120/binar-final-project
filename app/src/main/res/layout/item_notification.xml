@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
 
     <ImageView
         android:id="@+id/product_imageView"
@@ -24,6 +26,20 @@
         android:textSize="11sp"
         app:layout_constraintStart_toEndOf="@+id/product_imageView"
         app:layout_constraintTop_toTopOf="@+id/product_imageView" />
+
+    <TextView
+        android:id="@+id/isaccetetd_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:text="Kamu akan segera dihubung penjual via Whatsapp"
+        android:textSize="11sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/product_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/bid_price_text_view" />
 
     <TextView
         android:id="@+id/produk_text_view"
@@ -55,13 +71,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="Ditawar Rp. 200.000"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_imageView"
-        app:layout_constraintTop_toBottomOf="@+id/base_price_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/base_price_text_view"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/date_text_view"
