@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun setupAdapter() {
-        val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_normal)
+        val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_padding_size_medium)
 
         productAdapter = ProductAdapter {
             viewModel.onBuyerProductClicked(it)
@@ -106,17 +106,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun showSuccessState() {
-        binding.recyclerView.isVisible = true
         binding.contentLoadingLayout.hide()
+        binding.recyclerView.isVisible = true
     }
 
     private fun showErrorState() {
-        binding.recyclerView.isVisible = true
         binding.contentLoadingLayout.hide()
+        binding.recyclerView.isVisible = true
     }
 
     private fun showLoadingState() {
-        binding.recyclerView.isVisible = false
         binding.contentLoadingLayout.show()
+        binding.recyclerView.isVisible = false
     }
 }
