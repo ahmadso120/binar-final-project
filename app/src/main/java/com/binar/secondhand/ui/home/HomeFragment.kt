@@ -48,8 +48,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             isRefreshing = true
-            viewModel.filterCategoryProduct(DEFAULT_CATEGORY_ID)
-            viewModel.categoryId = DEFAULT_CATEGORY_ID
+            viewModel.filterCategoryProduct(viewModel.categoryId)
         }
 
         setBadgeCountNotification(3)
@@ -110,6 +109,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun showSuccessState() {
         if (isRefreshing) {
             binding.swipeRefreshLayout.isRefreshing = false
+            isRefreshing = false
         }
         binding.contentLoadingLayout.hide()
         binding.recyclerView.isVisible = true
