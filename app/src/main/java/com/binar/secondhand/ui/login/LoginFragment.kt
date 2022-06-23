@@ -42,6 +42,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             registerTv.setOnClickListener {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
+            toolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
         }
 
         observeUi()
