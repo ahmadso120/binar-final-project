@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val appLocalData: AppLocalData by inject()
-
     private val connectionViewModel by viewModel<ConnectionViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +44,6 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
             val navController = navHostFragment.navController
             bottomNavigation.setupWithNavController(navController)
-
-            val token = appLocalData.getAccessToken
-
-            if (!token.isNullOrEmpty()) {
-                navController.navigate(R.id.action_loginFragment_to_homeFragment)
-            }
         }
     }
 

@@ -4,6 +4,7 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -80,8 +81,6 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
                     is Result.Success -> {
                         val name = it.data.fullName
                         view?.showShortSnackbar("Halo ${name},passwordmu sudah diganti")
-                        LogoutProcess.execute(appLocalData, binding)
-
                     }
                 }
             }
