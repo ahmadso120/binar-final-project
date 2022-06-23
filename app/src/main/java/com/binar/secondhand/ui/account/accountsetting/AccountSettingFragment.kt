@@ -4,6 +4,7 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -29,6 +30,9 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
         super.onViewCreated(view, savedInstanceState)
         changePassEmail()
         getResp()
+        binding.materialToolbar2.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
 
@@ -62,7 +66,6 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
             }
 
         }
-
     }
     private fun getResp(){
         binding.apply {
