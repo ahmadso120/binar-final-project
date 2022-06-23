@@ -11,7 +11,8 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.LoginRequest
 import com.binar.secondhand.databinding.FragmentLoginBinding
 import com.binar.secondhand.storage.UserLoggedIn
-import com.binar.secondhand.utils.navigateToStartDestination
+import com.binar.secondhand.utils.ui.focusAndShowKeyboard
+import com.binar.secondhand.utils.ui.hideKeyboard
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,7 +32,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         savedStateHandle[LOGIN_SUCCESSFUL] = false
 
         binding.apply {
+            emailEdt.focusAndShowKeyboard()
             loginBtn.setOnClickListener {
+                requireActivity().currentFocus?.hideKeyboard()
                 val loginRequest = LoginRequest(
                     emailEdt.text.toString().trim(),
                     passwordEdt.text.toString().trim()
