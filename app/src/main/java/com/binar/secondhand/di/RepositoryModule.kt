@@ -13,28 +13,21 @@ val repositoryModule = module {
     single { BuyerProductLocalDataSource(get()) }
     single { BuyerProductRemoteDataSource(get()) }
     single { AuthRemoteDataSource(get()) }
-
     single { AccSettDataSource(get()) }
-
-
-    single {AccountRemoteDataSource(get())}
+    single { AccountRemoteDataSource(get()) }
     single { NotificationRemoteDataSource(get()) }
     single { SellerCategoryDataSource(get()) }
+    single { SellerOrderRemoteDataSource(get()) }
     single {SellerProductDataSource(get())}
-
 
     factory { AppExecutors() }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
-
     single<AccSettRepo> { AccSettRepoImpl(get()) }
-
-
     single<AccountRepository>{AccountRepositoryImpl(get())}
     single<NotificatioRepository> {NotificationRepositoryImpl(get())  }
     single<SellerCategoryRepository> { SellerCategoryRepositoryImpl(get()) }
+    single<SellerOrderRepository> { SellerOrderRepositoryImpl(get()) }
     single<SellerProductRepository> { SellerProductRepositoryImpl(get()) }
-
-
 }
