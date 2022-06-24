@@ -3,18 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.binar.secondhand.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -29,15 +24,18 @@
             android:id="@+id/action_homeFragment_to_notificationFragment2"
             app:destination="@id/notificationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/sellListFragment"
         android:name="com.binar.secondhand.ui.selllist.SellListFragment"
         android:label="fragment_sell_list"
         tools:layout="@layout/fragment_sell_list" />
+
     <fragment
         android:id="@+id/sellFragment"
         android:name="com.binar.secondhand.ui.sell.SellFragment"
         android:label="fragment_sell"
+
         tools:layout="@layout/fragment_sell" >
         <action
             android:id="@+id/action_sellFragment_to_cameraFragment"
@@ -49,19 +47,19 @@
             android:id="@+id/action_sellFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+        tools:layout="@layout/fragment_sell" />
+
+
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.binar.secondhand.ui.account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account">
         <action
-
-
             android:id="@+id/action_accountFragment_to_accountSettingFragment2"
             app:destination="@id/accountSettingFragment" />
-       
         <action
-
             android:id="@+id/action_accountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action

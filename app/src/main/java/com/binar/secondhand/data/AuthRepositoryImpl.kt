@@ -11,12 +11,14 @@ import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.storage.UserLoggedIn
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import org.json.JSONObject
 
 interface AuthRepository {
     fun login(loginRequest: LoginRequest): LiveData<Result<LoginResponse>>
     fun setUserLoggedIn(userLoggedIn: UserLoggedIn)
-    fun isUserHasLoggedIn(): Boolean
+    fun isUserHasLoggedIn(): Flow<Boolean>
     fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>>
 }
 
@@ -53,8 +55,10 @@ class AuthRepositoryImpl(
     override fun setUserLoggedIn(userLoggedIn: UserLoggedIn) =
         appLocalData.setUserLoggedIn(userLoggedIn)
 
-    override fun isUserHasLoggedIn(): Boolean =
-        appLocalData.isUserHasLoggedIn
+    override fun isUserHasLoggedIn(): Flow<Boolean> = flow {
+        val isUserHasLoggedIn = appLocalData.isUserHasLoggedIn
+        emit(isUserHasLoggedIn)
+    }
 
     override fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>> =
         liveData(Dispatchers.IO) {
