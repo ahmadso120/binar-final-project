@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/sellListFragment"
-        android:name="com.binar.secondhand.ui.selllist.SellListFragment"
+        android:name="com.binar.secondhand.ui.sellerorder.SellerOrderFragment"
         android:label="fragment_sell_list"
-        tools:layout="@layout/fragment_sell_list" />
+        tools:layout="@layout/fragment_seller_order" />
 
     <fragment
         android:id="@+id/sellFragment"
