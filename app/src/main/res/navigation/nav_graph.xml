@@ -72,7 +72,11 @@
         android:id="@+id/notificationFragment"
         android:name="com.binar.secondhand.ui.notification.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_sellListFragment"
+            app:destination="@id/sellListFragment" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_to_homeFragment"
