@@ -1,5 +1,6 @@
 package com.binar.secondhand.data
 
+
 import com.binar.secondhand.data.source.local.BuyerProductLocalDataSource
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.data.source.remote.BuyerProductRemoteDataSource
@@ -10,6 +11,7 @@ import com.binar.secondhand.utils.AppExecutors
 import com.binar.secondhand.utils.DataMapper
 import com.binar.secondhand.utils.connection.HasInternetCapability
 import kotlinx.coroutines.flow.Flow
+
 
 interface BuyerRepository {
     fun getBuyerProducts(categoryId: Int): Flow<Result<List<BuyerProductEntity>>>
@@ -44,4 +46,5 @@ class BuyerRepositoryImpl(
                     }
             }
         }.asFlow()
+
 }

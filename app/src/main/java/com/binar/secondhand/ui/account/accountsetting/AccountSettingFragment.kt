@@ -30,6 +30,9 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
         super.onViewCreated(view, savedInstanceState)
         changePassEmail()
         getResp()
+        binding.materialToolbar2.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
 
@@ -63,7 +66,6 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
             }
 
         }
-
     }
     private fun getResp(){
         binding.apply {

@@ -11,6 +11,7 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
+import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.ui.setupLayoutManager
@@ -18,6 +19,7 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
@@ -27,6 +29,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val viewModel by sharedViewModel<HomeViewModel>()
+    private val notificationViewModel by viewModel<NotificationViewModel>()
 
     private lateinit var productAdapter: ProductAdapter
 
@@ -46,12 +49,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 
+
         binding.swipeRefreshLayout.setOnRefreshListener {
             isRefreshing = true
             viewModel.filterCategoryProduct(viewModel.categoryId)
         }
 
-        setBadgeCountNotification(3)
 
         setupAdapter()
 
@@ -77,7 +80,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         }
-
+        notificationViewModel.getUnreadCount().observe(viewLifecycleOwner){
+            when(it){
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> if (it.data != 0){
+                    setBadgeCountNotification(it.data)
+                }
+            }
+        }
         viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
 //            findNavController().navigate()
         })

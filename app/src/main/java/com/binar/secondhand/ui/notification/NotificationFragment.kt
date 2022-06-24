@@ -43,8 +43,11 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
                 is Result.Success -> {
                 val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
                     binding.recyclerview.layoutManager = layoutManager
-                    binding.recyclerview.adapter= NotificationAdapter(it.data){
-                        Toast.makeText(requireContext(),"clicked ${it.id}",Toast.LENGTH_SHORT).show()
+                    val sortIdDesc = it.data.sortedWith(compareBy {
+                        it.id
+                    }).reversed()
+                    binding.recyclerview.adapter= NotificationAdapter(sortIdDesc){ item ->
+                        viewModel.doPatchNotification(item.id)
                     }
                     val divider = MaterialDividerItemDecoration(requireContext(), layoutManager.orientation)
                     divider.dividerInsetStart = 32
@@ -53,6 +56,20 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
                 }
             }
+        }
+        viewModel.patchNotification.observe(viewLifecycleOwner){ item ->
+            when(item){
+                is Result.Error -> {
+                    Toast.makeText(requireContext(),"Something went wrong",Toast.LENGTH_SHORT).show()
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    findNavController().navigate(R.id.action_notificationFragment_to_sellListFragment)
+                }
+            }
+
         }
     }
 }
