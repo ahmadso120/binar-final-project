@@ -38,7 +38,17 @@
         android:id="@+id/sellFragment"
         android:name="com.binar.secondhand.ui.sell.SellFragment"
         android:label="fragment_sell"
-        tools:layout="@layout/fragment_sell" />
+        tools:layout="@layout/fragment_sell" >
+        <action
+            android:id="@+id/action_sellFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_sellFragment_to_sellListViewPagerFragment"
+            app:destination="@id/sellListViewPagerFragment" />
+        <action
+            android:id="@+id/action_sellFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.binar.secondhand.ui.account.AccountFragment"
@@ -114,4 +124,9 @@
         android:name="com.binar.secondhand.ui.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/sellListViewPagerFragment"
+        android:name="com.binar.secondhand.ui.selllist.SellListViewPagerFragment"
+        android:label="fragment_sell_list_view_pager"
+        tools:layout="@layout/fragment_sell_list_view_pager" />
 </navigation>
