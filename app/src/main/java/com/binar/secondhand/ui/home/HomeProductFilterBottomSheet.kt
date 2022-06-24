@@ -16,6 +16,7 @@ import com.binar.secondhand.R
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.BottomSheetHomeProductFilterBinding
+import com.binar.secondhand.ui.home.HomeFragment.Companion.DEFAULT_CATEGORY_ID
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -28,7 +29,7 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
 
     private var homeParametersChanged = false
 
-    private var catId = 0
+    private var categoryId = DEFAULT_CATEGORY_ID
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState)
@@ -75,11 +76,11 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
                     )
 
                     categoryFilterDropdownMenu?.setOnItemClickListener { _, _, position, _ ->
-                        val categoryId = items[position].id
-                        if (categoryId != viewModel.categoryId) {
+                        val catId = items[position].id
+                        if (catId != viewModel.categoryId) {
                             homeParametersChanged = true
-                            catId = categoryId
-                            viewModel.categoryId = categoryId
+                            categoryId = catId
+                            viewModel.categoryId = catId
                         }
                     }
                 }
@@ -87,12 +88,12 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.applyButton.setOnClickListener { dismiss() }
-        if (viewModel.categoryId > 0) {
+        if (viewModel.categoryId > DEFAULT_CATEGORY_ID) {
             binding.resetTv.isVisible = true
             binding.resetTv.setOnClickListener {
-                viewModel.filterCategoryProduct(0)
-                catId = 0
-                viewModel.categoryId = 0
+                viewModel.filterCategoryProduct(DEFAULT_CATEGORY_ID)
+                categoryId = DEFAULT_CATEGORY_ID
+                viewModel.categoryId = DEFAULT_CATEGORY_ID
                 dismiss()
             }
         }
@@ -101,7 +102,7 @@ class HomeProductFilterBottomSheet : BottomSheetDialogFragment() {
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         if (homeParametersChanged) {
-            viewModel.filterCategoryProduct(catId)
+            viewModel.filterCategoryProduct(categoryId)
         }
     }
 

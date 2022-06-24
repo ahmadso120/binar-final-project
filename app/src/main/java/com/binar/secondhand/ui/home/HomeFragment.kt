@@ -33,6 +33,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private lateinit var productAdapter: ProductAdapter
 
+    private var isRefreshing: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setOnMenuItemClickListener {
@@ -46,6 +48,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
 
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
+
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            isRefreshing = true
+            viewModel.filterCategoryProduct(viewModel.categoryId)
+        }
+
 
         setupAdapter()
 
@@ -109,6 +118,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun showSuccessState() {
+        if (isRefreshing) {
+            binding.swipeRefreshLayout.isRefreshing = false
+            isRefreshing = false
+        }
         binding.contentLoadingLayout.hide()
         binding.recyclerView.isVisible = true
     }
@@ -119,7 +132,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun showLoadingState() {
+        if (isRefreshing) {
+            binding.swipeRefreshLayout.isRefreshing = true
+        }
         binding.contentLoadingLayout.show()
         binding.recyclerView.isVisible = false
+    }
+
+    companion object {
+        const val DEFAULT_CATEGORY_ID = 0
     }
 }

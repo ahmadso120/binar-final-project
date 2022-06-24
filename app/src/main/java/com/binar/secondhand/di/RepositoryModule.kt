@@ -20,6 +20,7 @@ val repositoryModule = module {
     single {AccountRemoteDataSource(get())}
     single { NotificationRemoteDataSource(get()) }
     single { SellerCategoryDataSource(get()) }
+    single {SellerProductDataSource(get())}
 
 
     factory { AppExecutors() }
@@ -33,6 +34,7 @@ val repositoryModule = module {
     single<AccountRepository>{AccountRepositoryImpl(get())}
     single<NotificatioRepository> {NotificationRepositoryImpl(get())  }
     single<SellerCategoryRepository> { SellerCategoryRepositoryImpl(get()) }
+    single<SellerProductRepository> { SellerProductRepositoryImpl(get()) }
 
 
 }
