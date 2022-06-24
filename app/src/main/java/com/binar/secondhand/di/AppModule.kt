@@ -28,9 +28,7 @@ val viewModelModule = module {
     viewModel { ConnectionViewModel(androidContext()) }
 
     viewModel { NotificationViewModel(get()) }
-
-
-    viewModel {NotificationViewModel(get())}
+    
     viewModel {SellerViewModel(get(),get())}
 
     viewModel { AuthViewModel(get()) }
