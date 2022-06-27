@@ -1,14 +1,16 @@
 package com.binar.secondhand.utils
 
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
-import com.binar.secondhand.data.source.local.entity.CategoryBuyerProductCrossRef
-import com.binar.secondhand.data.source.local.entity.CategoryEntity
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 
 object DataMapper {
     fun mapResponsesToBuyerProductEntities(input: List<BuyerProductResponse>): List<BuyerProductEntity> {
         val dataList = ArrayList<BuyerProductEntity>()
         input.map {
+            var category = ""
+            if (it.Categories?.isNotEmpty() == true) {
+                category = it.Categories[0].name
+            }
             val buyerProducts = BuyerProductEntity(
                 it.basePrice,
                 it.createdAt,
@@ -20,39 +22,10 @@ object DataMapper {
                 it.name,
                 it.status,
                 it.updatedAt,
-                it.userId
+                it.userId,
+                category
             )
             dataList.add(buyerProducts)
-        }
-        return dataList
-    }
-
-    fun mapResponsesToCategoryEntities(input: List<BuyerProductResponse>): List<CategoryEntity> {
-        val categoryList = ArrayList<CategoryEntity>()
-        input.map {
-            it.Categories?.map { categoryData ->
-                val category = CategoryEntity(
-                    categoryData.id,
-                    categoryData.name
-                )
-                categoryList.add(category)
-            }
-        }
-        return categoryList
-    }
-
-    fun mapResponsesToCategoryBuyerProductCrossRef(
-        input: List<BuyerProductResponse>
-    ): List<CategoryBuyerProductCrossRef> {
-        val dataList = ArrayList<CategoryBuyerProductCrossRef>()
-        input.map {
-            it.Categories?.map { category ->
-                val data = CategoryBuyerProductCrossRef(
-                    it.id,
-                    category.id
-                )
-                dataList.add(data)
-            }
         }
         return dataList
     }
