@@ -18,5 +18,7 @@ data class BuyerProductResponse(
     val status: String?,
     val updatedAt: String,
     @field:SerializedName("user_id")
-    val userId: Int
+    val userId: Int,
+    @SerializedName("User")
+    val user: UserResponse
 )
