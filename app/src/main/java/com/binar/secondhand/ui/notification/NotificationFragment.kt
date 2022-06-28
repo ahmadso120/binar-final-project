@@ -29,10 +29,13 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
         }
 
         observeUI()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            observeUI()
+        }
     }
 
-    private fun observeUI(){
-        viewModel.getAllNotification().observe(viewLifecycleOwner){
+    private fun observeUI() {
+        viewModel.getAllNotification().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
 
@@ -41,26 +44,44 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
                 }
                 is Result.Success -> {
-                val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-                    binding.recyclerview.layoutManager = layoutManager
-                    val sortIdDesc = it.data.sortedWith(compareBy {
-                        it.id
-                    }).reversed()
-                    binding.recyclerview.adapter= NotificationAdapter(sortIdDesc){ item ->
-                        viewModel.doPatchNotification(item.id)
+                    binding.contentLoadingLayout.visibility = View.GONE
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (it.data.isEmpty()) {
+                        binding.apply {
+                            noItemImageView.visibility = View.VISIBLE
+                            noItemTextView.visibility = View.VISIBLE
+                            chckBackTextView.visibility = View.VISIBLE
+                        }
+                    } else {
+                        val layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        binding.recyclerview.layoutManager = layoutManager
+                        val sortIdDesc = it.data.sortedWith(compareBy {
+                            it.id
+                        }).reversed()
+                        binding.recyclerview.adapter = NotificationAdapter(sortIdDesc) { item ->
+                            viewModel.doPatchNotification(item.id)
+                        }
+                        val divider = MaterialDividerItemDecoration(
+                            requireContext(),
+                            layoutManager.orientation
+                        )
+                        divider.dividerInsetStart = 40
+                        divider.dividerInsetEnd = 40
+                        binding.recyclerview.addItemDecoration(divider)
                     }
-                    val divider = MaterialDividerItemDecoration(requireContext(), layoutManager.orientation)
-                    divider.dividerInsetStart = 32
-                    divider.dividerInsetEnd = 32
-                    binding.recyclerview.addItemDecoration(divider)
 
                 }
             }
         }
-        viewModel.patchNotification.observe(viewLifecycleOwner){ item ->
-            when(item){
+        viewModel.patchNotification.observe(viewLifecycleOwner) { item ->
+            when (item) {
                 is Result.Error -> {
-                    Toast.makeText(requireContext(),"Something went wrong",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 Result.Loading -> {
 
