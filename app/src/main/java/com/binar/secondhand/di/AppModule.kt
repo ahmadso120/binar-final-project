@@ -11,6 +11,7 @@ import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.ui.register.RegisterViewModel
 import com.binar.secondhand.ui.sellerorder.SellerOrderViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
+import com.binar.secondhand.ui.sellerproduct.SellerProductViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -35,4 +36,6 @@ val viewModelModule = module {
     viewModel { AuthViewModel(get()) }
 
     viewModel { SellerOrderViewModel(get()) }
+
+    viewModel { SellerProductViewModel(get()) }
 }

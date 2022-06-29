@@ -11,4 +11,6 @@ class SellerProductDataSource(
     suspend fun addSellerProduct(file: MultipartBody.Part?, partMap: Map<String, RequestBody>) =
 
         sellerProductService.addProduct(file,partMap)
+
+    suspend fun getSellerProduct () = sellerProductService.getSellerProduct()
 }

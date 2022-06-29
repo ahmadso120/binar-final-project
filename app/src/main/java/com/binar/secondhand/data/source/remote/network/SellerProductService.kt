@@ -18,4 +18,7 @@ interface SellerProductService {
         @Part file: MultipartBody.Part?,
         @PartMap partMap: Map<String, RequestBody>,
     ): Response<SellerProductResponse>
+
+    @GET("seller/product")
+    suspend fun getSellerProduct() : Response<List<SellerProductResponse>>
 }
