@@ -3,31 +3,23 @@ package com.binar.secondhand.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-
 import androidx.navigation.fragment.findNavController
-
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
+import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.utils.EventObserver
-
-import com.binar.secondhand.utils.logd
-import com.google.android.material.appbar.MaterialToolbar
-
-import com.binar.secondhand.utils.RECYCLER_VIEW_CACHE_SIZE
-import com.binar.secondhand.utils.setupLayoutManager
-
+import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
+import com.binar.secondhand.utils.ui.setupLayoutManager
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
@@ -37,14 +29,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val viewModel by sharedViewModel<HomeViewModel>()
+    private val notificationViewModel by viewModel<NotificationViewModel>()
 
     private lateinit var productAdapter: ProductAdapter
 
+    private var isRefreshing: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //sementara
-        val toolbar: MaterialToolbar = binding.toolbar
-        toolbar.setOnMenuItemClickListener {
+        binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.notification ->{
                     findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
@@ -57,11 +50,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 
 
-        setBadgeCountNotification(3)
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            isRefreshing = true
+            viewModel.filterCategoryProduct(viewModel.categoryId)
+        }
+
 
         setupAdapter()
 
-        observeUi(view)
+        observeUi()
     }
 
     private fun setBadgeCountNotification(count: Int) {
@@ -70,12 +67,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         BadgeUtils.attachBadgeDrawable(badgeDrawable, binding.toolbar, R.id.notification)
     }
 
-    private fun observeUi(view: View) {
-        viewModel.buyerProductsLiveData.observe(viewLifecycleOwner) { it ->
+    private fun observeUi() {
+        viewModel.buyerProducts.observe(viewLifecycleOwner) {
             when(it) {
                 is Result.Error -> {
                     showErrorState()
-//                    view.showShortSnackbar(it.error.toString())
                 }
                 Result.Loading -> { showLoadingState() }
                 is Result.Success -> {
@@ -84,22 +80,29 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         }
-
+        notificationViewModel.getUnreadCount().observe(viewLifecycleOwner){
+            when(it){
+                is Result.Error -> {}
+                Result.Loading -> {}
+                is Result.Success -> if (it.data != 0){
+                    setBadgeCountNotification(it.data)
+                }
+            }
+        }
         viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
 //            findNavController().navigate()
         })
     }
 
     private fun setupAdapter() {
-        val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_normal)
+        val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_padding_size_medium)
 
         productAdapter = ProductAdapter {
             viewModel.onBuyerProductClicked(it)
         }
+
         binding.recyclerView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL).apply {
-                gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
-            }
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = productAdapter
             setupLayoutManager(
                 spacing = itemSpacing
@@ -115,17 +118,28 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun showSuccessState() {
-        binding.recyclerView.isVisible = true
+        if (isRefreshing) {
+            binding.swipeRefreshLayout.isRefreshing = false
+            isRefreshing = false
+        }
         binding.contentLoadingLayout.hide()
+        binding.recyclerView.isVisible = true
     }
 
     private fun showErrorState() {
-        binding.recyclerView.isVisible = true
         binding.contentLoadingLayout.hide()
+        binding.recyclerView.isVisible = true
     }
 
     private fun showLoadingState() {
-        binding.recyclerView.isVisible = false
+        if (isRefreshing) {
+            binding.swipeRefreshLayout.isRefreshing = true
+        }
         binding.contentLoadingLayout.show()
+        binding.recyclerView.isVisible = false
+    }
+
+    companion object {
+        const val DEFAULT_CATEGORY_ID = 0
     }
 }

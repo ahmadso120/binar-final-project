@@ -21,5 +21,5 @@ data class BuyerProductEntity(
     val updatedAt: String,
     @ColumnInfo(name = "user_id")
     val userId: Int,
-    val isFavorite: Boolean = false
+    val category: String?
 )
