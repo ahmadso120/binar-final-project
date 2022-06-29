@@ -1,10 +1,15 @@
 package com.binar.secondhand.ui.account
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 
 import android.widget.Adapter
 import android.widget.AdapterView
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 
 
@@ -16,6 +21,7 @@ import com.binar.secondhand.data.Result
 
 import com.binar.secondhand.databinding.FragmentAccountBinding
 import androidx.navigation.fragment.findNavController
+import com.binar.secondhand.databinding.AccountItemListBinding.inflate
 
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
@@ -33,10 +39,14 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
     override var bottomNavigationViewVisibility = View.VISIBLE
     private val viewModel by viewModel<EditAccountViewModel>()
     private val appLocalData: AppLocalData by inject()
+    private lateinit var builder : AlertDialog.Builder
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeUI()
+
 
         var listView = binding.listview
         var menuAccount: ArrayList<MenuAccount> = ArrayList()
@@ -54,12 +64,30 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                          findNavController().navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
                 2 -> {
-                    LogoutProcess.execute(appLocalData, binding)
+
+
+                    builder = AlertDialog.Builder(requireContext())
+                        builder.setTitle("Keluar dari SecondHand")
+                            .setMessage("Apakah anda ingin keluar ?")
+                            .setCancelable(true) // dialog box in cancellable
+                            // set positive button
+                            //take two parameters dialogInterface and an int
+                            .setPositiveButton("Keluar"){dialogInterface,it ->
+                                LogoutProcess.execute(appLocalData, binding)  // close the app when yes clicked
+                            }
+                            .setNegativeButton("Batal"){dialogInterface,it ->
+                                // cancel the dialogbox
+                                dialogInterface.cancel()
+                            }
+                            .show()
+                    }
                 }
 
         }
-    }
+
 }
+
+
 
 
 
@@ -89,6 +117,7 @@ private fun observeUI() {
             }
         }
     }
+
 
 
 }
