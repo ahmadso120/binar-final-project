@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_sellFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_sellFragment_to_previewSellFragment"
+            app:destination="@id/previewSellFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
@@ -129,4 +132,16 @@
         android:name="com.binar.secondhand.ui.selllist.SellListViewPagerFragment"
         android:label="fragment_sell_list_view_pager"
         tools:layout="@layout/fragment_sell_list_view_pager" />
+    <fragment
+        android:id="@+id/previewSellFragment"
+        android:name="com.binar.secondhand.ui.sell.previewsellproduct.PreviewSellFragment"
+        android:label="fragment_preview_sell"
+        tools:layout="@layout/fragment_preview_sell" >
+        <argument
+            android:name="previewProduct"
+            app:argType="com.binar.secondhand.data.source.remote.request.PreviewProduct" />
+        <action
+            android:id="@+id/action_previewSellFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

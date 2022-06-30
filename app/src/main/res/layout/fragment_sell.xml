@@ -176,13 +176,22 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/save_btn"
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="64dp"
                     android:layout_marginBottom="32dp"
                     android:text="Simpan"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/addPhoto_btn" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/preview_btn"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginBottom="32dp"
+                    android:text="Preview"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/addPhoto_btn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
