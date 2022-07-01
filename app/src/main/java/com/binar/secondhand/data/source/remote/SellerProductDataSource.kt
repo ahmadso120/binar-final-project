@@ -13,4 +13,8 @@ class SellerProductDataSource(
         sellerProductService.addProduct(file,partMap)
 
     suspend fun getSellerProduct () = sellerProductService.getSellerProduct()
+
+    suspend fun deleteSellerProduct(id:Int)= sellerProductService.deleteSellerProduct(id)
+
+    suspend fun getProductDetail(id: Int)= sellerProductService.getSellerProductDetail(id)
 }

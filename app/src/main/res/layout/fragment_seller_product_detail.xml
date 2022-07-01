@@ -8,13 +8,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/white"
+            app:contentScrim="@color/design_default_color_surface"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
 
             >
@@ -25,40 +25,174 @@
                 android:layout_height="300dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_avatar"
-                app:layout_collapseMode="parallax"
-                 />
+                app:layout_collapseMode="parallax" />
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_marginTop="24dp"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_fi_arrow_left_round"
                 />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="8sp"
-            android:padding="16dp"
-            android:text="
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac rhoncus dui, a vulputate est. Praesent vitae arcu a dolor facilisis dictum bibendum id quam. Fusce auctor dapibus nunc, in pulvinar nulla ornare id. Vestibulum tortor metus, condimentum non gravida sed, venenatis id elit. Vestibulum iaculis ligula velit, id porta risus malesuada ut. Integer eleifend arcu in tortor suscipit, eget ultrices mi mollis. Fusce ac cursus metus. Cras at arcu a arcu auctor vestibulum quis id felis. Proin at volutpat ex. Vivamus tempor molestie tortor vel efficitur. Curabitur quis cursus purus, sed sodales orci.
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-Quisque eget lacus ut eros tempor efficitur non et eros. Nunc aliquam rutrum tellus finibus egestas. Cras laoreet id augue ut cursus. Etiam cursus sem tortor, eu efficitur nulla dapibus nec. Donec in nulla finibus, facilisis augue sed, consequat felis. Mauris mollis, ligula sed porta bibendum, tortor magna auctor eros, non egestas enim mi at justo. Integer pulvinar leo vitae augue tempor condimentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin gravida tempus est id sagittis. Nulla sed felis lectus. Aliquam ultrices tempus leo vel dictum. Nulla nec erat ac diam tempus suscipit.
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
-Aliquam lacinia, enim ac auctor vestibulum, libero diam semper tellus, eget condimentum turpis nisl ac nisi. Nulla nec viverra nisl. Fusce ultricies convallis tempor. Etiam a aliquet tortor. Duis gravida ex sit amet mauris accumsan consequat. Cras et suscipit metus. Suspendisse rhoncus elementum luctus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla lobortis arcu at venenatis tincidunt. Nunc consectetur aliquet mi sit amet consectetur. Vestibulum rutrum purus lorem, sed tempor erat consectetur et. Quisque aliquam purus id nibh auctor, a sollicitudin ligula eleifend. Sed fermentum vitae quam vel gravida.
+                    <TextView
+                        android:id="@+id/product_name_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:text="Jam Tangan Casio" />
 
-Nullam lacus erat, lacinia luctus lacinia vitae, eleifend in justo. Integer volutpat, felis in porttitor venenatis, turpis orci tincidunt dolor, ac convallis dui massa eget magna. Vestibulum nisl lorem, placerat a sodales eu, dictum ac mi. Nam cursus turpis sit amet felis dapibus, consectetur maximus turpis malesuada. Sed in lectus euismod, laoreet dolor eu, imperdiet enim. Praesent efficitur mattis luctus. Nullam commodo nunc eu bibendum tincidunt. In porttitor erat non ipsum scelerisque ornare. Aliquam felis ex, vulputate semper auctor lobortis, tincidunt vitae libero. In a ante neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean congue felis lacus. Suspendisse aliquam nisl quis nunc tempus, nec hendrerit tellus varius. Integer quis ante vitae urna mollis viverra. Vestibulum nibh turpis, sollicitudin sit amet sodales ultrices, imperdiet fermentum lectus.
+                    <TextView
+                        android:id="@+id/categories_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="elektronik" />
 
-Integer et finibus leo, a gravida dui. Nam ultricies porttitor mi, ac egestas turpis facilisis vitae. Integer sed commodo elit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed congue libero sem, eget pretium est commodo sit amet. Donec sed dui quam. Maecenas dictum aliquet arcu, vitae pharetra dui maximus ac. Fusce vel elementum ex. Duis id porttitor purus. Donec consectetur mi nec turpis mattis pellentesque. Vestibulum tempus finibus sapien, vitae dignissim libero fermentum et. "
-             />
+                    <TextView
+                        android:id="@+id/price_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:text="Rp. 250,000" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/profile_card_imageView"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:elevation="8dp"
+                        app:cardCornerRadius="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/seller_profile_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_avatar" />
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <TextView
+                        android:id="@+id/seller_name_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/profile_card_imageView"
+                        app:layout_constraintTop_toTopOf="@+id/profile_card_imageView"
+                        tools:text="Bambang" />
+
+                    <TextView
+                        android:id="@+id/city_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/profile_card_imageView"
+                        app:layout_constraintTop_toBottomOf="@+id/seller_name_textView"
+                        tools:text="TextView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Deskripsi"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/product_desc_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        tools:text="Argumen tingkat tujuan dan nilai default digunakan oleh semua tindakan yang mengarah ke tujuan. Jika diperlukan, Anda dapat mengganti nilai default argumen (atau menetapkan nilai default jika belum ada) dengan menetapkan argumen di level tindakan. Argumen ini harus memiliki nama dan jenis yang sama seperti argumen yang dideklarasika" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

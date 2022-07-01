@@ -7,7 +7,7 @@ data class SellerProductResponse(
     @SerializedName("base_price")
     val basePrice: Int,
     @SerializedName("Categories")
-    val categories: List<Any>,
+    val categories: List<CategoryResponse>,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("description")

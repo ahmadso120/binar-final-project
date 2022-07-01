@@ -46,6 +46,7 @@
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_arrow_left.xml" value="0.337" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_capture.xml" value="0.2135" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_denger.xml" value="0.1" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_fi_arrow_left_round.xml" value="0.359" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_rectangle.xml" value="0.202" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_switch_camera.xml" value="0.2135" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/activity_main.xml" value="0.3625" />
@@ -56,13 +57,13 @@
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_edit_account.xml" value="0.25" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.17647058823529413" />
-        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.1" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.5" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_product_detail.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_register.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_order_view_pager.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_product.xml" value="0.3625" />
-        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_product_detail.xml" value="0.25" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_product_detail.xml" value="0.33" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_dropdown_list.xml" value="0.3625" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_notification.xml" value="0.3625" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_seller_order.xml" value="0.3625" />
