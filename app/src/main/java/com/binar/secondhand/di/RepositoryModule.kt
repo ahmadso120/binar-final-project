@@ -15,6 +15,7 @@ val repositoryModule = module {
     single { AuthRemoteDataSource(get()) }
 
     single { AccSettDataSource(get()) }
+    single {SearchDataSource(get())}
 
 
     single {AccountRemoteDataSource(get())}
@@ -28,6 +29,7 @@ val repositoryModule = module {
     single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
 
     single<AccSettRepo> { AccSettRepoImpl(get()) }
+    single<SearchRepository>{SearchRepositoryImpl(get())}
 
 
     single<AccountRepository>{AccountRepositoryImpl(get())}

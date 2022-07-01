@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_notificationFragment2"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/sellListFragment"
@@ -114,4 +117,8 @@
         android:name="com.binar.secondhand.ui.camera.CameraFragment"
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.binar.secondhand.ui.search.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

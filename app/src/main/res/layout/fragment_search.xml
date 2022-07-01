@@ -17,7 +17,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/search"
+                android:id="@+id/search1"
                 android:layout_width="350dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
@@ -35,7 +35,7 @@
                 android:src="@drawable/fi_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search"
+                app:layout_constraintStart_toEndOf="@+id/search1"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -55,6 +55,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>
