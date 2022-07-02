@@ -95,7 +95,14 @@
         android:id="@+id/sellerProductFragment"
         android:name="com.binar.secondhand.ui.sellerproduct.SellerProductFragment"
         android:label="fragment_seller_product"
-        tools:layout="@layout/fragment_seller_product" />
+        tools:layout="@layout/fragment_seller_product" >
+        <action
+            android:id="@+id/action_sellerProductFragment_to_sellListFragment"
+            app:destination="@id/sellListFragment" />
+        <action
+            android:id="@+id/action_sellerProductFragment_to_sellerProductDetailFragment"
+            app:destination="@id/sellerProductDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/editAccountFragment"
@@ -131,4 +138,13 @@
         android:name="com.binar.secondhand.ui.selllist.SellListViewPagerFragment"
         android:label="fragment_sell_list_view_pager"
         tools:layout="@layout/fragment_sell_list_view_pager" />
+    <fragment
+        android:id="@+id/sellerProductDetailFragment"
+        android:name="com.binar.secondhand.ui.sellerproduct.detail.SellerProductDetailFragment"
+        android:label="fragment_seller_product_detail"
+        tools:layout="@layout/fragment_seller_product_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

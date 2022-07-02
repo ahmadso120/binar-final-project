@@ -26,6 +26,8 @@ class NotificationAdapter(private val item : List<NotificationResponseItem>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             item[position].imageUrl?.let { productImageView.loadPhotoUrl(it) }
+            produkTextView.text = item[position].product?.name
+            basePriceTextView.text = item[position].product?.basePrice?.currencyFormatter()
             bidPriceTextView.text = "Ditawar Rp."+ item[position].bidPrice.currencyFormatter()
             val inputTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             val outputTimeFormat = SimpleDateFormat("dd MMM, HH:mm")

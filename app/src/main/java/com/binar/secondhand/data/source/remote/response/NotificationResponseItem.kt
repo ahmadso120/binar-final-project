@@ -27,5 +27,7 @@ data class NotificationResponseItem(
     @SerializedName("transaction_date")
     val transactionDate: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    @SerializedName("Product")
+    val product: ProductResponse?
 )

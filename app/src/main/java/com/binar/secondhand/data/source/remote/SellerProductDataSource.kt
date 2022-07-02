@@ -11,4 +11,10 @@ class SellerProductDataSource(
     suspend fun addSellerProduct(file: MultipartBody.Part?, partMap: Map<String, RequestBody>) =
 
         sellerProductService.addProduct(file,partMap)
+
+    suspend fun getSellerProduct () = sellerProductService.getSellerProduct()
+
+    suspend fun deleteSellerProduct(id:Int)= sellerProductService.deleteSellerProduct(id)
+
+    suspend fun getProductDetail(id: Int)= sellerProductService.getSellerProductDetail(id)
 }
