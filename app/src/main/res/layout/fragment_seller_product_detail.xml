@@ -125,7 +125,24 @@
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_avatar" />
+
+                        <TextView
+                            android:id="@+id/initials_text_view"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/ic_rectangle"
+                            android:gravity="center"
+                            android:text="AR"
+                            android:textColor="@color/dark_blue_04"
+                            android:textSize="20sp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
                     </com.google.android.material.card.MaterialCardView>
+
 
 
                     <TextView

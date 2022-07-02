@@ -69,7 +69,18 @@ class SellerProductDetailFragment : BaseFragment(R.layout.fragment_seller_produc
                 is Result.Success -> {
                     binding.apply {
                         seller.data.apply {
-                            imageUrl?.let { sellerProfileImage.loadPhotoUrl(it) }
+                            if (imageUrl.isNullOrEmpty()){
+                                sellerProfileImage.visibility = View.GONE
+                                initialsTextView.visibility = View.VISIBLE
+                                val name = fullName
+                                val initials = name.trim()
+                                    .splitToSequence(" ", limit = 2)
+                                    .map { it.first() }
+                                    .joinToString("").uppercase()
+                                initialsTextView.text = initials
+                            }else{
+                                sellerProfileImage.loadPhotoUrl(imageUrl)
+                            }
                             sellerNameTextView.text = fullName
                             cityTextView.text = city
                         }
