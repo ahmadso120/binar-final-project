@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.remote.response.NotificationResponseItem
 import com.binar.secondhand.databinding.ItemNotificationBinding
+import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.ui.loadPhotoUrl
+import java.text.SimpleDateFormat
 
-class NotificationAdapter(private val item : List<NotificationResponseItem>,val onClick : (NotificationResponseItem) -> Unit
+class NotificationAdapter(private val item : List<NotificationResponseItem>,
+                          private val onClick : (NotificationResponseItem) -> Unit
 ):RecyclerView.Adapter<NotificationAdapter.ViewHolder>()
 {
     class ViewHolder(val binding: ItemNotificationBinding):RecyclerView.ViewHolder(binding.root)
@@ -19,22 +22,31 @@ class NotificationAdapter(private val item : List<NotificationResponseItem>,val 
         return ViewHolder(ItemNotificationBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             item[position].imageUrl?.let { productImageView.loadPhotoUrl(it) }
-            bidPriceTextView.text = "Ditawar Rp."+ item[position].bidPrice
-            dateTextView.text = item[position].createdAt
+            produkTextView.text = item[position].product?.name
+            basePriceTextView.text = item[position].product?.basePrice?.currencyFormatter()
+            bidPriceTextView.text = "Ditawar Rp."+ item[position].bidPrice.currencyFormatter()
+            val inputTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val outputTimeFormat = SimpleDateFormat("dd MMM, HH:mm")
+            val date = inputTimeFormat.parse(item[position].createdAt)
+            val dateFormat = outputTimeFormat.format(date)
+            dateTextView.text = dateFormat
             when(item[position].status){
                 "bid" -> notificationTypeTextView.text = "Penawaran produk"
                 "accepted" ->{
                     notificationTypeTextView.text = "Penawaran disetujui"
-                    bidPriceTextView.text= "Berhasil Ditawar Rp. "+ item[position].bidPrice
+                    bidPriceTextView.text= "Berhasil Ditawar Rp. "+ item[position].bidPrice.currencyFormatter()
                     basePriceTextView.paintFlags= basePriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     isaccetetdTextView.visibility = View.VISIBLE
                 }
 
-                else -> {notificationTypeTextView.text = "Penwaran Ditolak"}
+                else -> {
+                    notificationTypeTextView.text = "Penwaran Ditolak"
+                    bidPriceTextView.paintFlags= basePriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                }
             }
         }
         if (!item[position].read){
