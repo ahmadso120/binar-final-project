@@ -23,6 +23,7 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.AccountRequest
 import com.binar.secondhand.data.source.remote.request.AddSellerProductRequest
+import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.camera.CameraFragment
@@ -42,7 +43,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val binding: FragmentSellBinding by viewBinding()
     private val viewModel by viewModel<SellerViewModel>()
 
-    private var getFile: File? = null
+    private lateinit var getFile: File
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
     private var categoryId : Int = 0
@@ -61,9 +62,31 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         binding.saveBtn.setOnClickListener{
             addSellerProduct()
         }
+        binding.previewBtn.setOnClickListener {
+            previewProduct()
+        }
 
         setupObserver()
         observeUI()
+    }
+    fun previewProduct(){
+        val productName = binding.productNameEdt.text.toString()
+        val productPrice = binding.ProductPriceEditText.text.toString().toInt()
+        val productDescription = binding.descriptionEdt.text.toString()
+        val category = categoryId.toString()
+        val location = binding.locationEdt.text.toString()
+
+        val previewProduct =
+            PreviewProduct(
+                productName=productName,
+                productPrice=productPrice,
+                productDescription=productDescription,
+                category=category,
+                location=location,
+                file = getFile
+            )
+
+        findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
     }
 
     private fun addSellerProduct(){
@@ -73,6 +96,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             val productDescription = binding.descriptionEdt.text.toString().createPartFromString()
             val category = categoryId.toString().createPartFromString()
             val location = binding.locationEdt.text.toString().createPartFromString()
+
             val map = HashMap<String, RequestBody>().apply {
                 put("name",productName)
                 put("base_price",productPrice)
@@ -104,14 +128,10 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     map
                 )
                 //button preview
-
-
-
                 logd("acc $addSellerProductRequest")
                 viewModel.doAddSellerProductRequest(addSellerProductRequest)
 
             }
-
         }
     }
 
@@ -162,12 +182,11 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
                 val myFile = result?.getSerializable("picture") as File
                 isBackCamera = result.getBoolean("isBackCamera", true)
-
                 getFile = myFile
                 isImageFromGallery = false
 
                 val resultFile = rotateBitmap(
-                    BitmapFactory.decodeFile(getFile?.path),
+                    BitmapFactory.decodeFile(getFile.path),
                     isBackCamera
                 )
                 binding.addPhotoBtn.setImageBitmap(resultFile)
@@ -199,6 +218,13 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 }
             }
         }
+
+
+
+
+
+
+
     }
         private fun observeUI() {
             viewModel.addSellerProduct.observe(viewLifecycleOwner) {

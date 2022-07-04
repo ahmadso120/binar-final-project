@@ -11,15 +11,28 @@ import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.storage.UserLoggedIn
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
+
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+
 import org.json.JSONObject
 
 interface AuthRepository {
     fun login(loginRequest: LoginRequest): LiveData<Result<LoginResponse>>
     fun setUserLoggedIn(userLoggedIn: UserLoggedIn)
+
+
+//    fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>>
+
+    fun register(file: MultipartBody.Part?,
+                 partMap: Map<String, RequestBody>): LiveData<Result<RegisterResponse>>
+
     fun isUserHasLoggedIn(): Flow<Boolean>
-    fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>>
+
+
 }
 
 class AuthRepositoryImpl(
@@ -59,29 +72,29 @@ class AuthRepositoryImpl(
         val isUserHasLoggedIn = appLocalData.isUserHasLoggedIn
         emit(isUserHasLoggedIn)
     }
-
-    override fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>> =
-        liveData(Dispatchers.IO) {
-            emit(Result.Loading)
-            try {
-                val response = authRemoteDataSource.register(registerRequest)
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    data?.let {
-                        emit(Result.Success(it))
-                    }
-                } else {
-                    loge("login() => Request error")
-                    val error = response.errorBody()?.string()
-                    if (error != null) {
-                        val jsonObject = JSONObject(error)
-                        val message = jsonObject.getString("message")
-                        emit(Result.Error(null, message))
-                    }
+override fun register(  file: MultipartBody.Part?,
+                        partMap: Map<String, RequestBody>): LiveData<Result<RegisterResponse>> =
+    liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = authRemoteDataSource.register(file,partMap)
+            if (response.isSuccessful) {
+                val data = response.body()
+                data?.let {
+                    emit(Result.Success(it))
                 }
-            } catch (e: Exception) {
-                loge("login() => ${e.message}")
-                emit(Result.Error(null, "Something went wrong"))
+            } else {
+                loge("login() => Request error")
+                val error = response.errorBody()?.string()
+                if (error != null) {
+                    val jsonObject = JSONObject(error)
+                    val message = jsonObject.getString("message")
+                    emit(Result.Error(null, message))
+                }
             }
+        } catch (e: Exception) {
+            loge("login() => ${e.message}")
+            emit(Result.Error(null, "Something went wrong"))
         }
+    }
 }
