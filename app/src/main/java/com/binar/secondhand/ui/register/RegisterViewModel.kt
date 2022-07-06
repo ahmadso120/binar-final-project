@@ -14,7 +14,7 @@ class RegisterViewModel(
 ):ViewModel() {
     private val _registerRequest = MutableLiveData<RegisterRequest>()
     val register: LiveData<Result<RegisterResponse>> = _registerRequest.switchMap {
-        authRepository.register(it.file , it.partMap)
+        authRepository.register(it)
     }
     fun doRegisterRequest(registerRequest: RegisterRequest){
         _registerRequest.value =registerRequest

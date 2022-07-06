@@ -11,5 +11,7 @@ data class PreviewProduct(
     var productDescription: String,
     var category :String,
     var location : String,
-    var file : File
+    var file : File?,
+    val isBackCamera: Boolean,
+    val isGalery : Boolean
 ):Parcelable
