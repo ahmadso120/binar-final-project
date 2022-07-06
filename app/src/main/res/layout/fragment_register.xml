@@ -23,7 +23,6 @@
             app:subtitleCentered="true"
             />
     </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +42,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -51,7 +49,6 @@
                 android:layout_marginTop="4dp"
                 android:text="Name"
                 android:textSize="12sp" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textFieldName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -97,7 +94,6 @@
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
-
             <!--    password-->
             <TextView
                 android:id="@+id/textView4"
@@ -107,7 +103,6 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFieldEmail" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textFieldPassword"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -119,7 +114,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_edt"
                     android:layout_width="match_parent"
@@ -127,8 +121,6 @@
                     android:imeOptions="actionNext"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
             <!--        button-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register_btn"
@@ -140,23 +132,5 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFieldAddress" />
         </LinearLayout>
-
-
     </ScrollView>
-
-
-    <!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Daftar"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-<!--    name -->
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

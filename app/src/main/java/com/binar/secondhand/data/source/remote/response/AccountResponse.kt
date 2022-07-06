@@ -21,5 +21,7 @@ data class AccountResponse(
     @SerializedName("phone_number")
     val phoneNumber: String,
     @SerializedName("updatedAt")
-    val updatedAt: String
+    val updatedAt: String,
+    @SerializedName("city")
+    val city: String
 )

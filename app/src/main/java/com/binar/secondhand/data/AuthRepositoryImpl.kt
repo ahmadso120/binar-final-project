@@ -23,12 +23,7 @@ import org.json.JSONObject
 interface AuthRepository {
     fun login(loginRequest: LoginRequest): LiveData<Result<LoginResponse>>
     fun setUserLoggedIn(userLoggedIn: UserLoggedIn)
-
-
-//    fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>>
-
     fun register(registerRequest:RegisterRequest): LiveData<Result<RegisterResponse>>
-
     fun isUserHasLoggedIn(): Flow<Boolean>
 
 
@@ -71,6 +66,7 @@ class AuthRepositoryImpl(
         val isUserHasLoggedIn = appLocalData.isUserHasLoggedIn
         emit(isUserHasLoggedIn)
     }
+
     override fun register(registerRequest:RegisterRequest): LiveData<Result<RegisterResponse>> =
     liveData(Dispatchers.IO) {
         emit(Result.Loading)

@@ -11,8 +11,10 @@ class AuthRemoteDataSource(
 ) {
     suspend fun login(loginRequest: LoginRequest) =
         authService.login(loginRequest)
+
     suspend fun register(registerRequest: RegisterRequest)=
     authService.register(registerRequest)
+
 }
 
 
