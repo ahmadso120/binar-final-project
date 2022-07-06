@@ -14,9 +14,7 @@ interface AuthService {
     @POST("auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
-    @Multipart
-    @JvmSuppressWildcards
+
     @POST("auth/register")
-    suspend fun register(@Part file: MultipartBody.Part?,
-                         @PartMap partMap: Map<String, RequestBody>): Response<RegisterResponse>
+    suspend fun register(@Body request: RegisterRequest): Response<RegisterResponse>
 }

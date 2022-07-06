@@ -43,7 +43,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val binding: FragmentSellBinding by viewBinding()
     private val viewModel by viewModel<SellerViewModel>()
 
-    private lateinit var getFile: File
+    private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
     private var categoryId : Int = 0
@@ -83,10 +83,18 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 productDescription=productDescription,
                 category=category,
                 location=location,
-                file = getFile
+                file = getFile,
+                isBackCamera = isBackCamera,
+                isGalery = isImageFromGallery
             )
+        if(getFile != null){
+            logd("RESULT IS BACK CAMERA => $isBackCamera")
+            logd("RESULT IS GALERY => $isImageFromGallery")
+            findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
+        }else{
+            Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+        }
 
-        findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
     }
 
     private fun addSellerProduct(){
@@ -113,15 +121,12 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     requestImageFile
                 )
                 logd("img $imageMultipart")
-
-
                 val addSellerProductRequest = AddSellerProductRequest(
                     imageMultipart,
                     map
                 )
                 logd("acc $addSellerProductRequest")
                 viewModel.doAddSellerProductRequest(addSellerProductRequest)
-//                viewModel.doUpdateAccountRequest(accountRequest)
             }else{
                 val addSellerProductRequest = AddSellerProductRequest(
                     file = null,
@@ -129,7 +134,12 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 )
                 //button preview
                 logd("acc $addSellerProductRequest")
-                viewModel.doAddSellerProductRequest(addSellerProductRequest)
+                if(getFile != null){
+                    viewModel.doAddSellerProductRequest(addSellerProductRequest)
+                }else{
+                    Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+                }
+
 
             }
         }
@@ -186,7 +196,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 isImageFromGallery = false
 
                 val resultFile = rotateBitmap(
-                    BitmapFactory.decodeFile(getFile.path),
+                    BitmapFactory.decodeFile(getFile?.path),
                     isBackCamera
                 )
                 binding.addPhotoBtn.setImageBitmap(resultFile)

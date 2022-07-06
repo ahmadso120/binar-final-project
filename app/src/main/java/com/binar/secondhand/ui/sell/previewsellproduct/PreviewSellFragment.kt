@@ -2,11 +2,7 @@ package com.binar.secondhand.ui.sell.previewsellproduct
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,7 +12,6 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.AddSellerProductRequest
 import com.binar.secondhand.databinding.FragmentPreviewSellBinding
-import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
 import com.binar.secondhand.utils.createPartFromString
@@ -41,11 +36,14 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logd("PreviewFragment : $arguments")
+        logd("RESULT IS BACK CAMERA PREVIEW=> ${arguments.previewProduct.isBackCamera}")
+        logd("RESULT IS GALERY PREVIEW=> ${arguments.previewProduct.isGalery}")
         binding.saveBtn.setOnClickListener {
             addProduct()
-            observerUi()
         }
         setUpObserver()
+        observerUi()
+
 
     }
     private fun setUpObserver(){
@@ -66,8 +64,19 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
                         sellerNameTextView.text = it.data.fullName
                         sellerCityTextView.text = it.data.city
                         it.data.imageUrl?.let { it1 -> imageSeller.loadPhotoUrl(it1) }
-                        val resultFile = BitmapFactory.decodeFile(arguments.previewProduct.file?.path)
-                        imgPhoto.setImageBitmap(resultFile)
+//                        val resultFile = BitmapFactory.decodeFile(arguments.previewProduct?.file?.path)
+
+                        if(arguments.previewProduct.isGalery){
+                            val resultFile = BitmapFactory.decodeFile(arguments.previewProduct.file?.path)
+                            imgPhoto.setImageBitmap(resultFile)
+
+                        }else{
+                            val resultFile = rotateBitmap(
+                                BitmapFactory.decodeFile(arguments.previewProduct.file?.path),arguments.previewProduct.isBackCamera
+                            )
+                            imgPhoto.setImageBitmap(resultFile)
+                        }
+
                     }
                 }
             }
@@ -93,17 +102,19 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
         val location = arguments.previewProduct.location.createPartFromString()
 
         val map = HashMap<String, RequestBody>().apply {
-            put("name",productName)
+            put("name", productName)
             put("base_price",productPrice)
-            put("description",productDescription)
-            put("category_ids",category)
-            put("location",location)
+            put("description", productDescription)
+            put("category_ids", category)
+            put("location", location)
         }
-        val file = arguments.previewProduct.file
+        val files = arguments.previewProduct.file
+        val file = reduceFileImage(files as File, arguments.previewProduct.isBackCamera,
+            arguments.previewProduct.isGalery)
         val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
             "image",
-            file?.name,
+            file.name,
             requestImageFile
         )
         val addSellerProductRequest = AddSellerProductRequest(
