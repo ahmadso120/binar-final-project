@@ -11,10 +11,10 @@ class AuthRemoteDataSource(
 ) {
     suspend fun login(loginRequest: LoginRequest) =
         authService.login(loginRequest)
-//    suspend fun register(registerRequest: RegisterRequest)=
-//        authService.register(registerRequest)
-suspend fun register(file: MultipartBody.Part?, partMap: Map<String, RequestBody>)=
-    authService.register(file,partMap)
+
+    suspend fun register(registerRequest: RegisterRequest)=
+    authService.register(registerRequest)
+
 }
 
 

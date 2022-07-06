@@ -23,13 +23,7 @@ import org.json.JSONObject
 interface AuthRepository {
     fun login(loginRequest: LoginRequest): LiveData<Result<LoginResponse>>
     fun setUserLoggedIn(userLoggedIn: UserLoggedIn)
-
-
-//    fun register(registerRequest: RegisterRequest): LiveData<Result<RegisterResponse>>
-
-    fun register(file: MultipartBody.Part?,
-                 partMap: Map<String, RequestBody>): LiveData<Result<RegisterResponse>>
-
+    fun register(registerRequest:RegisterRequest): LiveData<Result<RegisterResponse>>
     fun isUserHasLoggedIn(): Flow<Boolean>
 
 
@@ -72,12 +66,12 @@ class AuthRepositoryImpl(
         val isUserHasLoggedIn = appLocalData.isUserHasLoggedIn
         emit(isUserHasLoggedIn)
     }
-override fun register(  file: MultipartBody.Part?,
-                        partMap: Map<String, RequestBody>): LiveData<Result<RegisterResponse>> =
+
+    override fun register(registerRequest:RegisterRequest): LiveData<Result<RegisterResponse>> =
     liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = authRemoteDataSource.register(file,partMap)
+            val response = authRemoteDataSource.register(registerRequest)
             if (response.isSuccessful) {
                 val data = response.body()
                 data?.let {
