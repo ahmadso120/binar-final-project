@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.sell.previewsellproduct.PreviewSellFragment">
+
+    <ImageView
+        android:id="@+id/imgPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/fi_camera"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardBrand"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        android:layout_marginTop="-60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPhoto">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/brandName_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Brand Name"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/brandCategories_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Brand Categories"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/brandPrice_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Brand Price"
+                android:layout_marginTop="12dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardSeller"
+        android:layout_width="300dp"
+        android:layout_height="90dp"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardBrand">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageSeller"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/fi_camera"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sellerName_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Nama Penjual"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toEndOf="@+id/imageSeller"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sellerCity_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:hint="Kota"
+                app:layout_constraintStart_toEndOf="@+id/imageSeller"
+                app:layout_constraintTop_toBottomOf="@+id/sellerName_TextView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDescription"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:padding="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardSeller">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/descriptionTittle_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/description_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description Text"
+                android:layout_marginTop="12dp"/>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_btn"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Simpan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

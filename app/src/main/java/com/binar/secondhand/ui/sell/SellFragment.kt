@@ -21,6 +21,7 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.SellerProductRequest
+import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.camera.CameraFragment
@@ -59,9 +60,39 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         binding.saveBtn.setOnClickListener{
             addSellerProduct()
         }
+        binding.previewBtn.setOnClickListener {
+            previewProduct()
+        }
 
         setupObserver()
         observeUI()
+    }
+    fun previewProduct(){
+        val productName = binding.productNameEdt.text.toString()
+        val productPrice = binding.ProductPriceEditText.text.toString().toInt()
+        val productDescription = binding.descriptionEdt.text.toString()
+        val category = categoryId.toString()
+        val location = binding.locationEdt.text.toString()
+
+        val previewProduct =
+            PreviewProduct(
+                productName=productName,
+                productPrice=productPrice,
+                productDescription=productDescription,
+                category=category,
+                location=location,
+                file = getFile,
+                isBackCamera = isBackCamera,
+                isGalery = isImageFromGallery
+            )
+        if(getFile != null){
+            logd("RESULT IS BACK CAMERA => $isBackCamera")
+            logd("RESULT IS GALERY => $isImageFromGallery")
+            findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
+        }else{
+            Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun addSellerProduct(){
@@ -71,6 +102,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             val productDescription = binding.descriptionEdt.text.toString().createPartFromString()
             val category = categoryId.toString().createPartFromString()
             val location = binding.locationEdt.text.toString().createPartFromString()
+
             val map = HashMap<String, RequestBody>().apply {
                 put("name",productName)
                 put("base_price",productPrice)
@@ -88,7 +120,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 )
                 logd("img $imageMultipart")
 
-
                 val sellerProductRequest = SellerProductRequest(
                     imageMultipart,
                     map
@@ -100,12 +131,16 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     file = null,
                     map
                 )
-
                 logd("acc $sellerProductRequest")
                 viewModel.doAddSellerProductRequest(sellerProductRequest)
 
-            }
+                if(getFile != null){
+                    viewModel.doAddSellerProductRequest(sellerProductRequest)
+                }else{
+                    Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+                }
 
+            }
         }
     }
 
@@ -156,7 +191,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
                 val myFile = result?.getSerializable("picture") as File
                 isBackCamera = result.getBoolean("isBackCamera", true)
-
                 getFile = myFile
                 isImageFromGallery = false
 
@@ -193,6 +227,13 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 }
             }
         }
+
+
+
+
+
+
+
     }
         private fun observeUI() {
             viewModel.addSellerProduct.observe(viewLifecycleOwner) {
