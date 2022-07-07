@@ -10,7 +10,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
-import com.binar.secondhand.data.source.remote.request.AddSellerProductRequest
+import com.binar.secondhand.data.source.remote.request.SellerProductRequest
 import com.binar.secondhand.databinding.FragmentPreviewSellBinding
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
@@ -117,7 +117,7 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
             file.name,
             requestImageFile
         )
-        val addSellerProductRequest = AddSellerProductRequest(
+        val addSellerProductRequest = SellerProductRequest(
             file = imageMultipart,
             map
         )

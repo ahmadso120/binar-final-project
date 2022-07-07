@@ -26,7 +26,10 @@ class NotificationRepositoryImpl(private val notificationRemoteDataSource: Notif
                 if (response.isSuccessful){
                     val data = response.body()
                     data?.let {
-                        emit(Result.Success(it))
+                       val filtered = it.filter { item ->
+                           item.product != null
+                       }
+                        emit(Result.Success(filtered))
                     }
                 }else{
                     loge("getNotification()=> Request error")
@@ -52,7 +55,7 @@ class NotificationRepositoryImpl(private val notificationRemoteDataSource: Notif
                     val data = response.body()
                     data?.let {
                         val unRead = it.filter { item ->
-                            !item.read
+                            !item.read && item.product != null
                         }.size
                         emit(Result.Success(unRead))
                     }

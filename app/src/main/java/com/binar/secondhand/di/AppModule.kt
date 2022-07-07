@@ -13,6 +13,7 @@ import com.binar.secondhand.ui.sellerorder.SellerOrderViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
 import com.binar.secondhand.ui.sellerproduct.SellerProductViewModel
 import com.binar.secondhand.ui.sellerproduct.detail.SellerProductDetailViewModel
+import com.binar.secondhand.ui.sellerproduct.updateproduct.UpdateProductViewmodel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -41,4 +42,6 @@ val viewModelModule = module {
     viewModel { SellerProductViewModel(get()) }
 
     viewModel { SellerProductDetailViewModel(get(),get()) }
+
+    viewModel { UpdateProductViewmodel(get(),get()) }
 }

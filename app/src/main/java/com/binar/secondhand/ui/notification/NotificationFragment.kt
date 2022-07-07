@@ -11,8 +11,10 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentNotificationBinding
+import com.binar.secondhand.storage.AppLocalData
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -87,7 +89,7 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
                 }
                 is Result.Success -> {
-                    findNavController().navigate(R.id.action_notificationFragment_to_sellListFragment)
+                    Toast.makeText(requireContext(), "read",Toast.LENGTH_SHORT).show()
                 }
             }
 

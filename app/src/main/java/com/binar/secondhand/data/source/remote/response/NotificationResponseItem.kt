@@ -23,11 +23,17 @@ data class NotificationResponseItem(
     @SerializedName("seller_name")
     val sellerName: String,
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("transaction_date")
     val transactionDate: String,
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("Product")
-    val product: ProductResponse?
+    val product: ProductResponse?,
+    @SerializedName("User")
+    val user: UserResponse?,
+    @SerializedName("base_price")
+    val basePrice: String,
+    @SerializedName("product_name")
+    val productName: String
 )

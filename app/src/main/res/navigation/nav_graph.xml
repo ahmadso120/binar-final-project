@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_sellListFragment"
             app:destination="@id/sellListFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_sellerProductFragment"
+            app:destination="@id/sellerProductFragment" />
     </fragment>
 
     <action
@@ -105,6 +108,9 @@
         <action
             android:id="@+id/action_sellerProductFragment_to_sellerProductDetailFragment"
             app:destination="@id/sellerProductDetailFragment" />
+        <action
+            android:id="@+id/action_sellerProductFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
     </fragment>
 
     <fragment
@@ -164,10 +170,27 @@
         android:label="fragment_seller_product_detail"
         tools:layout="@layout/fragment_seller_product_detail" >
 
-
-            <argument
-                android:name="id"
-                app:argType="integer" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProductFragment"
+        android:name="com.binar.secondhand.ui.sellerproduct.updateproduct.UpdateProductFragment"
+        android:label="fragment_update_product"
+        tools:layout="@layout/fragment_update_product" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_updateProductFragment_to_sellerProductFragment"
+            app:destination="@id/sellerProductFragment"
+            app:popUpTo="@id/updateProductFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_updateProductFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
         </fragment>
+
 
 </navigation>

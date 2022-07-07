@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -21,8 +20,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
-import com.binar.secondhand.data.source.remote.request.AccountRequest
-import com.binar.secondhand.data.source.remote.request.AddSellerProductRequest
+import com.binar.secondhand.data.source.remote.request.SellerProductRequest
 import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
@@ -121,25 +119,26 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     requestImageFile
                 )
                 logd("img $imageMultipart")
-                val addSellerProductRequest = AddSellerProductRequest(
+
+                val sellerProductRequest = SellerProductRequest(
                     imageMultipart,
                     map
                 )
-                logd("acc $addSellerProductRequest")
-                viewModel.doAddSellerProductRequest(addSellerProductRequest)
+                logd("acc $sellerProductRequest")
+                viewModel.doAddSellerProductRequest(sellerProductRequest)
             }else{
-                val addSellerProductRequest = AddSellerProductRequest(
+                val sellerProductRequest = SellerProductRequest(
                     file = null,
                     map
                 )
-                //button preview
-                logd("acc $addSellerProductRequest")
+                logd("acc $sellerProductRequest")
+                viewModel.doAddSellerProductRequest(sellerProductRequest)
+
                 if(getFile != null){
-                    viewModel.doAddSellerProductRequest(addSellerProductRequest)
+                    viewModel.doAddSellerProductRequest(sellerProductRequest)
                 }else{
                     Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
                 }
-
 
             }
         }
