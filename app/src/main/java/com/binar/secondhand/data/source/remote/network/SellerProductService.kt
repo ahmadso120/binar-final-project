@@ -1,9 +1,6 @@
 package com.binar.secondhand.data.source.remote.network
 
-import com.binar.secondhand.data.source.remote.request.AddSellerProductRequest
-import com.binar.secondhand.data.source.remote.request.RegisterRequest
 import com.binar.secondhand.data.source.remote.response.DeleteSellerProductResponse
-import com.binar.secondhand.data.source.remote.response.RegisterResponse
 import com.binar.secondhand.data.source.remote.response.SellerProductResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -31,5 +28,14 @@ interface SellerProductService {
     @GET("seller/product/{id}")
     suspend fun getSellerProductDetail(
         @Path("id") id : Int
+    ): Response<SellerProductResponse>
+
+    @Multipart
+    @JvmSuppressWildcards
+    @PUT("seller/product/{id}")
+    suspend fun updateProduct(
+        @Path("id") id : Int,
+        @Part file: MultipartBody.Part?,
+        @PartMap partMap: Map<String, RequestBody>,
     ): Response<SellerProductResponse>
 }

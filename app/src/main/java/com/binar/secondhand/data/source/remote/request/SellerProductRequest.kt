@@ -5,7 +5,7 @@ import okhttp3.RequestBody
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 
-data class AddSellerProductRequest (
+data class SellerProductRequest (
     @Part val file: MultipartBody.Part?,
     @PartMap val partMap: Map<String, RequestBody>
 )

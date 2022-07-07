@@ -43,7 +43,6 @@
         android:layout_marginBottom="16dp"
         android:text="Kamu akan segera dihubung penjual via Whatsapp"
         android:textSize="11sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/product_image_card_view"
         app:layout_constraintTop_toBottomOf="@+id/bid_price_text_view" />

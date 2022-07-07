@@ -21,7 +21,6 @@
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/bottom_sheet_home_product_filter.xml" value="0.1" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/custom_list.xml" value="0.1" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/dialog_logout.xml" value="0.5025906735751295" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.33" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/list_item_product.xml" value="0.5" />
@@ -86,6 +85,11 @@
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.19739583333333333" />
         <entry key="app/src/main/res/layout/fragment_sell.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_sell_list.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/fragment_seller_order.xml" value="0.2898550724637681" />
+        <entry key="app/src/main/res/layout/fragment_seller_order_view_pager.xml" value="0.2898550724637681" />
+        <entry key="app/src/main/res/layout/fragment_seller_product.xml" value="0.3489583333333333" />
+        <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_notification.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.3182291666666667" />

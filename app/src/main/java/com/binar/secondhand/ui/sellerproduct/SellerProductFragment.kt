@@ -54,6 +54,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                             noItemImageView.visibility = View.VISIBLE
                             noItemTextView.visibility = View.VISIBLE
                             chckBackTextView.visibility = View.VISIBLE
+                            recyclerview.visibility = View.GONE
                         }
                     } else {
                         val layoutManager = LinearLayoutManager(
@@ -68,11 +69,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         binding.recyclerview.adapter = SellerProductAdapter(
                             item = sortIdDesc,
                             onCardClicked = {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "clicked card ${it.status}",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
                             },
                             onDeleteClicked = {
                                 deleteProduct(
@@ -81,7 +78,11 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                                 )
                             },
                             onpreviewClicked = {
-                              findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToSellerProductDetailFragment(it.id))
+                                findNavController().navigate(
+                                    SellerProductFragmentDirections.actionSellerProductFragmentToSellerProductDetailFragment(
+                                        it.id
+                                    )
+                                )
                             }
                         )
                     }
