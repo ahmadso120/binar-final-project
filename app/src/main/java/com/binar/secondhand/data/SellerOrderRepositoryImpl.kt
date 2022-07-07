@@ -6,14 +6,15 @@ import com.binar.secondhand.data.source.remote.SellerOrderRemoteDataSource
 import com.binar.secondhand.data.source.remote.response.SellerOrderResponse
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
+import okhttp3.RequestBody
 import org.json.JSONObject
 
 interface SellerOrderRepository {
     fun getSellerOrder(): LiveData<Result<List<SellerOrderResponse>>>
+    fun getSellerOrderById(id: Int): LiveData<Result<SellerOrderResponse>>
+    suspend fun updateStatusOrder(id: Int, status: RequestBody): Boolean
 }
+
 class SellerOrderRepositoryImpl(
     private val dataSource: SellerOrderRemoteDataSource
 ) : SellerOrderRepository {
@@ -23,13 +24,16 @@ class SellerOrderRepositoryImpl(
             val response = dataSource.getSellerOrder()
             if (response.isSuccessful) {
                 val data = response.body()
-                if (!data.isNullOrEmpty()) {
-                    emit(Result.Success(data))
+                val filteredData = data?.filter {
+                    it.status != "declined"
+                }
+                if (!filteredData.isNullOrEmpty()) {
+                    emit(Result.Success(filteredData))
                 } else {
                     emit(Result.Success(emptyList()))
                 }
             } else {
-                loge("login() => Request error")
+                loge("getSellerOrder() => Request error")
                 val error = response.errorBody()?.string()
                 if (error != null) {
                     val jsonObject = JSONObject(error)
@@ -38,8 +42,42 @@ class SellerOrderRepositoryImpl(
                 }
             }
         } catch (e: Exception) {
-            loge("login() => ${e.message}")
+            loge("getSellerOrder() => ${e.message}")
             emit(Result.Error(null, "Something went wrong"))
+        }
+    }
+
+    override fun getSellerOrderById(id: Int): LiveData<Result<SellerOrderResponse>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = dataSource.getSellerOrderById(id)
+            if (response.isSuccessful) {
+                val data = response.body()
+                if (data != null) {
+                    emit(Result.Success(data))
+                }
+            } else {
+                loge("getSellerOrderById() => Request error")
+                val error = response.errorBody()?.string()
+                if (error != null) {
+                    val jsonObject = JSONObject(error)
+                    val message = jsonObject.getString("message")
+                    emit(Result.Error(null, message))
+                }
+            }
+        } catch (e: Exception) {
+            loge("getSellerOrderById() => ${e.message}")
+            emit(Result.Error(null, "Something went wrong"))
+        }
+    }
+
+    override suspend fun updateStatusOrder(id: Int, status: RequestBody) : Boolean {
+        return try {
+            val response = dataSource.updateStatusOrder(id, status)
+            response.isSuccessful
+        } catch (e: Exception) {
+            loge("updateStatusOrder() => ${e.message}")
+            false
         }
     }
 }
