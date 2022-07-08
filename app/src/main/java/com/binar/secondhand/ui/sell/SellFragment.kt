@@ -60,7 +60,16 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             addSellerProduct()
         }
         binding.previewBtn.setOnClickListener {
+
             previewProduct()
+        }
+
+            if ( binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryId != 0 && binding.locationEdt.text.toString() != ""){
+                previewProduct()
+            }else{
+                Toast.makeText(requireContext(),"Something Wrong",Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
     private fun previewProduct(){
@@ -69,7 +78,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         val productDescription = binding.descriptionEdt.text.toString()
         val category = categoryId.toString()
         val location = binding.locationEdt.text.toString()
-
         val previewProduct =
             PreviewProduct(
                 productName=productName,
@@ -81,16 +89,15 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 isBackCamera = isBackCamera,
                 isGalery = isImageFromGallery
             )
+        logd("HARGA +> $productPrice")
         if(getFile != null){
             logd("RESULT IS BACK CAMERA => $isBackCamera")
             logd("RESULT IS GALERY => $isImageFromGallery")
             findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
         }else{
-            Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
         }
-
     }
-
     private fun addSellerProduct(){
         binding.apply {
             val productName = binding.productNameEdt.text.toString().createPartFromString()
@@ -133,14 +140,12 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 if(getFile != null){
                     viewModel.doAddSellerProductRequest(sellerProductRequest)
                 }else{
-                    Toast.makeText(requireContext(),"Sertakan Gambar", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
                 }
 
             }
         }
     }
-
-
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireActivity())
             .setMessage("choose Image")
@@ -208,8 +213,12 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
 
         viewModel.category.observe(viewLifecycleOwner) {
             when (it) {
-                is Result.Error -> {}
-                Result.Loading -> {}
+                is Result.Error -> {
+                    view?.showShortSnackbar("Something Wrong")
+                }
+                Result.Loading -> {
+
+                }
                 is Result.Success -> {
                     val items = it.data.plus(CategoryResponse(0, "Pilih Kategori"))
                     val names = items.map { names -> names.name }
@@ -229,7 +238,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             viewModel.addSellerProduct.observe(viewLifecycleOwner) {
                 when (it) {
                     is Result.Error -> {
-                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+
                     }
                     Result.Loading -> {
 

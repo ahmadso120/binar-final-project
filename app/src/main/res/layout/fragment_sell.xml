@@ -48,7 +48,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:hint="Harga Produk"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,29 +60,13 @@
                         android:imeOptions="actionNext"
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/profile_Image_View"-->
-<!--                    android:layout_width="136dp"-->
-<!--                    android:layout_height="131dp"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    android:src="@drawable/ic_avatar"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-
-
-
-
 <!--                kategori-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/category_filter_dropdown_menu"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_padding_size_small"
+                    android:layout_marginTop="24dp"
                     app:boxStrokeWidth="1dp"
                     app:boxStrokeWidthFocused="1dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -97,37 +81,12 @@
                         android:inputType="none" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/textFieldCategory"-->
-<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="32dp"-->
-<!--                    android:hint="Kategori"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/textFieldProductPrice">-->
-
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:id="@+id/category_edt"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:imeOptions="actionNext"-->
-<!--                        android:inputType="textMultiLine"-->
-<!--                        android:gravity="top|start"-->
-<!--                        android:maxLines="5"-->
-<!--                        android:scrollbars="vertical"-->
-<!--                        />-->
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--                lokasi-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textFieldLocation"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:hint="Lokasi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +107,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="24dp"
                     android:hint="Deskripsi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
