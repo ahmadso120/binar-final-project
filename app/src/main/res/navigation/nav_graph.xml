@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_homeFragment_to_notificationFragment2"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
 
     <fragment
@@ -204,6 +207,17 @@
             android:id="@+id/action_bidderInfoFragment_to_sellListFragment"
             app:destination="@id/sellListFragment" />
     </fragment>
-
-
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.binar.secondhand.ui.productdetail.ProductDetailFragment"
+        android:label="ProductDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="message"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

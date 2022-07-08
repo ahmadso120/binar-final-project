@@ -13,5 +13,7 @@ data class UserResponse(
     @field:SerializedName("full_name")
     val fullName: String,
     @field:SerializedName("phone_number")
-    val phoneNumber: String
+    val phoneNumber: String,
+    @field:SerializedName("image_url")
+    val imageUrl: String?
 ) : Parcelable

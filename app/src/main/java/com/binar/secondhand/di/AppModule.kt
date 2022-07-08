@@ -8,6 +8,7 @@ import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
 import com.binar.secondhand.ui.login.LoginViewModel
 import com.binar.secondhand.ui.notification.NotificationViewModel
+import com.binar.secondhand.ui.productdetail.ProductDetailViewModel
 import com.binar.secondhand.ui.register.RegisterViewModel
 import com.binar.secondhand.ui.sellerorder.SellerOrderViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
@@ -44,4 +45,6 @@ val viewModelModule = module {
     viewModel { SellerProductDetailViewModel(get(),get()) }
 
     viewModel { UpdateProductViewmodel(get(),get()) }
+
+    viewModel { ProductDetailViewModel(get(), get()) }
 }

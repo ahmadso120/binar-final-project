@@ -27,7 +27,7 @@ class SellerCategoryRepositoryImpl(
                         emit(Result.Success(it))
                     }
                 } else {
-                    loge("login() => Request error")
+                    loge("getCategories() => Request error")
                     val error = response.errorBody()?.string()
                     if (error != null) {
                         val jsonObject = JSONObject(error)
@@ -36,7 +36,7 @@ class SellerCategoryRepositoryImpl(
                     }
                 }
             } catch (e: Exception) {
-                loge("login() => ${e.message}")
+                loge("getCategories() => ${e.message}")
                 emit(Result.Error(null, "Something went wrong"))
             }
         }
