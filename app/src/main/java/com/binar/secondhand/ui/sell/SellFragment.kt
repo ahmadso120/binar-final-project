@@ -40,13 +40,10 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     override var bottomNavigationViewVisibility = View.GONE
     private val binding: FragmentSellBinding by viewBinding()
     private val viewModel by viewModel<SellerViewModel>()
-
+    private var categoryId : Int = 0
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
-    private var categoryId : Int = 0
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,6 +51,8 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        observeUI()
+        setupObserver()
         binding.addPhotoBtn.setOnClickListener{
             chooseImageDialog()
         }
@@ -61,6 +60,10 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             addSellerProduct()
         }
         binding.previewBtn.setOnClickListener {
+
+            previewProduct()
+        }
+
             if ( binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryId != 0 && binding.locationEdt.text.toString() != ""){
                 previewProduct()
             }else{
@@ -68,8 +71,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             }
 
         }
-        setupObserver()
-        observeUI()
     }
     private fun previewProduct(){
         val productName = binding.productNameEdt.text.toString()
@@ -191,6 +192,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
                 val myFile = result?.getSerializable("picture") as File
                 isBackCamera = result.getBoolean("isBackCamera", true)
+
                 getFile = myFile
                 isImageFromGallery = false
 

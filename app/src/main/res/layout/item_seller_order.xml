@@ -29,9 +29,9 @@
             android:id="@+id/materialTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_padding_size_medium"
             android:text="Penawaran produk"
             android:textSize="@dimen/text_size_micro"
-            android:layout_marginStart="@dimen/margin_padding_size_medium"
             app:layout_constraintStart_toEndOf="@+id/product_image"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,8 +49,8 @@
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_small"
             android:layout_marginTop="@dimen/margin_padding_size_micro"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/materialTextView"
             app:layout_constraintTop_toBottomOf="@+id/materialTextView"
@@ -60,8 +60,8 @@
             android:id="@+id/base_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?colorOnSurface"
             android:layout_marginTop="@dimen/margin_padding_size_micro"
+            android:textColor="?colorOnSurface"
             app:layout_constraintStart_toStartOf="@+id/product_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/product_name_tv"
             tools:text="Rp 4.000.000" />
@@ -70,11 +70,60 @@
             android:id="@+id/bid_price_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?colorOnSurface"
             android:layout_marginTop="@dimen/margin_padding_size_micro"
+            android:textColor="?colorOnSurface"
             app:layout_constraintStart_toStartOf="@+id/base_price_tv"
             app:layout_constraintTop_toBottomOf="@+id/base_price_tv"
             tools:text="Ditawar Rp. 3.500.000" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/decline"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_padding_size_micro"
+            android:text="Tolak"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/accept"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bid_price_tv" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/accept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Terima"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/decline"
+            app:layout_constraintTop_toTopOf="@+id/decline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/status"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/margin_padding_size_micro"
+            app:layout_constraintEnd_toStartOf="@+id/contact"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bid_price_tv" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Contact"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/status"
+            app:layout_constraintTop_toTopOf="@+id/status" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
