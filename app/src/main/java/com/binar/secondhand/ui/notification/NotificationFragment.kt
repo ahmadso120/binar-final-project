@@ -11,8 +11,10 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentNotificationBinding
+import com.binar.secondhand.storage.AppLocalData
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,10 +31,13 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
         }
 
         observeUI()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            observeUI()
+        }
     }
 
-    private fun observeUI(){
-        viewModel.getAllNotification().observe(viewLifecycleOwner){
+    private fun observeUI() {
+        viewModel.getAllNotification().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
 
@@ -41,18 +46,53 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
                 }
                 is Result.Success -> {
-                val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-                    binding.recyclerview.layoutManager = layoutManager
-                    binding.recyclerview.adapter= NotificationAdapter(it.data){
-                        Toast.makeText(requireContext(),"clicked ${it.id}",Toast.LENGTH_SHORT).show()
+                    binding.contentLoadingLayout.visibility = View.GONE
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (it.data.isEmpty()) {
+                        binding.apply {
+                            noItemImageView.visibility = View.VISIBLE
+                            noItemTextView.visibility = View.VISIBLE
+                            chckBackTextView.visibility = View.VISIBLE
+                        }
+                    } else {
+                        val layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        binding.recyclerview.layoutManager = layoutManager
+                        val sortIdDesc = it.data.sortedWith(compareBy {
+                            it.id
+                        }).reversed()
+                        binding.recyclerview.adapter = NotificationAdapter(sortIdDesc) { item ->
+                            viewModel.doPatchNotification(item.id)
+                        }
+                        val divider = MaterialDividerItemDecoration(
+                            requireContext(),
+                            layoutManager.orientation
+                        )
+                        divider.dividerInsetStart = 40
+                        divider.dividerInsetEnd = 40
+                        binding.recyclerview.addItemDecoration(divider)
                     }
-                    val divider = MaterialDividerItemDecoration(requireContext(), layoutManager.orientation)
-                    divider.dividerInsetStart = 32
-                    divider.dividerInsetEnd = 32
-                    binding.recyclerview.addItemDecoration(divider)
 
                 }
             }
+        }
+        viewModel.patchNotification.observe(viewLifecycleOwner) { item ->
+            when (item) {
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    Toast.makeText(requireContext(), "read",Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 }

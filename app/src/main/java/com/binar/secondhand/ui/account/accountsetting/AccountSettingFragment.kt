@@ -35,6 +35,9 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
         }
         changePassEmail()
         getResp()
+        binding.materialToolbar2.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
 
@@ -68,7 +71,6 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
             }
 
         }
-
     }
     private fun getResp(){
         binding.apply {
@@ -86,8 +88,6 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
                     is Result.Success -> {
                         val name = it.data.fullName
                         view?.showShortSnackbar("Halo ${name},passwordmu sudah diganti")
-                        LogoutProcess.execute(appLocalData, binding)
-
                     }
                 }
             }

@@ -2,6 +2,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="badge_count_textsize">6sp</dimen>
     <dimen name="padding_recyclerview">12dp</dimen>
+    <dimen name="product_detail_app_bar_height">278dp</dimen>
+    <dimen name="toolbar_elevation">5dp</dimen>
     <!--
 		# Material Design Dimensions
 		These common dimensions for spacing and typepography that
@@ -9,6 +11,7 @@
 	-->
 
     <!-- Margin & Padding, 8 dp baseline, https://material.io/design/layout/understanding-layout.html -->
+    <dimen name="margin_padding_size_micro">4dp</dimen>
     <dimen name="margin_padding_size_small">8dp</dimen>
     <dimen name="margin_padding_size_medium">16dp</dimen>
     <dimen name="margin_padding_size_large">24dp</dimen>
