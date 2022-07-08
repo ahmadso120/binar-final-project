@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -14,6 +15,7 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentSearchBinding
 import com.binar.secondhand.utils.ui.*
+import com.google.android.material.appbar.MaterialToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -33,6 +35,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.search1Et.focusAndShowKeyboard()
+        val materialToolbar: MaterialToolbar = binding.materialToolbar2
+        materialToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()
@@ -91,7 +97,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                         }else{
                             notFoundUi()
                         }
-                        
+
                     }
                 }
             }
