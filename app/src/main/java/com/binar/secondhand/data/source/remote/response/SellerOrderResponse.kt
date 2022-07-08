@@ -1,7 +1,10 @@
 package com.binar.secondhand.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class SellerOrderResponse(
     @field:SerializedName("Product")
     val product: ProductResponse,
@@ -16,4 +19,4 @@ data class SellerOrderResponse(
     val productId: Int,
     val status: String,
     val updatedAt: String
-)
+) : Parcelable
