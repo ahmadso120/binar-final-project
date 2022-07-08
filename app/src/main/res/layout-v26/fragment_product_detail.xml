@@ -74,8 +74,8 @@
         android:layout_marginStart="@dimen/margin_padding_size_medium"
         android:layout_marginEnd="@dimen/margin_padding_size_medium"
         android:clipToPadding="false"
+        android:paddingBottom="72dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,6 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/margin_padding_size_micro"
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
@@ -102,28 +101,28 @@
 
                     <TextView
                         android:id="@+id/product_name_tv"
-                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        tools:text="Jam tangan casio" />
+                        tools:text="Jam tangan casio"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/categories_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_padding_size_micro"
-                        android:maxLines="1"
                         android:textSize="@dimen/text_size_micro"
-                        tools:text="Aksesoris, Jam" />
+                        android:maxLines="1"
+                        android:layout_marginTop="@dimen/margin_padding_size_micro"
+                        tools:text="Aksesoris, Jam"/>
 
                     <TextView
                         android:id="@+id/base_price_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_padding_size_micro"
+                        tools:text="Rp 250.000"
                         android:textColor="@color/black"
-                        tools:text="Rp 250.000" />
+                        android:layout_marginTop="@dimen/margin_padding_size_micro"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </com.google.android.material.card.MaterialCardView>
@@ -162,21 +161,21 @@
                             android:id="@+id/initials_tv"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            tools:text="AS"
                             android:gravity="center"
-                            android:textColor="?colorPrimary"
                             android:textSize="@dimen/text_size_medium"
-                            tools:text="AS" />
+                            android:textColor="?colorPrimary"/>
                     </FrameLayout>
 
                     <TextView
                         android:id="@+id/user_name_tv"
-                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="@dimen/margin_padding_size_micro"
                         android:layout_marginStart="@dimen/margin_padding_size_medium"
                         android:layout_marginEnd="@dimen/margin_padding_size_medium"
-                        android:layout_marginBottom="@dimen/margin_padding_size_micro"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@+id/city_tv"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -214,18 +213,18 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Deskripsi"
-                        android:textStyle="bold" />
+                        style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/description_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_medium"
-                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum" />
+                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </com.google.android.material.card.MaterialCardView>
 

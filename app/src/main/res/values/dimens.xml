@@ -2,6 +2,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="badge_count_textsize">6sp</dimen>
     <dimen name="padding_recyclerview">12dp</dimen>
+    <dimen name="product_detail_app_bar_height">278dp</dimen>
+    <dimen name="toolbar_elevation">5dp</dimen>
     <!--
 		# Material Design Dimensions
 		These common dimensions for spacing and typepography that

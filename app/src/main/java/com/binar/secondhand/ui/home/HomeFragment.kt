@@ -55,7 +55,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             viewModel.filterCategoryProduct(viewModel.categoryId)
         }
 
-
         setupAdapter()
 
         observeUi()
@@ -90,7 +89,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
         viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
-//            findNavController().navigate()
+            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.buyerProductId)
+            findNavController().navigate(action)
         })
     }
 

@@ -29,6 +29,7 @@ val networkModule = module {
     factory { createService<SellerCategoryService>(get(), get()) }
     factory { createService<SellerOrderService>(get(), get()) }
     factory { createService<SellerProductService>(get(),get()) }
+    factory { createService<BuyerOrderService>(get(),get()) }
 }
 
 private fun createOkHttpClient(accessTokenInterceptor: AccessTokenInterceptor): OkHttpClient {
