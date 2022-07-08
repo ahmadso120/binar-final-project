@@ -69,7 +69,15 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         binding.recyclerview.adapter = SellerProductAdapter(
                             item = sortIdDesc,
                             onCardClicked = {
-                                findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
+                                if (it.status == "sold"){
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Produkmu Telah Terjual",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }else{
+                                    findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
+                                }
                             },
                             onDeleteClicked = {
                                 deleteProduct(
@@ -103,7 +111,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         is Result.Error -> {
                             Snackbar.make(
                                 binding.root,
-                                "Produkmu gagal dihapus: ${it.error}",
+                                "Produkmu gagal dihapus, periksa penwaran",
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
