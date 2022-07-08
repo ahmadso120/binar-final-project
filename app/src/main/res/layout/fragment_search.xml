@@ -5,46 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
 
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar2"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_left"
+            app:subtitleCentered="true"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <EditText
-                android:id="@+id/search1"
-                android:layout_width="350dp"
+                android:id="@+id/search1_et"
+                android:layout_width="280dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:hint="search"
+                android:autofillHints=""
+                android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/fi_search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search1"
-                app:layout_constraintTop_toTopOf="parent" />
+            <Button
+                android:id="@+id/cancel_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_baseline_cancel_24" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+
+
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:layout_marginTop="30dp"
 
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -54,13 +72,37 @@
             tools:context=".ui.search.SearchFragment">
 
 
+            <com.binar.secondhand.ui.widget.ContentLoadingLayout
+                android:id="@+id/content_loading_layout"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="?actionBarSize"
+                android:background="?attr/colorSurface"
+                android:visibility="invisible"/>
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/search_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+
+            </androidx.recyclerview.widget.RecyclerView>
         </FrameLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/notfound_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:text="Data tidak ditemukan" />
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

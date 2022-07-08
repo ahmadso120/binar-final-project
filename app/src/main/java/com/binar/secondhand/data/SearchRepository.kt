@@ -2,6 +2,8 @@ package com.binar.secondhand.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.binar.secondhand.data.source.local.SearchHistoryDataSource
+import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.data.source.remote.SearchDataSource
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.loge
@@ -10,10 +12,13 @@ import org.json.JSONObject
 
 interface SearchRepository {
     fun search (query : String): LiveData<Result<List<BuyerProductResponse>>>
+//    fun getSearchHistory(): LiveData<List<SearchHistory>>
+//    suspend fun addSearchHistory(history:String)
 }
 
 class SearchRepositoryImpl(
-    private val searchDataSource: SearchDataSource
+    private val searchDataSource: SearchDataSource,
+//    private val searchHistoryDataSource: SearchHistoryDataSource
 ):SearchRepository{
     override fun search(query: String):LiveData<Result<List<BuyerProductResponse>>> = liveData(Dispatchers.IO){
         emit(Result.Loading)
@@ -39,5 +44,13 @@ class SearchRepositoryImpl(
             emit(Result.Error(null, "Something went wrong"))
         }
     }
+
+//    override fun getSearchHistory(): LiveData<List<SearchHistory>> = liveData(Dispatchers.IO) {
+//        searchHistoryDataSource.getSearchHistory()
+//    }
+//
+//    override suspend fun addSearchHistory(history: String) {
+//        return searchHistoryDataSource.insert(history)
+//    }
 
 }
