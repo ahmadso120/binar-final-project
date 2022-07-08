@@ -78,8 +78,10 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                         product.data.apply {
                             productNameEdt.setText(name)
                             productPriceEditText.setText(basePrice.toString())
-                            categories.map {
-                                categoryEditText.setText(it.name)
+                            if(categoryId == 0){
+                                categories.map {
+                                    categoryEditText.setText(it.name)
+                                }
                             }
                             locationEdt.setText(location)
                             descriptionEdt.setText(description)
