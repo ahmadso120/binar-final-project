@@ -43,6 +43,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
                     true
                 }
+                R.id.search ->{
+                    findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+                    true
+                }
                 else -> false
             }
         }

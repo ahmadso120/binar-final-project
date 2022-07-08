@@ -24,8 +24,13 @@
             android:id="@+id/action_homeFragment_to_notificationFragment2"
             app:destination="@id/notificationFragment" />
         <action
+
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
+
     </fragment>
 
     <fragment
@@ -149,6 +154,11 @@
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
     <fragment
+
+        android:id="@+id/searchFragment"
+        android:name="com.binar.secondhand.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+
         android:id="@+id/sellListViewPagerFragment"
         android:name="com.binar.secondhand.ui.sellerorder.SellerOrderViewPagerFragment"
         android:label="fragment_sell_list_view_pager"
@@ -220,4 +230,5 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
+
 </navigation>
