@@ -158,7 +158,7 @@
         android:id="@+id/searchFragment"
         android:name="com.binar.secondhand.ui.search.SearchFragment"
         android:label="SearchFragment" />
-
+    <fragment
         android:id="@+id/sellListViewPagerFragment"
         android:name="com.binar.secondhand.ui.sellerorder.SellerOrderViewPagerFragment"
         android:label="fragment_sell_list_view_pager"
