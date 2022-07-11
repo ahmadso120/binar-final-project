@@ -6,7 +6,7 @@ import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 
 @Database(
-    entities = [BuyerProductEntity::class,SearchHistory::class],
+    entities = [BuyerProductEntity::class],
     version = 1,
     exportSchema = false
 )

@@ -18,7 +18,6 @@ val repositoryModule = module {
     single {SearchDataSource(get())}
 
 
-    single {AccountRemoteDataSource(get())}
 
     single { AccountRemoteDataSource(get()) }
 
