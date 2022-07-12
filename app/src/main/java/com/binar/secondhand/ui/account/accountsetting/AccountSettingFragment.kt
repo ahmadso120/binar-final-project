@@ -48,13 +48,15 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
         binding.apply {
 
             button.setOnClickListener{
+                val oldPassword = currentPassEt.text.toString()
                 val newPassword = passwordEdt.text.toString()
                 val confirmPassword = repeatPassEdt.text.toString()
                 val accReq = AccountSettingRequest(
-                    password = newPassword,
-                    city = ""
+                    current_password = oldPassword ,
+                    new_password = newPassword,
+                    confirm_password = confirmPassword
                 )
-                if (newPassword=="" || confirmPassword==""){
+                if (oldPassword=="" ||newPassword=="" || confirmPassword==""){
 //                    view?.showShortSnackbar("isi terlebih dahulu")
                     errorText.text = "isi terlebih dahulu"
                     errorText.visibility = View.VISIBLE
@@ -86,8 +88,11 @@ class AccountSettingFragment : BaseFragment(R.layout.fragment_account_setting) {
 
                     }
                     is Result.Success -> {
-                        val name = it.data.fullName
-                        view?.showShortSnackbar("Halo ${name},passwordmu sudah diganti")
+                        val name = it.data.message
+                        view?.showShortSnackbar("${name}")
+                        LogoutProcess.execute(appLocalData, binding)
+
+
                     }
                 }
             }
