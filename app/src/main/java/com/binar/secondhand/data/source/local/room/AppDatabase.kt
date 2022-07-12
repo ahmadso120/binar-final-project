@@ -2,18 +2,14 @@ package com.binar.secondhand.data.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
-import com.binar.secondhand.data.source.local.entity.CategoryBuyerProductCrossRef
-import com.binar.secondhand.data.source.local.entity.CategoryEntity
+import com.binar.secondhand.data.source.local.entity.SearchHistory
 
 @Database(
-    entities = [BuyerProductEntity::class, CategoryEntity::class, CategoryBuyerProductCrossRef::class],
+    entities = [BuyerProductEntity::class],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun buyerProductDao(): BuyerProductDao
 }

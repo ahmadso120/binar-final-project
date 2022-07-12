@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.binar.secondhand.data.source.local.entity.BuyerProductWithCategories
+import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.databinding.ListItemProductBinding
+import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class ProductAdapter(
-    private var onDetailClick: (BuyerProductWithCategories) -> Unit
-) : ListAdapter<BuyerProductWithCategories, ProductAdapter.ProductViewHolder>(ProductDiffCallBack) {
+    private var onDetailClick: (BuyerProductEntity) -> Unit
+) : ListAdapter<BuyerProductEntity, ProductAdapter.ProductViewHolder>(ProductDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -22,15 +23,17 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = getItem(position)
         holder.binding.apply {
-            product.buyerProductEntity.imageUrl?.let {
+            product.imageUrl?.let {
                 productImage.loadPhotoUrl(it)
             }
-            val categories = product.categories?.map {
-                it.name
+            productNameTv.text = product.name
+            locationTv.text = product.location
+            product.basePrice?.let {
+                priceTv.text = "Rp. ${it.currencyFormatter()}"
             }
-            productNameTv.text = product.buyerProductEntity.name
-            categoriesTv.text = categories?.joinToString()
-            priceTv.text = "Rp. " + product.buyerProductEntity.basePrice
+            root.setOnClickListener {
+                onDetailClick(product)
+            }
         }
     }
 
@@ -38,17 +41,17 @@ class ProductAdapter(
         val binding: ListItemProductBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
-    object ProductDiffCallBack: DiffUtil.ItemCallback<BuyerProductWithCategories>() {
+    object ProductDiffCallBack: DiffUtil.ItemCallback<BuyerProductEntity>() {
         override fun areItemsTheSame(
-            oldItem: BuyerProductWithCategories,
-            newItem: BuyerProductWithCategories
+            oldItem: BuyerProductEntity,
+            newItem: BuyerProductEntity
         ): Boolean {
-            return oldItem.buyerProductEntity.buyerProductId == newItem.buyerProductEntity.buyerProductId
+            return oldItem.buyerProductId == newItem.buyerProductId
         }
 
         override fun areContentsTheSame(
-            oldItem: BuyerProductWithCategories,
-            newItem: BuyerProductWithCategories
+            oldItem: BuyerProductEntity,
+            newItem: BuyerProductEntity
         ): Boolean {
             return oldItem == newItem
         }

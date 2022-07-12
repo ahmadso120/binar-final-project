@@ -3,47 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_bell.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_camera.xml" value="0.1455" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_edit.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_home.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_list.xml" value="0.142" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_logout.xml" value="0.211" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_plus_circle.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_search.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_settings.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/fi_user.xml" value="0.142" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.142" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_capture.xml" value="0.2115" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_fi_edit_3.xml" value="0.1065" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_fi_log_out.xml" value="0.1065" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_fi_settings.xml" value="0.1065" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/drawable/ic_launcher_background.xml" value="0.142" />
-
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
-
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/account_item_list.xml" value="0.25" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/activity_image.xml" value="0.18" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/bottom_sheet_home_product_filter.xml" value="0.1" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/custom_list.xml" value="0.1" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.25" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/dialog_logout.xml" value="0.5025906735751295" />
+        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
         <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/list_item_product.xml" value="0.5" />
-
-
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.5" />
-
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_arrow_left.xml" value="0.112" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_avatar.xml" value="0.162" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_camera_icon.xml" value="0.162" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_capture.xml" value="0.162" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.162" />
-
-
-
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account_setting.xml" value="0.25416666666666665" />
@@ -54,52 +40,60 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell_list.xml" value="0.25416666666666665" />
-
-
-
-
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.25" />
-
-
-
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_account.xml" value="0.67" />
-        <entry key="..\:/Studi Independen/Praktikum/Kelompok/app/src/main/res/layout/fragment_edit_account.xml" value="0.33" />
-
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/chip_outline.xml" value="0.337" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/chip_outline_selected.xml" value="0.337" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_list.xml" value="0.1955" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_plus_circle.xml" value="0.1955" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_user.xml" value="0.1955" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_arrow_left.xml" value="0.337" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_capture.xml" value="0.2135" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_denger.xml" value="0.1" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_fi_arrow_left_round.xml" value="0.359" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_rectangle.xml" value="0.202" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/ic_switch_camera.xml" value="0.2135" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/empty_state_layout.xml" value="0.3625" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_account.xml" value="0.22" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_account_setting.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_camera.xml" value="0.22" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_edit_account.xml" value="0.25" />
-        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.17647058823529413" />
-
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.1" />
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account_setting.xml" value="0.25" />
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_edit_account.xml" value="0.1721014492753623" />
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_login.xml" value="0.18" />
-        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_register.xml" value="0.25" />
-
-        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.3120471014492754" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.5" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_product_detail.xml" value="0.14895833333333333" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_register.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_order_view_pager.xml" value="0.1762917933130699" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_product.xml" value="0.3625" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/fragment_seller_product_detail.xml" value="0.33" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_dropdown_list.xml" value="0.3625" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_notification.xml" value="0.3625" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_seller_order.xml" value="0.3625" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/item_seller_product.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/list_item_product.xml" value="0.3625" />
+        <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/layout/loading_state_layout.xml" value="0.3625" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/menu/home_menu.xml" value="0.3569230769230769" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account.xml" value="0.1" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_account_setting.xml" value="0.25" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_edit_account.xml" value="0.1721014492753623" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_login.xml" value="0.1" />
-
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-v26/fragment_product_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.4171463012695313" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.19739583333333333" />
+        <entry key="app/src/main/res/layout/fragment_preview_sell.xml" value="0.2898550724637681" />
+        <entry key="app/src/main/res/layout/fragment_product_detail.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_sell.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_sell_list.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/fragment_seller_order.xml" value="0.2898550724637681" />
+        <entry key="app/src/main/res/layout/fragment_seller_order_view_pager.xml" value="0.2898550724637681" />
+        <entry key="app/src/main/res/layout/fragment_seller_product.xml" value="0.3489583333333333" />
+        <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.17682926829268292" />
+        <entry key="app/src/main/res/layout/item_notification.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.3182291666666667" />

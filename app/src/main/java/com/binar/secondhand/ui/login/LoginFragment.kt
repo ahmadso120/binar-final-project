@@ -2,6 +2,7 @@ package com.binar.secondhand.ui.login
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -10,6 +11,8 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.LoginRequest
 import com.binar.secondhand.databinding.FragmentLoginBinding
 import com.binar.secondhand.storage.UserLoggedIn
+import com.binar.secondhand.utils.ui.focusAndShowKeyboard
+import com.binar.secondhand.utils.ui.hideKeyboard
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,11 +24,17 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
     private val viewModel by viewModel<LoginViewModel>()
 
+    private lateinit var savedStateHandle: SavedStateHandle
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+        savedStateHandle[LOGIN_SUCCESSFUL] = false
 
         binding.apply {
+            emailEdt.focusAndShowKeyboard()
             loginBtn.setOnClickListener {
+                requireActivity().currentFocus?.hideKeyboard()
                 val loginRequest = LoginRequest(
                     emailEdt.text.toString().trim(),
                     passwordEdt.text.toString().trim()
@@ -35,6 +44,9 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
             registerTv.setOnClickListener {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+            }
+            toolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
         }
 
@@ -62,9 +74,14 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                         it.data.email
                     )
                     viewModel.setUserLoggedIn(userLoggedIn)
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    savedStateHandle[LOGIN_SUCCESSFUL] = true
+                    findNavController().popBackStack()
                 }
             }
         }
+    }
+
+    companion object {
+        const val LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL"
     }
 }

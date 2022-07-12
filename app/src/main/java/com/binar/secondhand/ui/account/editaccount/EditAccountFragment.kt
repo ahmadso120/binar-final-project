@@ -49,6 +49,9 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+        binding.initialsTextView.setOnClickListener {
+            chooseImageDialog()
+        }
 
         binding.profileImageView.setOnClickListener {
             chooseImageDialog()
@@ -134,6 +137,8 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                 binding.root.showShortSnackbar("No such file or directory")
             }
             isImageFromGallery = true
+            binding.profileImageCardView.visibility = View.VISIBLE
+            binding.initialsTextView.visibility = View.GONE
             binding.profileImageView.setImageURI(selectedImg)
         }
     }
@@ -158,6 +163,8 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                     BitmapFactory.decodeFile(getFile?.path),
                     isBackCamera
                 )
+                binding.profileImageCardView.visibility = View.VISIBLE
+                binding.initialsTextView.visibility = View.GONE
                 binding.profileImageView.setImageBitmap(resultFile)
             }
         }
@@ -187,8 +194,15 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                         phoneNumberEdt.setText(it.data.phoneNumber)
                         if (getFile == null) {
                             if (it.data.imageUrl.isNullOrEmpty()){
-                                profileImageView.setImageResource(R.drawable.ic_avatar)
+                                initialsTextView.visibility = View.VISIBLE
+                                val name = it.data.fullName
+                                val initials = name.trim()
+                                    .splitToSequence(" ", limit = 2)
+                                    .map { it.first() }
+                                    .joinToString("").uppercase()
+                               initialsTextView.text = initials
                             }else{
+                                profileImageCardView.visibility = View.VISIBLE
                                 with(profileImageView) { it.data.imageUrl.let { url -> loadPhotoUrl(url) } }
                             }
 

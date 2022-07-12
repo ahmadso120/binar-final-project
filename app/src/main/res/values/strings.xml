@@ -19,4 +19,8 @@
     <string name="password_baru">Password baru</string>
     <string name="konfirmasi_password">Konfirmasi Password</string>
     <string name="ubah">Ubah</string>
+    <string name="base_price_text">Rp. %s</string>
+    <string name="bid_price_text">Ditawar Rp. %s</string>
+
+    <string name="empty_state_order_text">Belum ada produkmu yang diminati nih. sabar ya rejeki ngga kemana kok</string>
 </resources>

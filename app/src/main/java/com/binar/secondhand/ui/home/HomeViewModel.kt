@@ -2,11 +2,8 @@ package com.binar.secondhand.ui.home
 
 import androidx.lifecycle.*
 import com.binar.secondhand.data.BuyerRepository
-import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.SellerCategoryRepository
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
-import com.binar.secondhand.data.source.local.entity.BuyerProductWithCategories
-import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.Event
 
 class HomeViewModel(
@@ -15,24 +12,23 @@ class HomeViewModel(
 ) : ViewModel() {
 
     var categoryId: Int = 0
+    private val _filterCategoryProduct = MutableLiveData(categoryId)
 
-    private val _filterCategoryProductLiveData = MutableLiveData(categoryId)
-
-    val buyerProductsLiveData: LiveData<Result<List<BuyerProductWithCategories>>> = _filterCategoryProductLiveData.switchMap {
+    val buyerProducts = _filterCategoryProduct.switchMap {
         buyerRepository.getBuyerProducts(it).asLiveData()
     }
 
-    fun filterCategoryProductHome(categoryId: Int) {
-        _filterCategoryProductLiveData.value = categoryId
+    fun filterCategoryProduct(categoryId: Int) {
+        _filterCategoryProduct.value = categoryId
     }
 
     val categories = sellerCategoryRepository.getCategories()
 
-    private val _navigateToBuyerProductDetail = MutableLiveData<Event<BuyerProductWithCategories>>()
-    val navigateToBuyerProductDetail: LiveData<Event<BuyerProductWithCategories>>
+    private val _navigateToBuyerProductDetail = MutableLiveData<Event<BuyerProductEntity>>()
+    val navigateToBuyerProductDetail: LiveData<Event<BuyerProductEntity>>
         get() = _navigateToBuyerProductDetail
 
-    fun onBuyerProductClicked(buyerProductResponse: BuyerProductWithCategories) {
+    fun onBuyerProductClicked(buyerProductResponse: BuyerProductEntity) {
         _navigateToBuyerProductDetail.value = Event(buyerProductResponse)
     }
 }
