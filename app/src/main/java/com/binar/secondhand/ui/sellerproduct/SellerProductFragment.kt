@@ -1,11 +1,10 @@
 package com.binar.secondhand.ui.sellerproduct
 
-import android.annotation.SuppressLint
+
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -39,7 +38,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
 
     private fun observeUI() {
         viewModel.getSellerProduct().observe(viewLifecycleOwner) {
-            when (it) {
+            when(it) {
                 is Result.Error -> {
 
                 }
@@ -111,11 +110,13 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         is Result.Error -> {
                             Snackbar.make(
                                 binding.root,
-                                "Produkmu gagal dihapus, periksa penwaran",
+                                "Produkmu gagal dihapus, periksa penawaran",
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
-                        Result.Loading -> {}
+                        Result.Loading -> {
+
+                        }
                         is Result.Success -> {
                             Snackbar.make(
                                 binding.root,
