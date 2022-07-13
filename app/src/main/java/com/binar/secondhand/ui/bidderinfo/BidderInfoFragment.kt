@@ -156,11 +156,11 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                             }
                         }
                     }
-                    productImage.loadPhotoUrl(data.product.imageUrl)
+                    data.product.imageUrl?.let { it1 -> productImage.loadPhotoUrl(it1) }
                     orderDateTv.text = data.updatedAt.dateTimeFormatter()
                     productNameTv.text = data.product.name
                     basePriceTv.text = requireContext().getString(
-                        R.string.base_price_text, data.product.basePrice.currencyFormatter()
+                        R.string.base_price_text, data.product.basePrice?.currencyFormatter()
                     )
                     basePriceTv.paintFlags = basePriceTv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     bidPriceTv.text = requireContext().getString(
