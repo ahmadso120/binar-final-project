@@ -33,10 +33,10 @@ class SellerOrderAdapter(
         val item = getItem(position)
         val context = holder.binding.root.context
         holder.binding.apply {
-            productImage.loadPhotoUrl(item.product.imageUrl)
+            item.product.imageUrl?.let { productImage.loadPhotoUrl(it) }
             productNameTv.text = item.product.name
             basePriceTv.text = context.getString(
-                R.string.base_price_text, item.product.basePrice.currencyFormatter()
+                R.string.base_price_text, item.product.basePrice?.currencyFormatter()
             )
             basePriceTv.paintFlags = basePriceTv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             bidPriceTv.text = context.getString(
