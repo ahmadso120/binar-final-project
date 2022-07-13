@@ -46,7 +46,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
             toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
         }
 

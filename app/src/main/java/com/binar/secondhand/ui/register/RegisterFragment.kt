@@ -76,7 +76,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                     binding.registerBtn.text = "loading"
                 }
                 is Result.Success ->{
-                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    findNavController().popBackStack()
                 }
             }
         }
