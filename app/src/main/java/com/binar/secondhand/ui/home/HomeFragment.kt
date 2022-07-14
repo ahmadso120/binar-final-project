@@ -23,9 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
-
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val viewModel by sharedViewModel<HomeViewModel>()

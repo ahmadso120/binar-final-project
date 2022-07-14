@@ -20,14 +20,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
     private val binding: FragmentNotificationBinding by viewBinding()
+
     private val viewModel by viewModel<NotificationViewModel>()
+
     override var bottomNavigationViewVisibility = View.GONE
+
+    override var requireAuthentication = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val toolbar: MaterialToolbar = binding.materialToolbar2
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
 
         observeUI()

@@ -16,13 +16,11 @@ import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
-
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentSellerProductBinding by viewBinding()
 
     private val viewModel by viewModel<SellerProductViewModel>()
 
+    override var requireAuthentication = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,7 +73,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                                         Snackbar.LENGTH_LONG
                                     ).show()
                                 }else{
-                                    findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
+                                    navController.navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
                                 }
                             },
                             onDeleteClicked = {
@@ -85,7 +83,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                                 )
                             },
                             onpreviewClicked = {
-                                findNavController().navigate(
+                                navController.navigate(
                                     SellerProductFragmentDirections.actionSellerProductFragmentToSellerProductDetailFragment(
                                         it.id
                                     )
