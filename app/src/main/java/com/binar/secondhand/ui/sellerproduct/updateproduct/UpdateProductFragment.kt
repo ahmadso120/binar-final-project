@@ -38,19 +38,25 @@ import java.io.File
 
 class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     override var bottomNavigationViewVisibility = View.GONE
+
     private val binding: FragmentUpdateProductBinding by viewBinding()
+
     private val args: UpdateProductFragmentArgs by navArgs()
+
     private var categoryId: Int = 0
+
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
+
     val viewModel by viewModel<UpdateProductViewmodel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val toolbar: MaterialToolbar = binding.materialToolbar2
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
         val id = args.id
         observeUI(id)
@@ -96,7 +102,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     }
 
     private fun setupObserver() {
-        val navController = findNavController()
+        val navController = navController
         val navBackStackEntry = navController.getBackStackEntry(R.id.updateProductFragment)
         val window = activity?.window
         window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -152,7 +158,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
             .setMessage("choose Image")
             .setPositiveButton("Gallery") { _, _ -> startGallery() }
             .setNegativeButton("Camera") { _, _ ->
-                findNavController().navigate(R.id.action_updateProductFragment_to_cameraFragment)
+                navController.navigate(R.id.action_updateProductFragment_to_cameraFragment)
             }
             .show()
     }
@@ -225,7 +231,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                     "Update Success",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                                navController.navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                             }
                         }
                     }
@@ -253,7 +259,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                     "Update Success",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                                navController.navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                             }
                         }
                     }

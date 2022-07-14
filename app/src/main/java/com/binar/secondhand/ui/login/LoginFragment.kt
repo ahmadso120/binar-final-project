@@ -43,10 +43,10 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 loginBtn.isEnabled = false
             }
             registerTv.setOnClickListener {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+                navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
             toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
+                navController.navigateUp()
             }
         }
 
@@ -75,7 +75,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     )
                     viewModel.setUserLoggedIn(userLoggedIn)
                     savedStateHandle[LOGIN_SUCCESSFUL] = true
-                    findNavController().popBackStack()
+                    navController.popBackStack()
                 }
             }
         }

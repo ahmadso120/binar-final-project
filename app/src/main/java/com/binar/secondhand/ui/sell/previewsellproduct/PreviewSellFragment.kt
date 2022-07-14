@@ -29,10 +29,14 @@ import java.io.File
 
 class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
     override var bottomNavigationViewVisibility = View.GONE
+
     private val binding: FragmentPreviewSellBinding by viewBinding()
+
     private val viewModelProduct by viewModel<SellerViewModel>()
     private val viewModelSeller by viewModel<EditAccountViewModel>()
+
     private val arguments : PreviewSellFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         logd("PreviewFragment : $arguments")
@@ -89,7 +93,7 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
                 Result.Loading -> {
                 }
                 is Result.Success -> {
-                    findNavController().navigate(R.id.action_previewSellFragment_to_homeFragment)
+                    navController.navigate(R.id.action_previewSellFragment_to_homeFragment)
                 }
             }
         }

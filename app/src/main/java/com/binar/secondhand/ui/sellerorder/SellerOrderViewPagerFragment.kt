@@ -19,8 +19,6 @@ import com.binar.secondhand.utils.ui.showShortSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order_view_pager) {
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentSellerOrderViewPagerBinding by viewBinding()
 
     private lateinit var sellerOrderAdapter: SellerOrderAdapter

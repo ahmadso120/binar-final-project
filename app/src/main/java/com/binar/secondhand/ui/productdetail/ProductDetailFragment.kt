@@ -2,6 +2,7 @@ package com.binar.secondhand.ui.productdetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -28,16 +29,12 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
-    private val navigation: NavController by lazy {
-        findNavController()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.id
         if (id == 0) {
-            navigation.popBackStack()
+            navController.popBackStack()
         }
 
         viewModel.setIdProduct(id)
@@ -46,7 +43,7 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
 
         binding.apply {
             toolbar.setNavigationOnClickListener { view ->
-                view.findNavController().navigateUp()
+                navController.navigateUp()
             }
         }
     }
@@ -63,7 +60,7 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                 is Result.Success -> {
                     if (it.data == null) {
                         view?.showShortSnackbar("Produk tidak ditemukan")
-                        navigation.popBackStack()
+                        navController.popBackStack()
                     } else {
                         showSuccessState()
                         setupUi(it.data)
@@ -91,10 +88,19 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
             userNameTv.text = data.user.fullName
             cityTv.text = data.user.city
             descriptionTv.text = data.description
+
             interestProductButton.setOnClickListener {
-                InputBidPriceBottomSheet
-                    .newInstance(data)
-                    .show(childFragmentManager, InputBidPriceBottomSheet.TAG)
+                viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                    authViewModel.isUserHasLoggedIn.collect {
+                        if (!it) {
+                            executeRequireAuthentication()
+                        } else {
+                            InputBidPriceBottomSheet
+                                .newInstance(data)
+                                .show(childFragmentManager, InputBidPriceBottomSheet.TAG)
+                        }
+                    }
+                }
             }
         }
     }
