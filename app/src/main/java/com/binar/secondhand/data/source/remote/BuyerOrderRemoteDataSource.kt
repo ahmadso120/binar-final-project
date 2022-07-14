@@ -7,4 +7,6 @@ class BuyerOrderRemoteDataSource(
     private val service: BuyerOrderService
 ) {
     suspend fun bidProduct(bidProductRequest: BidProductRequest) = service.bidProduct(bidProductRequest)
+
+    suspend fun hasProductOrdered() = service.hasProductOrdered()
 }

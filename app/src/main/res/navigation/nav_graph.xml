@@ -229,6 +229,17 @@
             android:name="message"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
+            app:destination="@id/inputBidPriceBottomSheet" />
     </fragment>
+    <dialog
+        android:id="@+id/inputBidPriceBottomSheet"
+        android:name="com.binar.secondhand.ui.productdetail.InputBidPriceBottomSheet"
+        android:label="InputBidPriceBottomSheet" >
+        <argument
+            android:name="product"
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductResponse" />
+    </dialog>
 
 </navigation>

@@ -2,10 +2,9 @@ package com.binar.secondhand.ui.productdetail
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -29,20 +28,41 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
+    private var productId: Int? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = args.id
-        if (id == 0) {
-            navController.popBackStack()
+        productId = args.id
+        productId?.let {
+            viewModel.setIdProduct(it)
         }
 
-        viewModel.setIdProduct(id)
+        val navBackStackEntry = navController.getBackStackEntry(R.id.productDetailFragment)
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains("resultKey")
+            ) {
+                val result = navBackStackEntry.savedStateHandle.get<Boolean>("resultKey")
+                result?.let {
+                    productId?.let {
+                        viewModel.setIdProduct(it)
+                    }
+                }
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
 
         observeUi()
 
         binding.apply {
-            toolbar.setNavigationOnClickListener { view ->
+            toolbar.setNavigationOnClickListener {
                 navController.navigateUp()
             }
         }
@@ -59,12 +79,21 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                 }
                 is Result.Success -> {
                     if (it.data == null) {
-                        view?.showShortSnackbar("Produk tidak ditemukan")
-                        navController.popBackStack()
+                        view?.showShortSnackbar("Produk tidak ditemukan", false)
+                        navController.navigateUp()
                     } else {
-                        showSuccessState()
                         setupUi(it.data)
                     }
+                }
+            }
+        }
+
+        viewModel.hasProductOrdered.observe(viewLifecycleOwner) {
+            showSuccessState()
+            if (it) {
+                binding.interestProductButton.apply {
+                    isEnabled = false
+                    text = "Menunggu respon penjual"
                 }
             }
         }
@@ -95,9 +124,9 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                         if (!it) {
                             executeRequireAuthentication()
                         } else {
-                            InputBidPriceBottomSheet
-                                .newInstance(data)
-                                .show(childFragmentManager, InputBidPriceBottomSheet.TAG)
+                            val action = ProductDetailFragmentDirections
+                                .actionProductDetailFragmentToInputBidPriceBottomSheet(data)
+                            navController.navigate(action)
                         }
                     }
                 }
