@@ -3,6 +3,8 @@ package com.binar.secondhand.ui.account
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment

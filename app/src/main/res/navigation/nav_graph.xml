@@ -215,7 +215,7 @@
         android:name="com.binar.secondhand.ui.account.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
-
+    <fragment
         android:id="@+id/bidderInfoFragment"
         android:name="com.binar.secondhand.ui.bidderinfo.BidderInfoFragment"
         android:label="fragment_bidder_info"
