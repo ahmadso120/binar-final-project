@@ -55,20 +55,22 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         observeUI()
         var listView = binding.listview
         var menuAccount: ArrayList<MenuAccount> = ArrayList()
+        menuAccount.add(MenuAccount("Riwayat",R.drawable.ic_baseline_history_edu_24))
         menuAccount.add(MenuAccount("Ubah Akun", R.drawable.ic_fi_edit))
         menuAccount.add(MenuAccount("Ubah Password", R.drawable.ic_fi_settings))
         menuAccount.add(MenuAccount("Keluar", R.drawable.ic_fi_log_out))
 
+
         listView.adapter = CustomAdapterAccount(requireContext(), menuAccount)
         listView.setOnItemClickListener { _, _, position, _ ->
             when (position) {
-                0 -> {
+                1 -> {
                     navController.navigate(R.id.action_accountFragment_to_editAccountFragment)
                 }
-                1 -> {
+                2 -> {
                     navController.navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
-                2 -> {
+                3 -> {
                     builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("Keluar dari SecondHand")
                         .setMessage("Apakah anda ingin keluar ?")
@@ -87,6 +89,8 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                         }
                         .show()
                 }
+                0 ->
+                    findNavController().navigate(R.id.action_accountFragment_to_historyFragment)
             }
         }
     }
