@@ -33,6 +33,9 @@ val networkModule = module {
 
     factory { createService<SellerOrderService>(get(), get()) }
     factory { createService<SellerProductService>(get(),get()) }
+
+    factory { createService<HistoryService>(get(),get()) }
+
     factory { createService<BuyerOrderService>(get(),get()) }
 
 }

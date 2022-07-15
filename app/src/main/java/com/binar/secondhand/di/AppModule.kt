@@ -3,6 +3,7 @@ package com.binar.secondhand.di
 
 import com.binar.secondhand.ui.account.accountsetting.AccountSettingViewModel
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
+import com.binar.secondhand.ui.account.history.HistoryViewModel
 import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
@@ -51,9 +52,13 @@ val viewModelModule = module {
     viewModel { UpdateProductViewmodel(get(),get()) }
 
 
+    viewModel { HistoryViewModel(get()) }
+
+
 
     viewModel {SearchViewModel(get())}
 
     viewModel { ProductDetailViewModel(get(), get()) }
+
 
 }

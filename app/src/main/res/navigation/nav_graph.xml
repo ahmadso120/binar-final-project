@@ -77,6 +77,11 @@
         <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+
+        <action
+            android:id="@+id/action_accountFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+
     </fragment>
 
     <fragment
@@ -205,6 +210,12 @@
             app:destination="@id/cameraFragment" />
         </fragment>
     <fragment
+
+        android:id="@+id/historyFragment"
+        android:name="com.binar.secondhand.ui.account.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+
         android:id="@+id/bidderInfoFragment"
         android:name="com.binar.secondhand.ui.bidderinfo.BidderInfoFragment"
         android:label="fragment_bidder_info"
@@ -241,5 +252,6 @@
             android:name="product"
             app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductResponse" />
     </dialog>
+
 
 </navigation>
