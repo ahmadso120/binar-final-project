@@ -15,6 +15,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -25,6 +27,7 @@ import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.camera.CameraFragment
+import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
@@ -32,46 +35,51 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
 class SellFragment : BaseFragment(R.layout.fragment_sell) {
     override var bottomNavigationViewVisibility = View.GONE
+
+    override var requireAuthentication = true
+
     private val binding: FragmentSellBinding by viewBinding()
+
     private val viewModel by viewModel<SellerViewModel>()
+
+    private var categoryId: Int = 0
 
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
-    private var categoryId : Int = 0
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
-        binding.addPhotoBtn.setOnClickListener{
+        observeUI()
+        setupObserver()
+        binding.addPhotoBtn.setOnClickListener {
             chooseImageDialog()
         }
-        binding.saveBtn.setOnClickListener{
+        binding.saveBtn.setOnClickListener {
             addSellerProduct()
         }
         binding.previewBtn.setOnClickListener {
-            if ( binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryId != 0 && binding.locationEdt.text.toString() != ""){
+            if (binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryId != 0 && binding.locationEdt.text.toString() != "") {
                 previewProduct()
-            }else{
-                Toast.makeText(requireContext(),"Something Wrong",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_SHORT).show()
             }
-
         }
-        setupObserver()
-        observeUI()
     }
-    private fun previewProduct(){
+
+    private fun previewProduct() {
         val productName = binding.productNameEdt.text.toString()
         val productPrice = binding.ProductPriceEditText.text.toString().toInt()
         val productDescription = binding.descriptionEdt.text.toString()
@@ -79,25 +87,30 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         val location = binding.locationEdt.text.toString()
         val previewProduct =
             PreviewProduct(
-                productName=productName,
-                productPrice=productPrice,
-                productDescription=productDescription,
-                category=category,
-                location=location,
+                productName = productName,
+                productPrice = productPrice,
+                productDescription = productDescription,
+                category = category,
+                location = location,
                 file = getFile,
                 isBackCamera = isBackCamera,
                 isGalery = isImageFromGallery
             )
         logd("HARGA +> $productPrice")
-        if(getFile != null){
+        if (getFile != null) {
             logd("RESULT IS BACK CAMERA => $isBackCamera")
             logd("RESULT IS GALERY => $isImageFromGallery")
-            findNavController().navigate(SellFragmentDirections.actionSellFragmentToPreviewSellFragment(previewProduct))
-        }else{
-            Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
+            navController.navigate(
+                SellFragmentDirections.actionSellFragmentToPreviewSellFragment(
+                    previewProduct
+                )
+            )
+        } else {
+            Toast.makeText(requireContext(), "Failed", Toast.LENGTH_LONG).show()
         }
     }
-    private fun addSellerProduct(){
+
+    private fun addSellerProduct() {
         binding.apply {
             val productName = binding.productNameEdt.text.toString().createPartFromString()
             val productPrice = binding.ProductPriceEditText.text.toString().createPartFromString()
@@ -106,11 +119,11 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             val location = binding.locationEdt.text.toString().createPartFromString()
 
             val map = HashMap<String, RequestBody>().apply {
-                put("name",productName)
-                put("base_price",productPrice)
-                put("description",productDescription)
-                put("category_ids",category)
-                put("location",location)
+                put("name", productName)
+                put("base_price", productPrice)
+                put("description", productDescription)
+                put("category_ids", category)
+                put("location", location)
             }
             if (getFile != null) {
                 val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
@@ -128,7 +141,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 )
                 logd("acc $sellerProductRequest")
                 viewModel.doAddSellerProductRequest(sellerProductRequest)
-            }else{
+            } else {
                 val sellerProductRequest = SellerProductRequest(
                     file = null,
                     map
@@ -136,24 +149,26 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 logd("acc $sellerProductRequest")
                 viewModel.doAddSellerProductRequest(sellerProductRequest)
 
-                if(getFile != null){
+                if (getFile != null) {
                     viewModel.doAddSellerProductRequest(sellerProductRequest)
-                }else{
-                    Toast.makeText(requireContext(),"Failed", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(requireContext(), "Failed", Toast.LENGTH_LONG).show()
                 }
 
             }
         }
     }
+
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireActivity())
             .setMessage("choose Image")
             .setPositiveButton("Gallery") { _, _ -> startGallery() }
             .setNegativeButton("Camera") { _, _ ->
-                findNavController().navigate(R.id.action_sellFragment_to_cameraFragment)
+                navController.navigate(R.id.action_sellFragment_to_cameraFragment)
             }
             .show()
     }
+
     private fun startGallery() {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
@@ -179,7 +194,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
 
 
     private fun setupObserver() {
-        val navController = findNavController()
+        val navController = navController
         val navBackStackEntry = navController.getBackStackEntry(R.id.sellFragment)
         val window = activity?.window
         window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -191,6 +206,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                     navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
                 val myFile = result?.getSerializable("picture") as File
                 isBackCamera = result.getBoolean("isBackCamera", true)
+
                 getFile = myFile
                 isImageFromGallery = false
 
@@ -232,21 +248,24 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             }
         }
     }
-        private fun observeUI() {
-            viewModel.addSellerProduct.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Result.Error -> {
 
-                    }
-                    Result.Loading -> {
+    private fun observeUI() {
+        viewModel.addSellerProduct.observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Error -> {
 
-                    }
-                    is Result.Success -> {
-                        findNavController().navigate(R.id.action_sellFragment_to_homeFragment)
-                    }
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    navController.navigate(R.id.action_sellFragment_to_homeFragment)
                 }
             }
         }
     }
+}
+
+
 
 

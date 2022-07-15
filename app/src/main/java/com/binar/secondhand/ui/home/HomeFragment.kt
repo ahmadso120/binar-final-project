@@ -23,9 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalBadgeUtils
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
-
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentHomeBinding by viewBinding()
 
     private val viewModel by sharedViewModel<HomeViewModel>()
@@ -43,6 +40,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
                     true
                 }
+                R.id.search ->{
+                    findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+                    true
+                }
                 else -> false
             }
         }
@@ -54,7 +55,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             isRefreshing = true
             viewModel.filterCategoryProduct(viewModel.categoryId)
         }
-
 
         setupAdapter()
 
@@ -90,7 +90,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
         viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
-//            findNavController().navigate()
+            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.buyerProductId)
+            findNavController().navigate(action)
         })
     }
 

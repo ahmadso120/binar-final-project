@@ -31,6 +31,9 @@ class ProductAdapter(
             product.basePrice?.let {
                 priceTv.text = "Rp. ${it.currencyFormatter()}"
             }
+            root.setOnClickListener {
+                onDetailClick(product)
+            }
         }
     }
 

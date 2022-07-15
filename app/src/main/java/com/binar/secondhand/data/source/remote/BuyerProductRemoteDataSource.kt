@@ -34,4 +34,6 @@ class BuyerProductRemoteDataSource(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getBuyerProductById(id: Int) = buyerProductService.getBuyerProductById(id)
 }

@@ -16,22 +16,42 @@ val repositoryModule = module {
     single { BuyerProductRemoteDataSource(get()) }
     single { AuthRemoteDataSource(get()) }
     single { AccSettDataSource(get()) }
+
+    single {SearchDataSource(get())}
+
+
+
     single { AccountRemoteDataSource(get()) }
+
     single { NotificationRemoteDataSource(get()) }
     single { SellerCategoryDataSource(get()) }
     single { SellerOrderRemoteDataSource(get()) }
+
     single {SellerProductDataSource(get())}
     single {HistoryDataSource(get())}
+
+    single { BuyerOrderRemoteDataSource(get()) }
+
 
     factory { AppExecutors() }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
     single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
     single<AccSettRepo> { AccSettRepoImpl(get()) }
+
+    single<SearchRepository>{SearchRepositoryImpl(get())}
+
+
+
+
     single<AccountRepository>{AccountRepositoryImpl(get())}
     single<NotificatioRepository> {NotificationRepositoryImpl(get())  }
     single<SellerCategoryRepository> { SellerCategoryRepositoryImpl(get()) }
     single<SellerOrderRepository> { SellerOrderRepositoryImpl(get()) }
     single<SellerProductRepository> { SellerProductRepositoryImpl(get()) }
+
     single<HistoryRepository> {HistoryRepositoryImpl(get()) }
+
+    single<BuyerOrderRepository> { BuyerOrderRepositoryImpl(get()) }
+
 }

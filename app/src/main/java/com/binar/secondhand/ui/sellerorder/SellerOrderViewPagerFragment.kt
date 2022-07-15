@@ -2,6 +2,7 @@ package com.binar.secondhand.ui.sellerorder
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -15,12 +16,9 @@ import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.show
 import com.binar.secondhand.utils.ui.showShortSnackbar
-import com.google.android.gms.dynamic.IFragmentWrapper
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order_view_pager) {
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentSellerOrderViewPagerBinding by viewBinding()
 
     private lateinit var sellerOrderAdapter: SellerOrderAdapter
@@ -58,8 +56,9 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
                 }
             }
         }
-        viewModel.navigateToBidderInfo.observe(viewLifecycleOwner, EventObserver{
-            view?.showShortSnackbar(it.product.name)
+        viewModel.navigateToBidderInfo.observe(viewLifecycleOwner, EventObserver {
+            val action = SellerOrderFragmentDirections.actionSellListFragmentToBidderInfoFragment(it.id)
+            findNavController().navigate(action)
         })
     }
 

@@ -1,11 +1,10 @@
 package com.binar.secondhand.ui.sellerproduct
 
-import android.annotation.SuppressLint
+
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,13 +16,11 @@ import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
-
-    override var bottomNavigationViewVisibility = View.VISIBLE
-
     private val binding: FragmentSellerProductBinding by viewBinding()
 
     private val viewModel by viewModel<SellerProductViewModel>()
 
+    override var requireAuthentication = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +36,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
 
     private fun observeUI() {
         viewModel.getSellerProduct().observe(viewLifecycleOwner) {
-            when (it) {
+            when(it) {
                 is Result.Error -> {
 
                 }
@@ -69,7 +66,15 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         binding.recyclerview.adapter = SellerProductAdapter(
                             item = sortIdDesc,
                             onCardClicked = {
-                                findNavController().navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
+                                if (it.status == "sold"){
+                                    Snackbar.make(
+                                        binding.root,
+                                        "Produkmu Telah Terjual",
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+                                }else{
+                                    navController.navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
+                                }
                             },
                             onDeleteClicked = {
                                 deleteProduct(
@@ -78,7 +83,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                                 )
                             },
                             onpreviewClicked = {
-                                findNavController().navigate(
+                                navController.navigate(
                                     SellerProductFragmentDirections.actionSellerProductFragmentToSellerProductDetailFragment(
                                         it.id
                                     )
@@ -103,11 +108,13 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                         is Result.Error -> {
                             Snackbar.make(
                                 binding.root,
-                                "Produkmu gagal dihapus: ${it.error}",
+                                "Produkmu gagal dihapus, periksa penawaran",
                                 Snackbar.LENGTH_LONG
                             ).show()
                         }
-                        Result.Loading -> {}
+                        Result.Loading -> {
+
+                        }
                         is Result.Success -> {
                             Snackbar.make(
                                 binding.root,

@@ -47,8 +47,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -67,10 +67,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
 
-    // Navigation Component
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0-rc02'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0-rc02'
-
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
@@ -78,8 +74,8 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.2.0"
 
     // Livedata + Coroutines
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
 
@@ -100,9 +96,9 @@ dependencies {
     implementation 'com.github.cesarferreira:MaterialComponent.Banner:0.14.0'
 
     // CameraX
-    implementation "androidx.camera:camera-camera2:1.2.0-alpha02"
-    implementation "androidx.camera:camera-lifecycle:1.2.0-alpha02"
-    implementation "androidx.camera:camera-view:1.2.0-alpha02"
+    implementation "androidx.camera:camera-camera2:1.2.0-alpha03"
+    implementation "androidx.camera:camera-lifecycle:1.2.0-alpha03"
+    implementation "androidx.camera:camera-view:1.2.0-alpha03"
 
     // ViewPager 2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -112,6 +108,8 @@ dependencies {
 
     // SplashScreen
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
+
+    implementation 'com.github.Redman1037:TSnackBar:V2.0.0'
 }
 
 def getBaseUrl() {

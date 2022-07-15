@@ -23,13 +23,25 @@
         <action
             android:id="@+id/action_homeFragment_to_notificationFragment2"
             app:destination="@id/notificationFragment" />
+        <action
+
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/sellListFragment"
         android:name="com.binar.secondhand.ui.sellerorder.SellerOrderFragment"
         android:label="fragment_sell_list"
-        tools:layout="@layout/fragment_seller_order" />
+        tools:layout="@layout/fragment_seller_order" >
+        <action
+            android:id="@+id/action_sellListFragment_to_bidderInfoFragment"
+            app:destination="@id/bidderInfoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/sellFragment"
@@ -51,9 +63,6 @@
             app:destination="@id/previewSellFragment" />
     </fragment>
 
-        tools:layout="@layout/fragment_sell" />
-
-
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.binar.secondhand.ui.account.AccountFragment"
@@ -68,12 +77,13 @@
         <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+
         <action
             android:id="@+id/action_accountFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
 
-
     </fragment>
+
     <fragment
         android:id="@+id/notificationFragment"
         android:name="com.binar.secondhand.ui.notification.NotificationFragment"
@@ -149,10 +159,15 @@
         android:label="fragment_camera"
         tools:layout="@layout/fragment_camera" />
     <fragment
+
+        android:id="@+id/searchFragment"
+        android:name="com.binar.secondhand.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
         android:id="@+id/sellListViewPagerFragment"
-        android:name="com.binar.secondhand.ui.selllist.SellListViewPagerFragment"
+        android:name="com.binar.secondhand.ui.sellerorder.SellerOrderViewPagerFragment"
         android:label="fragment_sell_list_view_pager"
-        tools:layout="@layout/fragment_sell_list_view_pager" />
+        tools:layout="@layout/fragment_seller_order_view_pager" />
     <fragment
 
         android:id="@+id/previewSellFragment"
@@ -195,10 +210,48 @@
             app:destination="@id/cameraFragment" />
         </fragment>
     <fragment
+
         android:id="@+id/historyFragment"
         android:name="com.binar.secondhand.ui.account.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+
+        android:id="@+id/bidderInfoFragment"
+        android:name="com.binar.secondhand.ui.bidderinfo.BidderInfoFragment"
+        android:label="fragment_bidder_info"
+        tools:layout="@layout/fragment_bidder_info" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_bidderInfoFragment_to_sellListFragment"
+            app:destination="@id/sellListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.binar.secondhand.ui.productdetail.ProductDetailFragment"
+        android:label="ProductDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="message"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
+            app:destination="@id/inputBidPriceBottomSheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/inputBidPriceBottomSheet"
+        android:name="com.binar.secondhand.ui.productdetail.InputBidPriceBottomSheet"
+        android:label="InputBidPriceBottomSheet" >
+        <argument
+            android:name="product"
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductResponse" />
+    </dialog>
 
 
 </navigation>

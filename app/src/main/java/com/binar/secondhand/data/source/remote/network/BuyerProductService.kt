@@ -17,4 +17,10 @@ interface BuyerProductService {
     suspend fun getBuyerProduct(
         @Query("status") status: String = "available"
     ): List<BuyerProductResponse>
+
+
+    @GET("buyer/product/{id}")
+    suspend fun getBuyerProductById(
+        @Path("id") id: Int
+    ): Response<BuyerProductResponse>
 }

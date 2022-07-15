@@ -11,6 +11,7 @@ import com.binar.secondhand.data.source.remote.response.SellerOrderResponse
 import com.binar.secondhand.databinding.ItemSellerOrderBinding
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.dateTimeFormatter
+import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class SellerOrderAdapter(
     private val onItemClick: (SellerOrderResponse) -> Unit
@@ -32,15 +33,16 @@ class SellerOrderAdapter(
         val item = getItem(position)
         val context = holder.binding.root.context
         holder.binding.apply {
+            item.product.imageUrl?.let { productImage.loadPhotoUrl(it) }
             productNameTv.text = item.product.name
             basePriceTv.text = context.getString(
-                R.string.base_price_strike_text, item.product.basePrice.currencyFormatter()
+                R.string.base_price_text, item.product.basePrice?.currencyFormatter()
             )
             basePriceTv.paintFlags = basePriceTv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             bidPriceTv.text = context.getString(
                 R.string.bid_price_text, item.price.currencyFormatter()
             )
-            orderDateTv.text = item.createdAt.dateTimeFormatter()
+            orderDateTv.text = item.updatedAt.dateTimeFormatter()
             root.setOnClickListener {
                 onItemClick(item)
             }
