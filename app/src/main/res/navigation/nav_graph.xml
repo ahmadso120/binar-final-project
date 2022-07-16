@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
     </fragment>
 
     <fragment
@@ -90,6 +93,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_sellerProductFragment"
             app:destination="@id/sellerProductFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
     </fragment>
 
     <action
@@ -230,5 +236,10 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
+    <fragment
+        android:id="@+id/buyerOrderFragment"
+        android:name="com.binar.secondhand.ui.buyerorder.BuyerOrderFragment"
+        android:label="fragment_buyer_order"
+        tools:layout="@layout/fragment_buyer_order" />
 
 </navigation>

@@ -58,6 +58,7 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         menuAccount.add(MenuAccount("Ubah Akun", R.drawable.ic_fi_edit))
         menuAccount.add(MenuAccount("Ubah Password", R.drawable.ic_fi_settings))
         menuAccount.add(MenuAccount("Keluar", R.drawable.ic_fi_log_out))
+        menuAccount.add(MenuAccount("Transaksi", R.drawable.ic_orders))
 
         listView.adapter = CustomAdapterAccount(requireContext(), menuAccount)
         listView.setOnItemClickListener { _, _, position, _ ->
@@ -86,6 +87,9 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                             dialogInterface.cancel()
                         }
                         .show()
+                }
+                3 -> {
+                    findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToBuyerOrderFragment())
                 }
             }
         }

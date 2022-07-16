@@ -3,7 +3,7 @@ package com.binar.secondhand.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.binar.secondhand.data.source.remote.SellerProductDataSource
-import com.binar.secondhand.data.source.remote.response.DeleteSellerProductResponse
+import com.binar.secondhand.data.source.remote.response.DeleteResponse
 import com.binar.secondhand.data.source.remote.response.SellerProductResponse
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ interface SellerProductRepository {
 
     fun getProduct(): LiveData<Result<List<SellerProductResponse>>>
 
-    fun deleteProduct(id: Int): LiveData<Result<DeleteSellerProductResponse>>
+    fun deleteProduct(id: Int): LiveData<Result<DeleteResponse>>
     fun getProductDetail(id: Int): LiveData<Result<SellerProductResponse>>
 
     fun updateProduct(
@@ -85,7 +85,7 @@ class SellerProductRepositoryImpl(
             }
         }
 
-    override fun deleteProduct(id: Int): LiveData<Result<DeleteSellerProductResponse>> =
+    override fun deleteProduct(id: Int): LiveData<Result<DeleteResponse>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
