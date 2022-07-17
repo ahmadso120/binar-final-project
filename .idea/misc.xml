@@ -81,6 +81,7 @@
         <entry key="app/src/main/res/drawable/ic_fi_log_out.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/ic_orders.xml" value="0.122" />
         <entry key="app/src/main/res/layout-v26/fragment_product_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-v26/item_multi_selection_spinner.xml" value="0.2957427536231884" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/bottom_re_input_bid_price.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/bottom_sheet_input_bid_price.xml" value="0.1702127659574468" />
