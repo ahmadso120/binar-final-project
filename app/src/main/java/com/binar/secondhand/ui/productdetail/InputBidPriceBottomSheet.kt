@@ -13,6 +13,7 @@ import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.androidadvance.topsnackbar.TSnackbar
 import com.binar.secondhand.data.source.remote.request.BidProductRequest
+import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.databinding.BottomSheetInputBidPriceBinding
 import com.binar.secondhand.utils.currencyFormatter
@@ -30,7 +31,7 @@ class InputBidPriceBottomSheet() : BottomSheetDialogFragment() {
 
     private val viewModel: ProductDetailViewModel by sharedViewModel()
 
-    private var item: BuyerProductResponse? = null
+    private var item: BuyerProductDetailResponse? = null
 
     private val args: InputBidPriceBottomSheetArgs by navArgs()
 

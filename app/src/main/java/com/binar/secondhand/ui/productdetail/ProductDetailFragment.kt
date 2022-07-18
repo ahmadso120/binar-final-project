@@ -10,9 +10,10 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
-import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
+import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.databinding.FragmentProductDetailBinding
 import com.binar.secondhand.utils.currencyFormatter
+import com.binar.secondhand.utils.getInitialsName
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.show
@@ -99,7 +100,7 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
         }
     }
 
-    private fun setupUi(data: BuyerProductResponse) {
+    private fun setupUi(data: BuyerProductDetailResponse) {
         binding.apply {
             data.imageUrl?.let {
                 detailImage.loadPhotoUrl(it)
@@ -109,13 +110,13 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                 it.name
             }
             basePriceTv.text = "Rp ${data.basePrice?.currencyFormatter()}"
-//            if (data.user.imageUrl.isNullOrEmpty()) {
-//                initialsTv.text = "AS"
-//            } else {
-//                userImage.loadPhotoUrl(data.user.imageUrl)
-//            }
-//            userNameTv.text = data.user.fullName
-//            cityTv.text = data.user.city
+            if (data.user.imageUrl.isNullOrEmpty()) {
+                initialsTv.text = data.user.fullName.getInitialsName()
+            } else {
+                userImage.loadPhotoUrl(data.user.imageUrl)
+            }
+            userNameTv.text = data.user.fullName
+            cityTv.text = data.user.city
             descriptionTv.text = data.description
 
             interestProductButton.setOnClickListener {
