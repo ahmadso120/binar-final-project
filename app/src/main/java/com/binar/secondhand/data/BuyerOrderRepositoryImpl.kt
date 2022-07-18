@@ -4,14 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.binar.secondhand.data.source.remote.BuyerOrderRemoteDataSource
 import com.binar.secondhand.data.source.remote.request.BidProductRequest
-import com.binar.secondhand.data.source.remote.response.HasProductOrdered
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
 import com.binar.secondhand.data.source.remote.request.RebidBuyerOrderRequest
 import com.binar.secondhand.data.source.remote.response.BuyerOrderResponse
 import com.binar.secondhand.data.source.remote.response.DeleteResponse
-import com.binar.secondhand.utils.loge
-import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
 
 interface BuyerOrderRepository {

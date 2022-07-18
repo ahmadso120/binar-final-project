@@ -44,7 +44,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     private val binding: FragmentUpdateProductBinding by viewBinding()
 
     private val args: UpdateProductFragmentArgs by navArgs()
-    private val categoryID= ArrayList<Int>()
+    private val categoryID = ArrayList<Int>()
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
@@ -84,14 +84,14 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                         product.data.apply {
                             productNameEdt.setText(name)
                             productPriceEditText.setText(basePrice.toString())
-                            if(categoryID.size == 0){
+                            if (categoryID.size == 0) {
                                 categoryEditText.setText(categories.joinToString {
                                     it.name
                                 })
                             }
                             locationEdt.setText(location)
                             descriptionEdt.setText(description)
-                            if(getFile == null) {
+                            if (getFile == null) {
                                 imageUrl?.let { productImageView.loadPhotoUrl(it) }
                             }
                         }
@@ -221,7 +221,6 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                 }
                                 Result.Loading -> {
 
-
                                 }
                                 is Result.Success -> {
                                     Toast.makeText(
@@ -231,7 +230,9 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                     ).show()
                                     findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                                 }
+                            }
                         }
+
                 } else {
                     val sellerProductRequest = SellerProductRequest(
                         file = null,
@@ -248,8 +249,6 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                     ).show()
                                 }
                                 Result.Loading -> {
-
-
                                 }
                                 is Result.Success -> {
                                     Toast.makeText(
@@ -259,12 +258,20 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                                     ).show()
                                     findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                                 }
-
+                            }
+                        }
+                }
             }
-        }else{
-            Toast.makeText(requireContext(), "Pilih Minimal 1 Kategori",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Pilih Minimal 1 Kategori",
+                Toast.LENGTH_SHORT
+            ).show()
+
         }
     }
+
     private fun showMultipleChoicesAlert(categoryResponse: List<CategoryResponse>) {
         val selectedList = ArrayList<Int>()
         val selectedItems = ArrayList<String>()
@@ -274,7 +281,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
             items = items.plus(i.name)
             id = id.plus(i.id)
         }
-        MaterialAlertDialogBuilder(requireContext(),R.style.MyAlertDialogTheme)
+        MaterialAlertDialogBuilder(requireContext(), R.style.MyAlertDialogTheme)
             .setTitle("Pilih Kategori")
             .setMultiChoiceItems(items, null) { dialog, which, isChecked ->
                 if (isChecked) {
@@ -305,5 +312,4 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
             }
             .show()
     }
-
 }
