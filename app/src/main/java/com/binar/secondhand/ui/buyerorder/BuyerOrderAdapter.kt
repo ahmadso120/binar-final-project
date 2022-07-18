@@ -33,7 +33,11 @@ class BuyerOrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            item[position].product?.let { productImageView.loadPhotoUrl(it.imageUrl) }
+            item[position].product?.let { it.imageUrl?.let { it1 ->
+                productImageView.loadPhotoUrl(
+                    it1
+                )
+            } }
             produkTextView.text = item[position].product?.name
             basePriceTextView.text = "Rp." + item[position].product?.basePrice?.currencyFormatter()
             bidPriceTextView.text = "Tawaranmu : Rp." + item[position].price.currencyFormatter()

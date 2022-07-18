@@ -34,23 +34,24 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
 
         var listView = binding.listview
         var menuAccount: ArrayList<MenuAccount> = ArrayList()
+        menuAccount.add(MenuAccount("Daftar Order", R.drawable.ic_orders))
         menuAccount.add(MenuAccount("Riwayat",R.drawable.ic_baseline_history_edu_24))
         menuAccount.add(MenuAccount("Ubah Akun", R.drawable.ic_fi_edit))
         menuAccount.add(MenuAccount("Ubah Password", R.drawable.ic_fi_settings))
         menuAccount.add(MenuAccount("Keluar", R.drawable.ic_fi_log_out))
-        menuAccount.add(MenuAccount("Transaksi", R.drawable.ic_orders))
+
 
 
         listView.adapter = CustomAdapterAccount(requireContext(), menuAccount)
         listView.setOnItemClickListener { _, _, position, _ ->
             when (position) {
-                1 -> {
+                2 -> {
                     navController.navigate(R.id.action_accountFragment_to_editAccountFragment)
                 }
-                2 -> {
+                3 -> {
                     navController.navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
-                3 -> {
+                4 -> {
                     builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("Keluar dari SecondHand")
                         .setMessage("Apakah anda ingin keluar ?")
@@ -66,11 +67,11 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                         }
                         .show()
                 }
-                4 -> {
+                0 -> {
                     findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToBuyerOrderFragment())
                 }
 
-                0 ->
+                1 ->
                     findNavController().navigate(R.id.action_accountFragment_to_historyFragment)
 
             }
