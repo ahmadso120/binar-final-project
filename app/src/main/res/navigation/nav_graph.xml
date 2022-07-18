@@ -250,7 +250,7 @@
         android:label="InputBidPriceBottomSheet" >
         <argument
             android:name="product"
-            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductResponse" />
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse" />
     </dialog>
 
 

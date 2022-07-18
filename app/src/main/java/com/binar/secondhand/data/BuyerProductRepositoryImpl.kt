@@ -11,6 +11,7 @@ import com.binar.secondhand.data.source.remote.BuyerProductRemoteDataSource
 import com.binar.secondhand.data.source.remote.NetworkBoundResource
 import com.binar.secondhand.data.source.remote.network.ApiResponse
 import com.binar.secondhand.data.source.remote.network.BuyerProductService
+import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.AppExecutors
 import com.binar.secondhand.utils.DataMapper
@@ -23,7 +24,7 @@ import org.json.JSONObject
 
 interface BuyerRepository {
     fun getBuyerProducts(categoryId: Int): LiveData<PagingData<BuyerProductEntity>>
-    fun getBuyerProductById(id: Int): LiveData<Result<BuyerProductResponse?>>
+    fun getBuyerProductById(id: Int): LiveData<Result<BuyerProductDetailResponse?>>
 }
 
 class BuyerRepositoryImpl(
@@ -47,7 +48,7 @@ class BuyerRepositoryImpl(
         ).liveData
     }
 
-    override fun getBuyerProductById(id: Int): LiveData<Result<BuyerProductResponse?>> =
+    override fun getBuyerProductById(id: Int): LiveData<Result<BuyerProductDetailResponse?>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
             try {
