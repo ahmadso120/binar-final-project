@@ -2,8 +2,8 @@ package com.binar.secondhand.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.databinding.ListItemProductBinding
@@ -12,7 +12,7 @@ import com.binar.secondhand.utils.ui.loadPhotoUrl
 
 class ProductAdapter(
     private var onDetailClick: (BuyerProductEntity) -> Unit
-) : ListAdapter<BuyerProductEntity, ProductAdapter.ProductViewHolder>(ProductDiffCallBack) {
+) : PagingDataAdapter<BuyerProductEntity, ProductAdapter.ProductViewHolder>(ProductDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(
@@ -23,16 +23,18 @@ class ProductAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = getItem(position)
         holder.binding.apply {
-            product.imageUrl?.let {
-                productImage.loadPhotoUrl(it)
-            }
-            productNameTv.text = product.name
-            locationTv.text = product.location
-            product.basePrice?.let {
-                priceTv.text = "Rp. ${it.currencyFormatter()}"
-            }
-            root.setOnClickListener {
-                onDetailClick(product)
+            product?.let {
+                it.imageUrl?.let {
+                    productImage.loadPhotoUrl(it)
+                }
+                productNameTv.text = it.name
+                locationTv.text = it.location
+                it.basePrice?.let { basePrice ->
+                    priceTv.text = "Rp. ${basePrice.currencyFormatter()}"
+                }
+                root.setOnClickListener {
+                    onDetailClick(product)
+                }
             }
         }
     }
