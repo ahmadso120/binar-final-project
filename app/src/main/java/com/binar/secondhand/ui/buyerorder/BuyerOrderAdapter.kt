@@ -16,7 +16,8 @@ import com.binar.secondhand.utils.ui.loadPhotoUrl
 class BuyerOrderAdapter(
     private val item: List<BuyerOrderResponse>,
     private val onReBidClicked : (BuyerOrderResponse) -> Unit,
-    private val onDeleteClicked: (BuyerOrderResponse) -> Unit
+    private val onDeleteClicked: (BuyerOrderResponse) -> Unit,
+    private val onViewClicked: (BuyerOrderResponse) -> Unit
 ) : RecyclerView.Adapter<BuyerOrderAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemBuyerOrderBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -69,6 +70,9 @@ class BuyerOrderAdapter(
             rebidButton.setOnClickListener {
                 onReBidClicked.invoke(item[position])
             }
+        }
+        holder.itemView.setOnClickListener {
+                onViewClicked.invoke(item[position])
         }
     }
 

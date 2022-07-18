@@ -1,5 +1,8 @@
 package com.binar.secondhand.data.source.remote.request
 
+import com.google.gson.annotations.SerializedName
+
 data class RebidBuyerOrderRequest(
-    val bid_price: Int
+    @SerializedName("bid_price")
+    val bidPrice: Int
 )

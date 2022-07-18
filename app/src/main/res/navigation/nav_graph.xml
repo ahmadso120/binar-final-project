@@ -240,6 +240,10 @@
         android:id="@+id/buyerOrderFragment"
         android:name="com.binar.secondhand.ui.buyerorder.BuyerOrderFragment"
         android:label="fragment_buyer_order"
-        tools:layout="@layout/fragment_buyer_order" />
+        tools:layout="@layout/fragment_buyer_order" >
+        <action
+            android:id="@+id/action_buyerOrderFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
 </navigation>

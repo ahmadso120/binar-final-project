@@ -1,6 +1,7 @@
 package com.binar.secondhand.data.source.remote.network
 
 import com.binar.secondhand.data.source.remote.request.BidProductRequest
+import com.binar.secondhand.data.source.remote.request.RebidBuyerOrderRequest
 import com.binar.secondhand.data.source.remote.response.BuyerOrderResponse
 import com.binar.secondhand.data.source.remote.response.DeleteResponse
 import retrofit2.Response
@@ -20,4 +21,10 @@ interface BuyerOrderService {
     suspend fun deleteBuyerOrder(
         @Path("id") id : Int
     ): Response<DeleteResponse>
+
+    @PUT("buyer/order/{id}")
+    suspend fun updateBidPrice(
+        @Path("id") id: Int,
+        @Body rebidBuyerOrderRequest: RebidBuyerOrderRequest
+    ): Response<BuyerOrderResponse>
 }

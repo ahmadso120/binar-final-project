@@ -69,6 +69,8 @@ class BuyerOrderFragment : BaseFragment(R.layout.fragment_buyer_order) {
                         }, onReBidClicked = {
                            // Toast.makeText(requireContext(),"rebid",Toast.LENGTH_SHORT).show()
                             setupBottomSheet(it)
+                        }, onViewClicked = {
+                            findNavController().navigate(BuyerOrderFragmentDirections.actionBuyerOrderFragmentToProductDetailFragment(id = it.productId))
                         })
                     }
                 }

@@ -49,8 +49,8 @@ class SellerProductDetailFragment : BaseFragment(R.layout.fragment_seller_produc
                     binding.apply {
                         product.data.imageUrl?.let { expandedImage.loadPhotoUrl(it) }
                         productNameTextView.text= product.data.name
-                        product.data.categories.map {
-                            categoriesTextView.text = it.name
+                        categoriesTextView.text = product.data.categories.joinToString {
+                            it.name
                         }
                         priceTextView.text = "Rp. "+ product.data.basePrice.currencyFormatter()
                         productDescTextView.text = product.data.description

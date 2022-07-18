@@ -99,6 +99,7 @@
         <entry key="app/src/main/res/layout/fragment_seller_order.xml" value="0.2898550724637681" />
         <entry key="app/src/main/res/layout/fragment_seller_order_view_pager.xml" value="0.2898550724637681" />
         <entry key="app/src/main/res/layout/fragment_seller_product.xml" value="0.17506631299734748" />
+        <entry key="app/src/main/res/layout/fragment_seller_product_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_buyer_order.xml" value="0.39558232931726905" />
         <entry key="app/src/main/res/layout/item_dropdown_list.xml" value="0.32135416666666666" />

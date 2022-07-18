@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.binar.secondhand.data.source.remote.BuyerOrderRemoteDataSource
 import com.binar.secondhand.data.source.remote.request.BidProductRequest
+import com.binar.secondhand.data.source.remote.request.RebidBuyerOrderRequest
 import com.binar.secondhand.data.source.remote.response.BuyerOrderResponse
 import com.binar.secondhand.data.source.remote.response.DeleteResponse
 import com.binar.secondhand.utils.loge
@@ -14,6 +15,7 @@ interface BuyerOrderRepository {
     suspend fun bidProduct(bidProductRequest: BidProductRequest) : Boolean
     fun getAllOrder(): LiveData<Result<List<BuyerOrderResponse>>>
     fun deleteOrder(id: Int): LiveData<Result<DeleteResponse>>
+    fun updateBidPrice(id: Int,rebidBuyerOrderRequest: RebidBuyerOrderRequest): LiveData<Result<BuyerOrderResponse>>
 }
 
 class BuyerOrderRepositoryImpl(
@@ -75,6 +77,34 @@ class BuyerOrderRepositoryImpl(
                 }
             } catch (e: Exception) {
                 loge("deleteOrder() => ${e.message}")
+                emit(Result.Error(null, "Something went wrong"))
+            }
+        }
+
+    override fun updateBidPrice(
+        id: Int,
+        rebidBuyerOrderRequest: RebidBuyerOrderRequest
+    ): LiveData<Result<BuyerOrderResponse>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.Loading)
+            try {
+                val response = dataSource.updateBidPrice(id,rebidBuyerOrderRequest)
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    data?.let {
+                        emit(Result.Success(it))
+                    }
+                } else {
+                    loge("updateBidPrice() => Request Error")
+                    val error = response.errorBody()?.string()
+                    if (error != null) {
+                        val jsonObject = JSONObject(error)
+                        val message = jsonObject.getString("message")
+                        emit(Result.Error(null, message))
+                    }
+                }
+            } catch (e: Exception) {
+                loge("updateBidPrice() => ${e.message}")
                 emit(Result.Error(null, "Something went wrong"))
             }
         }
