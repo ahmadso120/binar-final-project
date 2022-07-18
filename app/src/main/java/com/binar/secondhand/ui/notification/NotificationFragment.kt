@@ -94,7 +94,7 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
                 }
                 is Result.Success -> {
-                    Toast.makeText(requireContext(), "read",Toast.LENGTH_SHORT).show()
+
                 }
             }
 

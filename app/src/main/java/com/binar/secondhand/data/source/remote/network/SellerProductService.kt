@@ -1,6 +1,6 @@
 package com.binar.secondhand.data.source.remote.network
 
-import com.binar.secondhand.data.source.remote.response.DeleteSellerProductResponse
+import com.binar.secondhand.data.source.remote.response.DeleteResponse
 import com.binar.secondhand.data.source.remote.response.SellerProductResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,7 +23,7 @@ interface SellerProductService {
     @DELETE("seller/product/{id}")
     suspend fun deleteSellerProduct(
         @Path("id") id : Int
-    ): Response<DeleteSellerProductResponse>
+    ): Response<DeleteResponse>
 
     @GET("seller/product/{id}")
     suspend fun getSellerProductDetail(
