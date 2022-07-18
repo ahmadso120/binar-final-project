@@ -1,5 +1,6 @@
 package com.binar.secondhand.data.source.remote.network
 
+import com.binar.secondhand.data.source.remote.response.BuyerProductDataResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,8 +16,11 @@ interface BuyerProductService {
 
     @GET("buyer/product")
     suspend fun getBuyerProduct(
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int,
+        @Query("category_id") categoryId: Int? = null,
         @Query("status") status: String = "available"
-    ): List<BuyerProductResponse>
+    ): BuyerProductDataResponse
 
 
     @GET("buyer/product/{id}")

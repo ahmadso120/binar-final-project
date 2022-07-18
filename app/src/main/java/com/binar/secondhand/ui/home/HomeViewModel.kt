@@ -1,9 +1,11 @@
 package com.binar.secondhand.ui.home
 
 import androidx.lifecycle.*
+import androidx.paging.cachedIn
 import com.binar.secondhand.data.BuyerRepository
 import com.binar.secondhand.data.SellerCategoryRepository
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
+import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.Event
 
 class HomeViewModel(
@@ -15,8 +17,10 @@ class HomeViewModel(
     private val _filterCategoryProduct = MutableLiveData(categoryId)
 
     val buyerProducts = _filterCategoryProduct.switchMap {
-        buyerRepository.getBuyerProducts(it).asLiveData()
+        buyerRepository.getBuyerProducts(it).cachedIn(viewModelScope)
     }
+
+//    val buyerProducts = buyerRepository.getBuyerProducts().cachedIn(viewModelScope)
 
     fun filterCategoryProduct(categoryId: Int) {
         _filterCategoryProduct.value = categoryId
@@ -28,7 +32,7 @@ class HomeViewModel(
     val navigateToBuyerProductDetail: LiveData<Event<BuyerProductEntity>>
         get() = _navigateToBuyerProductDetail
 
-    fun onBuyerProductClicked(buyerProductResponse: BuyerProductEntity) {
-        _navigateToBuyerProductDetail.value = Event(buyerProductResponse)
+    fun onBuyerProductClicked(buyerProductEntity: BuyerProductEntity) {
+        _navigateToBuyerProductDetail.value = Event(buyerProductEntity)
     }
 }

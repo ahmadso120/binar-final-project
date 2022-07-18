@@ -109,13 +109,13 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                 it.name
             }
             basePriceTv.text = "Rp ${data.basePrice?.currencyFormatter()}"
-            if (data.user.imageUrl.isNullOrEmpty()) {
-                initialsTv.text = "AS"
-            } else {
-                userImage.loadPhotoUrl(data.user.imageUrl)
-            }
-            userNameTv.text = data.user.fullName
-            cityTv.text = data.user.city
+//            if (data.user.imageUrl.isNullOrEmpty()) {
+//                initialsTv.text = "AS"
+//            } else {
+//                userImage.loadPhotoUrl(data.user.imageUrl)
+//            }
+//            userNameTv.text = data.user.fullName
+//            cityTv.text = data.user.city
             descriptionTv.text = data.description
 
             interestProductButton.setOnClickListener {
