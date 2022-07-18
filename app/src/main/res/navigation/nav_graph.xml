@@ -77,9 +77,14 @@
         <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+
         <action
             android:id="@+id/action_accountFragment_to_buyerOrderFragment"
             app:destination="@id/buyerOrderFragment" />
+
+        <action
+            android:id="@+id/action_accountFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
 
     <fragment
@@ -211,6 +216,12 @@
             app:destination="@id/cameraFragment" />
         </fragment>
     <fragment
+
+        android:id="@+id/historyFragment"
+        android:name="com.binar.secondhand.ui.account.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
         android:id="@+id/bidderInfoFragment"
         android:name="com.binar.secondhand.ui.bidderinfo.BidderInfoFragment"
         android:label="fragment_bidder_info"
@@ -235,6 +246,9 @@
             android:name="message"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
+            app:destination="@id/inputBidPriceBottomSheet" />
     </fragment>
     <fragment
         android:id="@+id/buyerOrderFragment"
@@ -245,5 +259,15 @@
             android:id="@+id/action_buyerOrderFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/inputBidPriceBottomSheet"
+        android:name="com.binar.secondhand.ui.productdetail.InputBidPriceBottomSheet"
+        android:label="InputBidPriceBottomSheet" >
+        <argument
+            android:name="product"
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse" />
+    </dialog>
+
+
 
 </navigation>

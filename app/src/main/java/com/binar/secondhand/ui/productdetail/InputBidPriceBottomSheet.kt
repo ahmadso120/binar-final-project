@@ -1,25 +1,22 @@
 package com.binar.secondhand.ui.productdetail
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.CreateMethod
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.binar.secondhand.R
+import com.androidadvance.topsnackbar.TSnackbar
 import com.binar.secondhand.data.source.remote.request.BidProductRequest
+import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
-import com.binar.secondhand.data.source.remote.response.ProductResponse
 import com.binar.secondhand.databinding.BottomSheetInputBidPriceBinding
 import com.binar.secondhand.utils.currencyFormatter
-import com.binar.secondhand.utils.logd
-import com.binar.secondhand.utils.logi
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -27,13 +24,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class InputBidPriceBottomSheet : BottomSheetDialogFragment() {
+
+class InputBidPriceBottomSheet() : BottomSheetDialogFragment() {
 
     private val binding: BottomSheetInputBidPriceBinding by viewBinding(CreateMethod.INFLATE)
 
     private val viewModel: ProductDetailViewModel by sharedViewModel()
 
-    private var item: BuyerProductResponse? = null
+    private var item: BuyerProductDetailResponse? = null
+
+    private val args: InputBidPriceBottomSheetArgs by navArgs()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheetDialog = super.onCreateDialog(savedInstanceState)
@@ -58,7 +58,9 @@ class InputBidPriceBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        item = arguments?.getParcelable(PRODUCT_BUNDLE)
+        val content = requireActivity().findViewById<View>(android.R.id.content)
+
+        item = args.product
 
         binding.apply {
             item?.let { data ->
@@ -70,53 +72,31 @@ class InputBidPriceBottomSheet : BottomSheetDialogFragment() {
                     val bidPrice = bidPriceEdt.text.toString().trim()
                     if (bidPrice.isNotBlank()) {
                         data.basePrice?.let { basePrice ->
-                            if (bidPrice < basePrice.toString()) {
+                            if (bidPrice.toInt() < basePrice) {
                                 val bidProductRequest = BidProductRequest(
                                     data.id,
                                     bidPrice.toInt()
                                 )
+
                                 lifecycleScope.launch {
                                     val result = viewModel.setBidPrice(bidProductRequest)
                                     if (result) {
-                                        view.showShortSnackbar("Harga tawarmu berhasil dikirim ke penjual")
-                                        val bundle = bundleOf(
-                                            "id" to data.id
-                                        )
-                                        findNavController().navigate(R.id.productDetailFragment, bundle)
+                                        content.showShortSnackbar("Harga tawarmu berhasil dikirim ke penjual")
+                                        val savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+                                        savedStateHandle["resultKey"] = true
+                                        findNavController().popBackStack()
                                     } else {
-                                        dialog?.window?.decorView?.showShortSnackbar("Gagal menawar harga")
+                                        content.showShortSnackbar("Gagal menawar harga", false)
+                                        findNavController().popBackStack()
                                     }
-
                                 }
-
                             } else {
-                                dialog?.window?.decorView?.showShortSnackbar("Harga tawar harus di bawah harga produk")
+                                dialog?.window?.decorView?.showShortSnackbar("Harga tawar harus di bawah harga produk", false)
                             }
                         }
-
                     }
                 }
             }
-
-
-        }
-    }
-
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-    }
-
-    companion object {
-        const val PRODUCT_BUNDLE = "product_bundle"
-        val TAG: String = InputBidPriceBottomSheet::class.java.simpleName
-        fun newInstance(
-            item: BuyerProductResponse?
-        ): InputBidPriceBottomSheet {
-            val args = Bundle()
-            args.putParcelable(PRODUCT_BUNDLE, item)
-            val fragment = InputBidPriceBottomSheet()
-            fragment.arguments = args
-            return fragment
         }
     }
 }

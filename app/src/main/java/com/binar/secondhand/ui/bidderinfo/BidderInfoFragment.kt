@@ -36,16 +36,12 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
 
     private lateinit var builder: AlertDialog.Builder
 
-    private val navigation: NavController by lazy {
-        findNavController()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             toolbar.setNavigationOnClickListener {
-                navigation.navigateUp()
+                navController.navigateUp()
             }
         }
 
@@ -134,7 +130,7 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                                             val result = viewModel.onUpdateStatusClicked(state)
                                             if (result) {
                                                 view?.showShortSnackbar("Berhasil menolak penawaran")
-                                                navigation.navigate(R.id.action_bidderInfoFragment_to_sellListFragment)
+                                                navController.navigate(R.id.action_bidderInfoFragment_to_sellListFragment)
                                             } else {
                                                 view?.showShortSnackbar("Gagal menolak penawaran")
                                             }
@@ -156,11 +152,11 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                             }
                         }
                     }
-                    productImage.loadPhotoUrl(data.product.imageUrl)
+                    data.product.imageUrl?.let { it1 -> productImage.loadPhotoUrl(it1) }
                     orderDateTv.text = data.updatedAt.dateTimeFormatter()
                     productNameTv.text = data.product.name
                     basePriceTv.text = requireContext().getString(
-                        R.string.base_price_text, data.product.basePrice.currencyFormatter()
+                        R.string.base_price_text, data.product.basePrice?.currencyFormatter()
                     )
                     basePriceTv.paintFlags = basePriceTv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     bidPriceTv.text = requireContext().getString(

@@ -1,16 +1,15 @@
 package com.binar.secondhand.data.source.local.room
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BuyerProductDao {
-    @Transaction
-    @Query("SELECT * FROM buyer_product ORDER BY buyer_product.buyerProductId DESC")
-    fun getBuyerProducts(): Flow<List<BuyerProductEntity>>
+    @Query("SELECT * FROM buyer_product")
+    fun getBuyerProducts(): PagingSource<Int, BuyerProductEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBuyerProduct(data: List<BuyerProductEntity>)
 
     @Query("DELETE FROM buyer_product")

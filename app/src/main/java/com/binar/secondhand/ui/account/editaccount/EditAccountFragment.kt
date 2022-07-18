@@ -1,6 +1,5 @@
 package com.binar.secondhand.ui.account.editaccount
 
-
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -32,11 +31,11 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
-
 class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
+
     private val binding: FragmentEditAccountBinding by viewBinding()
 
     override var bottomNavigationViewVisibility = View.GONE
@@ -47,7 +46,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         super.onViewCreated(view, savedInstanceState)
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
         binding.initialsTextView.setOnClickListener {
             chooseImageDialog()
@@ -112,7 +111,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
             .setMessage("choose Image")
             .setPositiveButton("Gallery") { _, _ -> startGallery() }
             .setNegativeButton("Camera") { _, _ ->
-                findNavController().navigate(R.id.action_editAccountFragment_to_cameraFragment)
+                navController.navigate(R.id.action_editAccountFragment_to_cameraFragment)
             }
             .show()
     }
@@ -144,7 +143,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     }
 
     private fun setupObserver() {
-        val navController = findNavController()
+        val navController = navController
         val navBackStackEntry = navController.getBackStackEntry(R.id.editAccountFragment)
        val window = activity?.window
         window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.white)
@@ -232,7 +231,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
             }
             is Result.Success ->{
                 Toast.makeText(requireContext(),"Update Success",Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_editAccountFragment_to_homeFragment)
+                navController.navigate(R.id.action_editAccountFragment_to_homeFragment)
             }
         }
         }

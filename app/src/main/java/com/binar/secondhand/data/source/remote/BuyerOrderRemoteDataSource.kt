@@ -9,9 +9,12 @@ class BuyerOrderRemoteDataSource(
 ) {
     suspend fun bidProduct(bidProductRequest: BidProductRequest) = service.bidProduct(bidProductRequest)
 
+
     suspend fun getAllBuyerOrder() = service.getAllBuyerOrder()
 
     suspend fun deleteBuyerOrder(id: Int) = service.deleteBuyerOrder(id)
 
     suspend fun updateBidPrice(id: Int, rebidBuyerOrderRequest: RebidBuyerOrderRequest)= service.updateBidPrice(id,rebidBuyerOrderRequest)
+
+    suspend fun hasProductOrdered() = service.hasProductOrdered()
 }

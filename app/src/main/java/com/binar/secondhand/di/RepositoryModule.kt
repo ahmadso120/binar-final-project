@@ -1,6 +1,8 @@
 package com.binar.secondhand.di
 
 import com.binar.secondhand.data.*
+import com.binar.secondhand.data.source.HistoryRepository
+import com.binar.secondhand.data.source.HistoryRepositoryImpl
 import com.binar.secondhand.data.source.NotificatioRepository
 import com.binar.secondhand.data.source.NotificationRepositoryImpl
 import com.binar.secondhand.data.source.local.BuyerProductLocalDataSource
@@ -24,13 +26,17 @@ val repositoryModule = module {
     single { NotificationRemoteDataSource(get()) }
     single { SellerCategoryDataSource(get()) }
     single { SellerOrderRemoteDataSource(get()) }
-    single { SellerProductDataSource(get()) }
+
+    single {SellerProductDataSource(get())}
+    single {HistoryDataSource(get())}
+
     single { BuyerOrderRemoteDataSource(get()) }
+
 
     factory { AppExecutors() }
 
     single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
-    single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
+    single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get()) }
     single<AccSettRepo> { AccSettRepoImpl(get()) }
 
     single<SearchRepository>{SearchRepositoryImpl(get())}
@@ -43,5 +49,9 @@ val repositoryModule = module {
     single<SellerCategoryRepository> { SellerCategoryRepositoryImpl(get()) }
     single<SellerOrderRepository> { SellerOrderRepositoryImpl(get()) }
     single<SellerProductRepository> { SellerProductRepositoryImpl(get()) }
+
+    single<HistoryRepository> {HistoryRepositoryImpl(get()) }
+
     single<BuyerOrderRepository> { BuyerOrderRepositoryImpl(get()) }
+
 }

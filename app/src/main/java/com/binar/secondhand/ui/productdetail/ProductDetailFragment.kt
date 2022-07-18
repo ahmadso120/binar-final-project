@@ -2,17 +2,18 @@ package com.binar.secondhand.ui.productdetail
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
-import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
+import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.databinding.FragmentProductDetailBinding
 import com.binar.secondhand.utils.currencyFormatter
+import com.binar.secondhand.utils.getInitialsName
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.show
@@ -28,25 +29,42 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
-    private val navigation: NavController by lazy {
-        findNavController()
-    }
+    private var productId: Int? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = args.id
-        if (id == 0) {
-            navigation.popBackStack()
+        productId = args.id
+        productId?.let {
+            viewModel.setIdProduct(it)
         }
 
-        viewModel.setIdProduct(id)
+        val navBackStackEntry = navController.getBackStackEntry(R.id.productDetailFragment)
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME
+                && navBackStackEntry.savedStateHandle.contains("resultKey")
+            ) {
+                val result = navBackStackEntry.savedStateHandle.get<Boolean>("resultKey")
+                result?.let {
+                    productId?.let {
+                        viewModel.setIdProduct(it)
+                    }
+                }
+            }
+        }
+        navBackStackEntry.lifecycle.addObserver(observer)
+
+        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                navBackStackEntry.lifecycle.removeObserver(observer)
+            }
+        })
 
         observeUi()
 
         binding.apply {
-            toolbar.setNavigationOnClickListener { view ->
-                view.findNavController().navigateUp()
+            toolbar.setNavigationOnClickListener {
+                navController.navigateUp()
             }
         }
     }
@@ -62,18 +80,27 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
                 }
                 is Result.Success -> {
                     if (it.data == null) {
-                        view?.showShortSnackbar("Produk tidak ditemukan")
-                        navigation.popBackStack()
+                        view?.showShortSnackbar("Produk tidak ditemukan", false)
+                        navController.navigateUp()
                     } else {
-                        showSuccessState()
                         setupUi(it.data)
                     }
                 }
             }
         }
+
+        viewModel.hasProductOrdered.observe(viewLifecycleOwner) {
+            showSuccessState()
+            if (it) {
+                binding.interestProductButton.apply {
+                    isEnabled = false
+                    text = "Menunggu respon penjual"
+                }
+            }
+        }
     }
 
-    private fun setupUi(data: BuyerProductResponse) {
+    private fun setupUi(data: BuyerProductDetailResponse) {
         binding.apply {
             data.imageUrl?.let {
                 detailImage.loadPhotoUrl(it)
@@ -84,17 +111,26 @@ class ProductDetailFragment: BaseFragment(R.layout.fragment_product_detail) {
             }
             basePriceTv.text = "Rp ${data.basePrice?.currencyFormatter()}"
             if (data.user.imageUrl.isNullOrEmpty()) {
-                initialsTv.text = "AS"
+                initialsTv.text = data.user.fullName.getInitialsName()
             } else {
                 userImage.loadPhotoUrl(data.user.imageUrl)
             }
             userNameTv.text = data.user.fullName
             cityTv.text = data.user.city
             descriptionTv.text = data.description
+
             interestProductButton.setOnClickListener {
-                InputBidPriceBottomSheet
-                    .newInstance(data)
-                    .show(childFragmentManager, InputBidPriceBottomSheet.TAG)
+                viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                    authViewModel.isUserHasLoggedIn.collect {
+                        if (!it) {
+                            executeRequireAuthentication()
+                        } else {
+                            val action = ProductDetailFragmentDirections
+                                .actionProductDetailFragmentToInputBidPriceBottomSheet(data)
+                            navController.navigate(action)
+                        }
+                    }
+                }
             }
         }
     }

@@ -10,7 +10,7 @@ data class BuyerProductEntity(
     val basePrice: Int?,
     val createdAt: String,
     val description: String?,
-    @PrimaryKey val buyerProductId: Int,
+    val buyerProductId: Int,
     @ColumnInfo(name = "image_name")
     val imageName: String?,
     @ColumnInfo(name = "image_url")
@@ -21,5 +21,6 @@ data class BuyerProductEntity(
     val updatedAt: String,
     @ColumnInfo(name = "user_id")
     val userId: Int,
-    val category: String?
+    val categories: List<CategoryEntity>?,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
 )
