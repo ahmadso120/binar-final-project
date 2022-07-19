@@ -4,6 +4,7 @@ import com.binar.secondhand.data.*
 import com.binar.secondhand.data.source.NotificatioRepository
 import com.binar.secondhand.data.source.NotificationRepositoryImpl
 import com.binar.secondhand.data.source.local.BuyerProductLocalDataSource
+import com.binar.secondhand.data.source.local.SearchHistoryDataSource
 import com.binar.secondhand.data.source.remote.*
 
 import com.binar.secondhand.utils.AppExecutors
@@ -16,11 +17,11 @@ val repositoryModule = module {
     single { AccSettDataSource(get()) }
 
     single {SearchDataSource(get())}
+    single {SearchHistoryDataSource(get())}
 
 
     single {AccountRemoteDataSource(get())}
 
-    single { AccountRemoteDataSource(get()) }
 
     single { NotificationRemoteDataSource(get()) }
     single { SellerCategoryDataSource(get()) }
@@ -34,7 +35,7 @@ val repositoryModule = module {
     single<BuyerRepository> { BuyerRepositoryImpl(get(), get(), get(), get()) }
     single<AccSettRepo> { AccSettRepoImpl(get()) }
 
-    single<SearchRepository>{SearchRepositoryImpl(get())}
+    single<SearchRepository>{SearchRepositoryImpl(get(),get())}
 
 
 

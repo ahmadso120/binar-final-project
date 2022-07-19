@@ -7,10 +7,12 @@ import org.koin.dsl.module
 
 val databaseModule = module {
     factory { get<AppDatabase>().buyerProductDao() }
+    factory { get<AppDatabase>().searchHistoryDao() }
     single {
         Room.databaseBuilder(
             androidContext(),
             AppDatabase::class.java, "second_hand.db"
         ).fallbackToDestructiveMigration().build()
     }
+
 }

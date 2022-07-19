@@ -12,4 +12,5 @@ import com.binar.secondhand.data.source.local.entity.SearchHistory
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun buyerProductDao(): BuyerProductDao
+    abstract fun searchHistoryDao(): SearchHistoryDao
 }

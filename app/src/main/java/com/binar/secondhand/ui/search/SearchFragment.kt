@@ -1,6 +1,7 @@
 package com.binar.secondhand.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,15 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
+import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.databinding.FragmentSearchBinding
+import com.binar.secondhand.ui.home.HomeFragmentDirections
+import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
 import com.google.android.material.appbar.MaterialToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,6 +29,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     private val viewModel by viewModel<SearchViewModel>()
     private val binding: FragmentSearchBinding by viewBinding()
     private lateinit var productAdapter: SearchAdapterProduct
+    private lateinit var historyAdapter: SearchHistoryAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,15 +45,18 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()
         }
+//        adapterHistory()
         setupAdapter()
         doSomething(binding.search1Et)
     }
 
     private fun setupAdapter() {
+
 
         val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_padding_size_medium)
 
@@ -69,6 +78,19 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         val search =binding.search1Et.text.toString()
         if(search.isNotEmpty()){
             viewModel.getData(search)
+            val searchEntity = SearchHistory(
+                id=null,
+                historySearch = search
+            )
+//            viewModel.insertHistory(searchEntity)
+
+//            viewModel.historyString.observe(viewLifecycleOwner){
+//                if (search != it.historySearch){
+//                    viewModel.insertHistory(searchEntity)
+//                    Log.d("test",it.historySearch.toString())
+//                }
+//            }
+
         }else{
             view?.showShortSnackbar("isi pencarian")
         }
@@ -93,6 +115,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                         if (data.isNotEmpty()){
                             productAdapter.submitList(data)
                             successUi()
+                            viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
+                                val action = SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(it.id)
+                                findNavController().navigate(action)
+                            })
 
                         }else{
                             notFoundUi()
@@ -119,6 +145,28 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         })
 
+    }
+    private fun adapterHistory(){
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+        binding.searchHistory.layoutManager = layoutManager
+
+            viewModel.history.observe(viewLifecycleOwner){
+                historyAdapter = SearchHistoryAdapter(it)
+                historyAdapter.submitData(it)
+                binding.searchHistory.adapter = historyAdapter
+                binding.searchHistory.visibility = View.VISIBLE
+                binding.searchHistory.setOnClickListener {
+                    binding.search1Et.setText("halo")
+                }
+            }
+
+
+    }
+
+    private fun historyClick(){
+        binding.apply {
+
+        }
     }
 
     private fun successUi(){

@@ -12,13 +12,13 @@ import org.json.JSONObject
 
 interface SearchRepository {
     fun search (query : String): LiveData<Result<List<BuyerProductResponse>>>
-//    fun getSearchHistory(): LiveData<List<SearchHistory>>
-//    suspend fun addSearchHistory(history:String)
+    suspend fun getSearchHistory(): List<SearchHistory>
+    suspend fun addSearchHistory(history:SearchHistory):Long
 }
 
 class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource,
-//    private val searchHistoryDataSource: SearchHistoryDataSource
+    private val searchHistoryDataSource: SearchHistoryDataSource
 ):SearchRepository{
     override fun search(query: String):LiveData<Result<List<BuyerProductResponse>>> = liveData(Dispatchers.IO){
         emit(Result.Loading)
@@ -45,12 +45,12 @@ class SearchRepositoryImpl(
         }
     }
 
-//    override fun getSearchHistory(): LiveData<List<SearchHistory>> = liveData(Dispatchers.IO) {
-//        searchHistoryDataSource.getSearchHistory()
-//    }
-//
-//    override suspend fun addSearchHistory(history: String) {
-//        return searchHistoryDataSource.insert(history)
-//    }
+    override suspend fun getSearchHistory(): List<SearchHistory>  {
+        return searchHistoryDataSource.getSearchHistory()
+    }
+
+    override suspend fun addSearchHistory(history: SearchHistory):Long {
+        return searchHistoryDataSource.insert(history)
+    }
 
 }

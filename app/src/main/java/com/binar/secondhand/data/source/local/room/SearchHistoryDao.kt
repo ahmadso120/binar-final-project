@@ -9,8 +9,8 @@ import com.binar.secondhand.data.source.local.entity.SearchHistory
 @Dao
 interface SearchHistoryDao {
     @Query("SELECT * FROM search_history")
-    fun getSearchHystory():List<SearchHistory>
+    suspend fun getSearchHystory():List<SearchHistory>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(history: String)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(history: SearchHistory):Long
 }

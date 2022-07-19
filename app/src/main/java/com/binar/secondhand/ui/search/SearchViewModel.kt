@@ -1,12 +1,15 @@
 package com.binar.secondhand.ui.search
 
-import android.util.Log
+
 import androidx.lifecycle.*
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.SearchRepository
+import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.Event
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val searchRepository: SearchRepository,
@@ -20,7 +23,7 @@ class SearchViewModel(
 
     fun getData(query:String){
         _search.value = query
-        Log.d("search1",_search.toString())
+
     }
     private val _navigateToBuyerProductDetail = MutableLiveData<Event<BuyerProductResponse>>()
     val navigateToBuyerProductDetail: LiveData<Event<BuyerProductResponse>>
@@ -30,7 +33,36 @@ class SearchViewModel(
         _navigateToBuyerProductDetail.value = Event(buyerProductResponse)
     }
 
-//    fun getSearchHistory(): LiveData<List<SearchHistory>> {
-//        return searchRepository.getSearchHistory()
-//    }
+    private val _history = MutableLiveData<List<SearchHistory>>()
+    val history : LiveData<List<SearchHistory>> get() = _history
+
+    private val _historyString = MutableLiveData<SearchHistory>()
+    val historyString : LiveData<SearchHistory> get() = _historyString
+
+    init {
+        getSearchHistory()
+        getSearchHistoryString()
+    }
+    private fun getSearchHistory() {
+        viewModelScope.launch {
+            _history.value =searchRepository.getSearchHistory()
+        }
+    }
+
+    private fun getSearchHistoryString() {
+        viewModelScope.launch {
+            _history.value =searchRepository.getSearchHistory()
+        }
+    }
+
+    private val _insert = MutableLiveData<Long>()
+    val insert: LiveData<Long> = _insert
+
+
+    fun insertHistory(history:SearchHistory){
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepository.addSearchHistory(history)
+        }
+
+    }
 }

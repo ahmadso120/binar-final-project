@@ -2,15 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -57,7 +55,17 @@
         android:id="@+id/search_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="60dp"
+        tools:listitem="@layout/history_item"/>
+
+    <com.binar.secondhand.ui.widget.ContentLoadingLayout
+        android:id="@+id/content_loading_layout"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="?actionBarSize"
+        android:background="?attr/colorSurface"
+        android:visibility="invisible"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -72,20 +80,13 @@
             tools:context=".ui.search.SearchFragment">
 
 
-            <com.binar.secondhand.ui.widget.ContentLoadingLayout
-                android:id="@+id/content_loading_layout"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginTop="?actionBarSize"
-                android:background="?attr/colorSurface"
-                android:visibility="invisible"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="invisible">
+                android:visibility="invisible"
+                tools:listitem="@layout/list_item_product">
 
             </androidx.recyclerview.widget.RecyclerView>
         </FrameLayout>
