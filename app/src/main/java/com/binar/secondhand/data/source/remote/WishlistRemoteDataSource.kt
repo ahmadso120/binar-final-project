@@ -11,4 +11,6 @@ class WishlistRemoteDataSource(
     suspend fun getWishlistByProductId() = service.getWishlist()
 
     suspend fun deleteWishlist(id: Int) = service.deleteWishlist(id)
+
+    suspend fun getAllWishList() = service.getWishlist()
 }

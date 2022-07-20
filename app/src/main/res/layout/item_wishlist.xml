@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_padding_size_small"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_padding_size_small"
+        android:layout_marginRight="@dimen/margin_padding_size_small">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/product_image_card_view"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/product_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_avatar" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/produk_text_view"
+            android:layout_width="206dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:text="Jam Tangan Casioxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/product_image_card_view"
+            app:layout_constraintTop_toTopOf="@+id/product_image_card_view" />
+
+        <TextView
+            android:id="@+id/base_price_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:text="Rp. 250.000"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/product_image_card_view"
+            app:layout_constraintTop_toBottomOf="@+id/produk_text_view" />
+
+        <TextView
+            android:id="@+id/location_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="Bandung"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/product_image_card_view"
+            app:layout_constraintTop_toBottomOf="@+id/base_price_text_view" />
+
+        <ImageView
+            android:id="@+id/wishlist_imageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.202"
+            app:srcCompat="@drawable/ic_red_wishlist" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
