@@ -168,7 +168,11 @@
 
         android:id="@+id/searchFragment"
         android:name="com.binar.secondhand.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sellListViewPagerFragment"
         android:name="com.binar.secondhand.ui.sellerorder.SellerOrderViewPagerFragment"

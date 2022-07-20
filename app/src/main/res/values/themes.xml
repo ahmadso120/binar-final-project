@@ -16,6 +16,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style
+        name="ShapeAppearance.Sunflower.FAB"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent" />
+
     <style name="ChipTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@android:color/transparent</item>
         <item name="tabBackground">@drawable/selector_tab</item>
