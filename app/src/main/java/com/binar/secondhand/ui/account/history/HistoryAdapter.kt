@@ -29,17 +29,8 @@ class HistoryAdapter(private val item: List<HistoryResponseItem>) : RecyclerView
         val outputTimeFormat = SimpleDateFormat("dd MMM, HH:mm")
         val date = inputTimeFormat.parse(item[position].createdAt)
         val dateFormat = date?.let { outputTimeFormat.format(it) }
+        holder.binding.statusTextView.text = item[position].status
         holder.binding.dateTextView.text = dateFormat
-//        holder.itemView.setOnClickListener {
-//            val movie = Result(
-//                posterPath = item[position].posterPath,
-//                title = item[position].title,
-//                overview = item[position].overview,
-//                releaseDate = item[position].releaseDate,
-//                adult = item[position].adult
-//            )
-//            it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRecomendationFragment(movie))
-//        }
     }
     override fun getItemCount(): Int {
         return item.size

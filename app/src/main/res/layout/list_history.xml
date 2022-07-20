@@ -56,15 +56,31 @@
             app:layout_constraintTop_toBottomOf="@+id/produk_text_view" />
 
         <TextView
-            android:id="@+id/date_text_view"
+            android:id="@+id/status_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@color/dark_blue_01"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="Diterima"
+            android:textColor="@color/dark_blue_04"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.921"
+            app:layout_constraintStart_toEndOf="@+id/produk_text_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="21 Juli, 11:36"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/produk_text_view"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/status_textView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
