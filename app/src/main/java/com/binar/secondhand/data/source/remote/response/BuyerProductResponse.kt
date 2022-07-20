@@ -1,8 +1,15 @@
 package com.binar.secondhand.data.source.remote.response
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+
+data class BuyerProductDataResponse(
+    val data: List<BuyerProductResponse>
+)
 
 @Parcelize
 data class BuyerProductResponse(
@@ -21,7 +28,5 @@ data class BuyerProductResponse(
     val status: String?,
     val updatedAt: String,
     @field:SerializedName("user_id")
-    val userId: Int,
-    @SerializedName("User")
-    val user: UserResponse
+    val userId: Int
 ) : Parcelable

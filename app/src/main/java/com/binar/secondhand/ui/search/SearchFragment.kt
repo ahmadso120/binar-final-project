@@ -5,12 +5,15 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentSearchBinding
+import com.binar.secondhand.ui.home.HomeFragmentDirections
+import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -85,6 +88,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                         if (data.isNotEmpty()){
                             productAdapter.submitList(data)
                             successUi()
+                            viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
+                                val action = SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(it.id)
+                                findNavController().navigate(action)
+                            })
 
                         }else{
                             notFoundUi()

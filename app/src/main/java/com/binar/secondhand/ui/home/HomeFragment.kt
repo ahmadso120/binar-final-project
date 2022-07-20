@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -13,6 +14,7 @@ import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.utils.EventObserver
+import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.ui.setupLayoutManager
 import com.google.android.material.badge.BadgeDrawable
@@ -51,10 +53,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         binding.filterButton.setOnClickListener { showFilterBottomSheet() }
 
 
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            isRefreshing = true
-            viewModel.filterCategoryProduct(viewModel.categoryId)
-        }
+//        binding.swipeRefreshLayout.setOnRefreshListener {
+//            isRefreshing = true
+//            viewModel.filterCategoryProduct(viewModel.categoryId)
+//        }
 
         setupAdapter()
 
@@ -69,16 +71,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun observeUi() {
         viewModel.buyerProducts.observe(viewLifecycleOwner) {
-            when(it) {
-                is Result.Error -> {
-                    showErrorState()
-                }
-                Result.Loading -> { showLoadingState() }
-                is Result.Success -> {
-                    showSuccessState()
-                    productAdapter.submitList(it.data)
-                }
-            }
+           productAdapter.submitData(lifecycle, it)
         }
         notificationViewModel.getUnreadCount().observe(viewLifecycleOwner){
             when(it){
@@ -102,9 +95,13 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             viewModel.onBuyerProductClicked(it)
         }
 
-        binding.recyclerView.apply {
+        binding.recyclerview.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = productAdapter
+            adapter = productAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    productAdapter.retry()
+                }
+            )
             setupLayoutManager(
                 spacing = itemSpacing
             )
@@ -116,28 +113,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         HomeProductFilterBottomSheet
             .newInstance()
             .show(childFragmentManager, HomeProductFilterBottomSheet.TAG)
-    }
-
-    private fun showSuccessState() {
-        if (isRefreshing) {
-            binding.swipeRefreshLayout.isRefreshing = false
-            isRefreshing = false
-        }
-        binding.contentLoadingLayout.hide()
-        binding.recyclerView.isVisible = true
-    }
-
-    private fun showErrorState() {
-        binding.contentLoadingLayout.hide()
-        binding.recyclerView.isVisible = true
-    }
-
-    private fun showLoadingState() {
-        if (isRefreshing) {
-            binding.swipeRefreshLayout.isRefreshing = true
-        }
-        binding.contentLoadingLayout.show()
-        binding.recyclerView.isVisible = false
     }
 
     companion object {

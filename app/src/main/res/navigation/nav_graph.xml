@@ -79,9 +79,12 @@
             app:destination="@id/editAccountFragment" />
 
         <action
+            android:id="@+id/action_accountFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
+
+        <action
             android:id="@+id/action_accountFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
-
     </fragment>
 
     <fragment
@@ -95,6 +98,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_sellerProductFragment"
             app:destination="@id/sellerProductFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
     </fragment>
 
     <action
@@ -162,7 +168,11 @@
 
         android:id="@+id/searchFragment"
         android:name="com.binar.secondhand.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sellListViewPagerFragment"
         android:name="com.binar.secondhand.ui.sellerorder.SellerOrderViewPagerFragment"
@@ -244,14 +254,24 @@
             android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
             app:destination="@id/inputBidPriceBottomSheet" />
     </fragment>
+    <fragment
+        android:id="@+id/buyerOrderFragment"
+        android:name="com.binar.secondhand.ui.buyerorder.BuyerOrderFragment"
+        android:label="fragment_buyer_order"
+        tools:layout="@layout/fragment_buyer_order" >
+        <action
+            android:id="@+id/action_buyerOrderFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <dialog
         android:id="@+id/inputBidPriceBottomSheet"
         android:name="com.binar.secondhand.ui.productdetail.InputBidPriceBottomSheet"
         android:label="InputBidPriceBottomSheet" >
         <argument
             android:name="product"
-            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductResponse" />
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse" />
     </dialog>
+
 
 
 </navigation>

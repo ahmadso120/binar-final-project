@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 class BuyerProductLocalDataSource (
     private val buyerProductDao: BuyerProductDao
 ) {
-    fun getBuyerProducts(): Flow<List<BuyerProductEntity>> =
-        buyerProductDao.getBuyerProducts()
+//    fun getBuyerProducts(): Flow<List<BuyerProductEntity>> =
+//        buyerProductDao.getBuyerProducts()
 
-    suspend fun insertBuyerProduct(data: List<BuyerProductEntity>) =
-        buyerProductDao.insertBuyerProduct(data)
+//    suspend fun insertBuyerProduct(data: List<BuyerProductEntity>) =
+//        buyerProductDao.insertBuyerProduct(data)
 
     suspend fun deleteAllBuyerProduct() =
         buyerProductDao.deleteAllBuyerProduct()

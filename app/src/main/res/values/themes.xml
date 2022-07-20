@@ -16,6 +16,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style
+        name="ShapeAppearance.Sunflower.FAB"
+        parent="ShapeAppearance.MaterialComponents.SmallComponent" />
+
     <style name="ChipTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@android:color/transparent</item>
         <item name="tabBackground">@drawable/selector_tab</item>
@@ -36,4 +40,15 @@
     <style name="Theme.SecondHand.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.SecondHand.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyAlertDialogTheme" parent="@android:style/Theme.Material.Light.Dialog">
+        <item name="colorAccent">@color/dark_blue_04</item>
+        <item name="android:colorAccent">@color/dark_blue_04</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+
 </resources>
