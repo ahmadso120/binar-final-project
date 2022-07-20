@@ -44,7 +44,7 @@ class BuyerProductRemoteMediator(
         }
 
         return try {
-            val responseData = service.getBuyerProduct(page, state.config.pageSize, categoryId).data
+            val responseData = service.getBuyerProduct(page, state.config.pageSize, categoryId)
 
             val endOfPaginationReached = responseData.isEmpty()
 

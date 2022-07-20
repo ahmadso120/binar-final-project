@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             when(it) {
                 is Result.Error -> {
                     it.error?.let { err ->
-                        view?.showShortSnackbar(err)
+                        view?.showShortSnackbar(err, false)
                     }
 
                     binding.loginBtn.text = "Masuk"

@@ -21,7 +21,7 @@ interface BuyerProductService {
         @Query("per_page") perPage: Int,
         @Query("category_id") categoryId: Int? = null,
         @Query("status") status: String = "available"
-    ): BuyerProductDataResponse
+    ): List<BuyerProductResponse>
 
 
     @GET("buyer/product/{id}")

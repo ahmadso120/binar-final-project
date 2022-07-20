@@ -10,7 +10,7 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 
 interface SellerOrderRepository {
-    fun getSellerOrder(): LiveData<Result<List<SellerOrderResponse>>>
+    fun getSellerOrder(hasSold: Boolean): LiveData<Result<List<SellerOrderResponse>>>
     fun getSellerOrderById(id: Int): LiveData<Result<SellerOrderResponse>>
     suspend fun updateStatusOrder(id: Int, status: RequestBody): Boolean
 }
@@ -18,14 +18,15 @@ interface SellerOrderRepository {
 class SellerOrderRepositoryImpl(
     private val dataSource: SellerOrderRemoteDataSource
 ) : SellerOrderRepository {
-    override fun getSellerOrder(): LiveData<Result<List<SellerOrderResponse>>> = liveData(Dispatchers.IO) {
+    override fun getSellerOrder(hasSold: Boolean): LiveData<Result<List<SellerOrderResponse>>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
             val response = dataSource.getSellerOrder()
             if (response.isSuccessful) {
                 val data = response.body()
+                val status = if (hasSold) "accepted" else "pending"
                 val filteredData = data?.filter {
-                    it.status != "declined"
+                    it.status == status
                 }
                 if (!filteredData.isNullOrEmpty()) {
                     emit(Result.Success(filteredData))

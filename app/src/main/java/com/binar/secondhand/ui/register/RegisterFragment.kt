@@ -51,7 +51,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
             when(it){
                 is Result.Error ->{
                     it.error?.let { error ->
-                        view?.showShortSnackbar(error)
+                        view?.showShortSnackbar(error, false)
                     }
                 }
                 Result.Loading->{

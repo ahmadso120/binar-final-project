@@ -34,7 +34,29 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
     private fun observeUi() {
         val isInterested = arguments?.getInt(SECTION_NUMBER)
         if (isInterested == 0) {
-            viewModel.sellerOrder.observe(viewLifecycleOwner) {
+            viewModel.interestedOrder.observe(viewLifecycleOwner) {
+                when(it) {
+                    is Result.Error -> {
+                        logd("error")
+                        showErrorState(it.error)
+                    }
+                    Result.Loading -> {
+                        logd("loading")
+                        showLoadingState()
+                    }
+                    is Result.Success -> {
+                        logd("data => ${it.data}")
+                        if (it.data.isNotEmpty()) {
+                            showSuccessState()
+                            sellerOrderAdapter.submitList(it.data)
+                        } else {
+                            showEmptyState()
+                        }
+                    }
+                }
+            }
+        } else {
+            viewModel.soldOrder.observe(viewLifecycleOwner) {
                 when(it) {
                     is Result.Error -> {
                         logd("error")

@@ -228,7 +228,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         viewModel.category.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
-                    view?.showShortSnackbar("Something Wrong")
+
                 }
                 Result.Loading -> {
 
