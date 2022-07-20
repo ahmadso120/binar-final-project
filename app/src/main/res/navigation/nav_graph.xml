@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_accountFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
     </fragment>
 
     <fragment
@@ -271,7 +274,15 @@
             android:name="product"
             app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse" />
     </dialog>
-
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.binar.secondhand.ui.wishlist.WishlistFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
 
 
 </navigation>

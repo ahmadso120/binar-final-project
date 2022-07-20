@@ -13,6 +13,7 @@ interface WishlistRepository {
     suspend fun wishlist(wishlistRequest: WishlistRequest): Boolean
     suspend fun deleteWishlist(productId: Int): Boolean
     fun getWishlistByProductId(productId: Int): LiveData<Result<List<WishlistResponse>?>>
+    fun getAllWishList(): LiveData<Result<List<WishlistResponse>>>
 }
 
 class WishlistRepositoryImpl(
@@ -62,6 +63,31 @@ class WishlistRepositoryImpl(
         } catch (e: Exception) {
             loge("getWishlist() => ${e.message}")
             emit(Result.Error(null, "Something went wrong"))
+        }
+    }
+
+    override fun getAllWishList(): LiveData<Result<List<WishlistResponse>>> =
+    liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = dataSource.getAllWishList()
+            if (response.isSuccessful) {
+                val data = response.body()
+                data?.let {
+                    emit(Result.Success(it))
+                }
+            } else {
+                loge("getAllWishList() => Request Error")
+                val error = response.errorBody()?.string()
+                if (error != null) {
+                    val jsonObject = JSONObject(error)
+                    val message = jsonObject.getString("message")
+                    emit(Result.Error(null, message))
+                }
+            }
+        } catch (e: Exception) {
+            loge("getAllWishList => ${e.message}")
+            emit(Result.Error(null, "Something went wrong ${e.message}"))
         }
     }
 }

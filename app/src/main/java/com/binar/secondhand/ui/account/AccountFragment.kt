@@ -32,6 +32,7 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         observeUI()
         var listView = binding.listview
         var menuAccount: ArrayList<MenuAccount> = ArrayList()
+        menuAccount.add(MenuAccount("Wishlist", R.drawable.ic_wishlist))
         menuAccount.add(MenuAccount("Daftar Order", R.drawable.ic_orders))
         menuAccount.add(MenuAccount("Riwayat",R.drawable.ic_baseline_history_edu_24))
         menuAccount.add(MenuAccount("Ubah Akun", R.drawable.ic_fi_edit))
@@ -40,13 +41,13 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
         listView.adapter = CustomAdapterAccount(requireContext(), menuAccount)
         listView.setOnItemClickListener { _, _, position, _ ->
             when (position) {
-                2 -> {
+                3 -> {
                     navController.navigate(R.id.action_accountFragment_to_editAccountFragment)
                 }
-                3 -> {
+                4 -> {
                     navController.navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
-                4 -> {
+                5 -> {
                     builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("Keluar dari SecondHand")
                         .setMessage("Apakah anda ingin keluar ?")
@@ -62,12 +63,16 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                         }
                         .show()
                 }
-                0 -> {
+                1 -> {
                     findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToBuyerOrderFragment())
                 }
 
-                1 ->
+                2 ->{
                     findNavController().navigate(R.id.action_accountFragment_to_historyFragment)
+                }
+                 0 -> {
+                     findNavController().navigate(AccountFragmentDirections.actionAccountFragmentToWishlistFragment())
+                 }
 
             }
         }
