@@ -244,18 +244,21 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.binar.secondhand.ui.productdetail.ProductDetailFragment"
-        android:label="ProductDetailFragment" >
+        android:label="ProductDetailFragment">
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="message"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
             app:destination="@id/inputBidPriceBottomSheet" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://secondhand.com/product/{id}" />
     </fragment>
     <fragment
         android:id="@+id/buyerOrderFragment"

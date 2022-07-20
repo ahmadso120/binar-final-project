@@ -1,5 +1,6 @@
 package com.binar.secondhand.ui.productdetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
@@ -73,6 +74,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
                     true
                 }
                 R.id.action_share -> {
+                    shareProduct()
                     true
                 }
                 else -> false
@@ -231,4 +233,15 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         binding.productDetailScrollview.hide()
         binding.interestProductButton.hide()
     }
+   private fun shareProduct(){
+       val sendIntent = Intent()
+       sendIntent.action = Intent.ACTION_SEND
+       sendIntent.putExtra(
+           Intent.EXTRA_TEXT,
+           "Hey temukan dan nego produk saya di: https://secondhand.com/product/"+productId.toString()
+       )
+       sendIntent.type = "text/plain"
+       startActivity(sendIntent)
+   }
+
 }
