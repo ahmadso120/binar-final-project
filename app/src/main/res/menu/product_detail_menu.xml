@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/fi_share"
+        android:title="Action share"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_wishlist"
+        android:icon="@drawable/fi_heart"
+        android:title="Action wishlist"
+        app:showAsAction="ifRoom" />
+</menu>
