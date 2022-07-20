@@ -29,18 +29,13 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeUI()
-
         var listView = binding.listview
         var menuAccount: ArrayList<MenuAccount> = ArrayList()
         menuAccount.add(MenuAccount("Riwayat",R.drawable.ic_baseline_history_edu_24))
-
         menuAccount.add(MenuAccount("Ubah Akun", R.drawable.ic_fi_edit))
         menuAccount.add(MenuAccount("Ubah Password", R.drawable.ic_fi_settings))
         menuAccount.add(MenuAccount("Keluar", R.drawable.ic_fi_log_out))
-
-
         listView.adapter = CustomAdapterAccount(requireContext(), menuAccount)
         listView.setOnItemClickListener { _, _, position, _ ->
             when (position) {
