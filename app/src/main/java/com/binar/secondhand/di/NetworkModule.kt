@@ -1,5 +1,6 @@
 package com.binar.secondhand.di
 
+import com.binar.secondhand.data.WishlistRepository
 import com.binar.secondhand.data.source.remote.network.*
 
 import com.binar.secondhand.storage.AppLocalData
@@ -27,17 +28,12 @@ val networkModule = module {
     factory { createService<AccountService>(get(),get()) }
     factory { createService<NotificationService>(get(),get()) }
     factory { createService<SellerCategoryService>(get(), get()) }
-
     factory { createService<SearchService>(get(), get()) }
-
-
     factory { createService<SellerOrderService>(get(), get()) }
     factory { createService<SellerProductService>(get(),get()) }
-
     factory { createService<HistoryService>(get(),get()) }
-
     factory { createService<BuyerOrderService>(get(),get()) }
-
+    factory { createService<WishlistService>(get(), get()) }
 }
 
 private fun createOkHttpClient(accessTokenInterceptor: AccessTokenInterceptor): OkHttpClient {
