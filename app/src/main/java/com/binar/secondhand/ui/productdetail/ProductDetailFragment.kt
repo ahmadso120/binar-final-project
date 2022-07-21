@@ -68,8 +68,16 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_wishlist -> {
-                    productId?.let { productId ->
-                        viewModel.setIdProductForWishlist(productId)
+                    viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                        authViewModel.isUserHasLoggedIn.collect { isUserHasLoggedIn ->
+                            if (!isUserHasLoggedIn) {
+                                executeRequireAuthentication()
+                            } else {
+                                productId?.let { productId ->
+                                    viewModel.setIdProductForWishlist(productId)
+                                }
+                            }
+                        }
                     }
                     true
                 }
