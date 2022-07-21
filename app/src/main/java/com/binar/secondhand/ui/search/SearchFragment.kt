@@ -1,7 +1,9 @@
 package com.binar.secondhand.ui.search
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -22,6 +24,7 @@ import com.binar.secondhand.ui.home.HomeFragmentDirections
 
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
+import com.google.android.material.appbar.MaterialToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
@@ -31,7 +34,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     private val binding: FragmentSearchBinding by viewBinding()
 
-    private val authViewModel by viewModel<AuthViewModel>()
+//    private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var productAdapter: SearchAdapterProduct
     private lateinit var historyAdapter: SearchHistoryAdapter
     override fun onCreateView(
@@ -51,7 +54,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             historyAdapter.submitList(it)
         }
 
-        val materialToolbar: MaterialToolbar = binding.materialToolbar2
+        val materialToolbar: MaterialToolbar = binding.toolbar
         materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
@@ -87,16 +90,20 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         val search =binding.search1Et.text.toString()
         if(search.isNotEmpty()){
             viewModel.getData(search)
-            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-                authViewModel.isUserHasLoggedIn.collect {
-                    if (it) {
-                        val searchEntity = SearchHistory(
-                            historySearch = search
-                        )
-                        viewModel.insertHistory(searchEntity)
-                    }
-                }
-            }
+//            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+//                authViewModel.isUserHasLoggedIn.collect {
+//                    if (it) {
+//                        val searchEntity = SearchHistory(
+//                            historySearch = search
+//                        )
+//                        viewModel.insertHistory(searchEntity)
+//                    }
+//                }
+//            }
+            val searchEntity = SearchHistory(
+                historySearch = search
+            )
+            viewModel.insertHistory(searchEntity)
 
         }else{
             view?.showShortSnackbar("isi pencarian")
