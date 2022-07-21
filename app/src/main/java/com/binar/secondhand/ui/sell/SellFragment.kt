@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 
 
 import android.view.View
@@ -46,12 +47,10 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     override var bottomNavigationViewVisibility = View.GONE
 
     override var requireAuthentication = true
-
+    private val categoryID = ArrayList<Int>()
     private val binding: FragmentSellBinding by viewBinding()
-
+    private val categoryName = ArrayList<String>()
     private val viewModel by viewModel<SellerViewModel>()
-
-    private var categoryId: Int = 0
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
@@ -72,7 +71,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             addSellerProduct()
         }
         binding.previewBtn.setOnClickListener {
-            if (binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryId != 0 && binding.locationEdt.text.toString() != "") {
+            if (binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryID.size != 0 && binding.locationEdt.text.toString() != "") {
                 previewProduct()
             } else {
                 Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_SHORT).show()
@@ -84,7 +83,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         val productName = binding.productNameEdt.text.toString()
         val productPrice = binding.ProductPriceEditText.text.toString().toInt()
         val productDescription = binding.descriptionEdt.text.toString()
-        val category = categoryId.toString()
+        val category = categoryID.toString()
         val location = binding.locationEdt.text.toString()
         val previewProduct =
             PreviewProduct(
@@ -92,6 +91,9 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 productPrice = productPrice,
                 productDescription = productDescription,
                 category = category,
+                categoryName = categoryName.joinToString {
+                    it
+                },
                 location = location,
                 file = getFile,
                 isBackCamera = isBackCamera,
@@ -116,7 +118,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             val productName = binding.productNameEdt.text.toString().createPartFromString()
             val productPrice = binding.ProductPriceEditText.text.toString().createPartFromString()
             val productDescription = binding.descriptionEdt.text.toString().createPartFromString()
-            val category = categoryId.toString().createPartFromString()
+            val category = categoryID.toString().createPartFromString()
             val location = binding.locationEdt.text.toString().createPartFromString()
 
             val map = HashMap<String, RequestBody>().apply {
@@ -226,8 +228,8 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             }
         })
 
-        viewModel.category.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.category.observe(viewLifecycleOwner) { item ->
+            when (item) {
                 is Result.Error -> {
 
                 }
@@ -235,15 +237,8 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
 
                 }
                 is Result.Success -> {
-                    val items = it.data.plus(CategoryResponse(0, "Pilih Kategori"))
-                    val names = items.map { names -> names.name }
-                    val adapter = ArrayAdapter(requireContext(), R.layout.item_dropdown_list, names)
-                    val categoryFilterDropdownMenu =
-                        binding.categoryFilterDropdownMenu.editText as? AutoCompleteTextView
-                    categoryFilterDropdownMenu?.setAdapter(adapter)
-                    categoryFilterDropdownMenu?.setOnItemClickListener { _, _, position, _ ->
-                        val catId = items[position].id
-                        categoryId = catId
+                    binding.categoryEditText.setOnClickListener {
+                        showMultipleChoicesAlert(item.data)
                     }
                 }
             }
@@ -254,16 +249,63 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         viewModel.addSellerProduct.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
-
+                    Toast.makeText(requireContext(), "Gagal Menambah Product", Toast.LENGTH_LONG).show()
                 }
                 Result.Loading -> {
-
+                    binding.previewBtn.isEnabled = false
+                    binding.saveBtn.isEnabled = false
+                    binding.saveBtn.text = "Loading ..."
                 }
                 is Result.Success -> {
                     navController.navigate(R.id.action_sellFragment_to_homeFragment)
+                    Toast.makeText(requireContext(), "Berhasil Menambah Product", Toast.LENGTH_LONG).show()
                 }
             }
         }
+    }
+    private fun showMultipleChoicesAlert(categoryResponse: List<CategoryResponse>) {
+        val selectedList = ArrayList<Int>()
+        val selectedItems = ArrayList<String>()
+        var items = arrayOf<String>()
+        var id = arrayOf<Int>()
+        for (i in categoryResponse) {
+            items = items.plus(i.name)
+            id = id.plus(i.id)
+        }
+        MaterialAlertDialogBuilder(requireContext(), R.style.MyAlertDialogTheme)
+            .setTitle("Pilih Kategori")
+            .setMultiChoiceItems(items, null) { dialog, which, isChecked ->
+                if (isChecked) {
+                    selectedList.add(which)
+                } else if (selectedList.contains(which)) {
+                    selectedList.remove(which)
+                }
+            }
+            .setPositiveButton("OK") { dialog, which ->
+                categoryName.removeAll(categoryName)
+                categoryID.removeAll(categoryID)
+                for (i in selectedList.indices) {
+                    selectedItems.add(items[selectedList[i]])
+                    categoryID.add(id[selectedList[i]])
+                    categoryName.add(items[selectedList[i]])
+                }
+                binding.categoryEditText.setText(selectedItems.joinToString {
+                    it
+                })
+                Log.d("id", "$categoryID")
+            }
+            .setNegativeButton("Batal") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setNeutralButton("Bersihkan Pilihan") { ialog, which ->
+                selectedItems.removeAll(selectedItems)
+                categoryID.removeAll(categoryID)
+                categoryName.removeAll(categoryName)
+                binding.categoryEditText.setText(selectedItems.joinToString {
+                    it
+                })
+            }
+            .show()
     }
 }
 

@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.CreateMethod
+import by.kirich1409.viewbindingdelegate.internal.getRootView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.RebidBuyerOrderRequest
@@ -21,6 +23,7 @@ import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
@@ -80,13 +83,15 @@ class ReInputBidPriceBottomSheet : BottomSheetDialogFragment() {
             viewModel.updateBidPrice(id,price).observe(viewLifecycleOwner){
                 when(it){
                     is Result.Error -> {
-                        Toast.makeText(requireContext(),"Nego Ulang Gagal",Toast.LENGTH_SHORT).show()
+                        this.dismiss()
+                        parentFragment?.view?.let { it1 -> Snackbar.make(it1,"Nego Ulang Gagal",Snackbar.LENGTH_SHORT).show() }
                     }
                     Result.Loading -> {
 
                     }
                     is Result.Success -> {
-                        Toast.makeText(requireContext(),"Nego Ulang Berhasil",Toast.LENGTH_SHORT).show()
+                        this.dismiss()
+                        parentFragment?.view?.let { it1 -> Snackbar.make(it1,"Nego Ulang Berhasil",Snackbar.LENGTH_SHORT).show() }
                     }
 
                 }

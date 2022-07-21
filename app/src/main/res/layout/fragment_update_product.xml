@@ -23,43 +23,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/margin_padding_size_medium">
-                <!--                Nama produk-->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textFieldProductName"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="72dp"
-                    android:hint="Nama Produk"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="0dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/product_name_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!--                Harga Produk-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textFieldProductPrice"
+                    android:id="@+id/textFieldDescription"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Harga Produk"
+                    android:hint="Deskripsi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textFieldProductName">
+                    app:layout_constraintTop_toBottomOf="@+id/textFieldLocation">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/product_price_edit_text"
+                        android:id="@+id/description_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="textMultiLine"
+                        android:maxLength="98"
+                        android:maxLines="5" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textFieldLocation"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:hint="Lokasi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/category_filter_dropdown_menu">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/location_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        android:inputType="number" />
+                        android:inputType="textPersonName" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -83,60 +86,60 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textFieldLocation"
+                    android:id="@+id/textFieldProductPrice"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:hint="Lokasi"
+                    android:hint="Harga Produk"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/category_filter_dropdown_menu">
+                    app:layout_constraintTop_toBottomOf="@+id/textFieldProductName">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/location_edt"
+                        android:id="@+id/product_price_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textFieldProductName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="72dp"
+                    android:hint="Nama Produk"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/product_name_edt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textPersonName" />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--                deskripsi-->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textFieldDescription"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:hint="Deskripsi"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textFieldLocation">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/description_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionDone"
-                        android:inputType="textMultiLine"
-                        android:maxLines="5"
-                        android:maxLength="98"
-                        />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageView
-                    android:id="@+id/product_imageView"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/image_card_view"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
-                    android:layout_marginTop="32dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_add_foto"
-
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textFieldDescription" />
+                    app:layout_constraintTop_toBottomOf="@id/textFieldDescription"
+                    android:layout_marginTop="32dp"
+                    app:cardCornerRadius="16dp"
+                    >
 
+                    <ImageView
+                        android:id="@+id/product_imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_add_foto" />
+                </androidx.cardview.widget.CardView>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/save_btn"
@@ -148,7 +151,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/product_imageView" />
+                    app:layout_constraintTop_toBottomOf="@+id/image_card_view" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

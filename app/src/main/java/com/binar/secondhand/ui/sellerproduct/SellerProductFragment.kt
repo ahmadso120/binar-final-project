@@ -2,6 +2,7 @@ package com.binar.secondhand.ui.sellerproduct
 
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -88,8 +89,9 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                                         it.id
                                     )
                                 )
-                            }
-                        )
+                            }, onShareCliked = {
+                                shareProduct(it.id)
+                            })
                     }
                 }
             }
@@ -133,5 +135,15 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
         val alert = dialogBuilder.create()
         alert.show()
 
+    }
+    private fun shareProduct(productId: Int){
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Hey temukan dan nego produk saya di: https://secondhand.com/product/$productId"
+        )
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
     }
 }

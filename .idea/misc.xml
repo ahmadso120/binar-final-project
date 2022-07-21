@@ -92,13 +92,16 @@
 
         <entry key="app/src/main/res/drawable/chip_outline_selected.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/fi_share.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/fi_share_blue.xml" value="0.282" />
         <entry key="app/src/main/res/drawable/fi_shopping_bag.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/fi_user.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/ic_add_foto.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/ic_arrow_left.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.282" />
         <entry key="app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/ic_baseline_history_edu_24.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_camera_icon.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/ic_capture.xml" value="0.282" />
         <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/ic_fi_edit.xml" value="0.184" />
         <entry key="app/src/main/res/drawable/ic_fi_log_out.xml" value="0.122" />
@@ -111,6 +114,7 @@
 
         <entry key="app/src/main/res/layout-v26/fragment_product_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout-v26/item_multi_selection_spinner.xml" value="0.2957427536231884" />
+        <entry key="app/src/main/res/layout/account_item_list.xml" value="0.17603850050658562" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/bottom_re_input_bid_price.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/bottom_sheet_input_bid_price.xml" value="0.1702127659574468" />
