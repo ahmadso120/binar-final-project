@@ -14,7 +14,8 @@ class SellerProductAdapter(
     private val item: List<SellerProductResponse>,
     private val onCardClicked : (SellerProductResponse) -> Unit,
     private val onpreviewClicked : (SellerProductResponse) -> Unit,
-    private val onDeleteClicked : (SellerProductResponse) -> Unit
+    private val onDeleteClicked : (SellerProductResponse) -> Unit,
+    private val onShareCliked : (SellerProductResponse) -> Unit
 ) : RecyclerView.Adapter<SellerProductAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemSellerProductBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -50,6 +51,9 @@ class SellerProductAdapter(
 
             previewButton.setOnClickListener {
                 onpreviewClicked.invoke(item[position])
+            }
+            shareImageView.setOnClickListener {
+                onShareCliked.invoke(item[position])
             }
         }
     }
