@@ -1,13 +1,13 @@
 package com.binar.secondhand.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +17,7 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.databinding.FragmentSearchBinding
-import com.binar.secondhand.ui.home.HomeFragmentDirections
+import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
 import com.google.android.material.appbar.MaterialToolbar
@@ -28,6 +28,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override var bottomNavigationViewVisibility = View.GONE
     private val viewModel by viewModel<SearchViewModel>()
     private val binding: FragmentSearchBinding by viewBinding()
+    private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var productAdapter: SearchAdapterProduct
     private lateinit var historyAdapter: SearchHistoryAdapter
     override fun onCreateView(
@@ -41,22 +42,24 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.search1Et.focusAndShowKeyboard()
+        viewModel.history.observe(viewLifecycleOwner){
+            historyAdapter.submitList(it)
+        }
+
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-
+        adapterHistory()
+        setupAdapter()
+        doSomething(binding.search1Et)
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()
         }
-//        adapterHistory()
-        setupAdapter()
-        doSomething(binding.search1Et)
     }
 
     private fun setupAdapter() {
-
 
         val itemSpacing = resources.getDimensionPixelSize(R.dimen.margin_padding_size_medium)
 
@@ -78,18 +81,16 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         val search =binding.search1Et.text.toString()
         if(search.isNotEmpty()){
             viewModel.getData(search)
-            val searchEntity = SearchHistory(
-                id=null,
-                historySearch = search
-            )
-//            viewModel.insertHistory(searchEntity)
-
-//            viewModel.historyString.observe(viewLifecycleOwner){
-//                if (search != it.historySearch){
-//                    viewModel.insertHistory(searchEntity)
-//                    Log.d("test",it.historySearch.toString())
-//                }
-//            }
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                authViewModel.isUserHasLoggedIn.collect {
+                    if (it) {
+                        val searchEntity = SearchHistory(
+                            historySearch = search
+                        )
+                        viewModel.insertHistory(searchEntity)
+                    }
+                }
+            }
 
         }else{
             view?.showShortSnackbar("isi pencarian")
@@ -137,6 +138,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 getQuery()
                 showData()
+
+
                 return@OnEditorActionListener true
 
             }
@@ -147,27 +150,27 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     }
     private fun adapterHistory(){
+        historyAdapter = SearchHistoryAdapter{
+            viewModel.onHistoryClick(it)
+        }
+
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         binding.searchHistory.layoutManager = layoutManager
 
-            viewModel.history.observe(viewLifecycleOwner){
-                historyAdapter = SearchHistoryAdapter(it)
-                historyAdapter.submitData(it)
-                binding.searchHistory.adapter = historyAdapter
-                binding.searchHistory.visibility = View.VISIBLE
-                binding.searchHistory.setOnClickListener {
-                    binding.search1Et.setText("halo")
-                }
-            }
 
+        binding.searchHistory.adapter = historyAdapter
+        binding.searchHistory.visibility = View.VISIBLE
+
+        viewModel.historyClick.observe(viewLifecycleOwner,EventObserver{
+            binding.search1Et.setText(it.historySearch)
+            getQuery()
+            showData()
+        })
 
     }
 
-    private fun historyClick(){
-        binding.apply {
 
-        }
-    }
+
 
     private fun successUi(){
         binding.searchHistory.visibility = View.GONE
@@ -197,6 +200,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         binding.notfoundTv.visibility = View.GONE
         binding.contentLoadingLayout.visibility = View.GONE
+        viewModel.history.observe(viewLifecycleOwner){data->
+            historyAdapter.submitList(data)
+        }
         binding.search1Et.focusAndShowKeyboard()
     }
 }

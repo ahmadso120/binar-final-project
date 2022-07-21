@@ -7,6 +7,36 @@
     android:layout_height="match_parent">
 
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.search.SearchFragment">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/history_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                tools:listitem="@layout/list_item_product">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -51,13 +81,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        tools:listitem="@layout/history_item"/>
-
     <com.binar.secondhand.ui.widget.ContentLoadingLayout
         android:id="@+id/content_loading_layout"
         android:layout_width="100dp"
@@ -66,32 +89,6 @@
         android:layout_marginTop="?actionBarSize"
         android:background="?attr/colorSurface"
         android:visibility="invisible"/>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.search.SearchFragment">
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible"
-                tools:listitem="@layout/list_item_product">
-
-            </androidx.recyclerview.widget.RecyclerView>
-        </FrameLayout>
-
-    </androidx.core.widget.NestedScrollView>
 
 
     <TextView

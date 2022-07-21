@@ -10,10 +10,12 @@ import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
 import org.json.JSONObject
 
+
 interface SearchRepository {
     fun search (query : String): LiveData<Result<List<BuyerProductResponse>>>
     suspend fun getSearchHistory(): List<SearchHistory>
     suspend fun addSearchHistory(history:SearchHistory):Long
+    suspend fun  deleteAllHistory()
 }
 
 class SearchRepositoryImpl(
@@ -45,12 +47,16 @@ class SearchRepositoryImpl(
         }
     }
 
-    override suspend fun getSearchHistory(): List<SearchHistory>  {
+    override suspend fun getSearchHistory(): List<SearchHistory> {
         return searchHistoryDataSource.getSearchHistory()
     }
 
     override suspend fun addSearchHistory(history: SearchHistory):Long {
         return searchHistoryDataSource.insert(history)
+    }
+
+    override suspend fun deleteAllHistory() {
+        return searchHistoryDataSource.deleteHistory()
     }
 
 }

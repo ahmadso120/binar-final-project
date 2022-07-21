@@ -4,7 +4,6 @@ package com.binar.secondhand.ui.search
 import androidx.lifecycle.*
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.SearchRepository
-import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.Event
@@ -33,15 +32,21 @@ class SearchViewModel(
         _navigateToBuyerProductDetail.value = Event(buyerProductResponse)
     }
 
+    private val _historyClick= MutableLiveData<Event<SearchHistory>>()
+    val historyClick: LiveData<Event<SearchHistory>>
+        get() = _historyClick
+
+    fun onHistoryClick(searchHistory: SearchHistory) {
+        _historyClick.value = Event(searchHistory)
+    }
+
+
     private val _history = MutableLiveData<List<SearchHistory>>()
     val history : LiveData<List<SearchHistory>> get() = _history
 
-    private val _historyString = MutableLiveData<SearchHistory>()
-    val historyString : LiveData<SearchHistory> get() = _historyString
 
     init {
         getSearchHistory()
-        getSearchHistoryString()
     }
     private fun getSearchHistory() {
         viewModelScope.launch {
@@ -49,11 +54,7 @@ class SearchViewModel(
         }
     }
 
-    private fun getSearchHistoryString() {
-        viewModelScope.launch {
-            _history.value =searchRepository.getSearchHistory()
-        }
-    }
+
 
     private val _insert = MutableLiveData<Long>()
     val insert: LiveData<Long> = _insert
@@ -63,6 +64,9 @@ class SearchViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             searchRepository.addSearchHistory(history)
         }
+    }
 
+    fun deleteHistory(){
+        viewModelScope.launch(Dispatchers.IO) { searchRepository.deleteAllHistory() }
     }
 }
