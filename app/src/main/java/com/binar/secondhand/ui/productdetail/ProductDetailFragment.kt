@@ -18,6 +18,7 @@ import com.binar.secondhand.data.source.remote.response.BuyerProductDetailRespon
 import com.binar.secondhand.databinding.FragmentProductDetailBinding
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.getInitialsName
+import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.show
