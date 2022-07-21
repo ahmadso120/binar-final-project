@@ -50,7 +50,7 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
                             showSuccessState()
                             sellerOrderAdapter.submitList(it.data)
                         } else {
-                            showEmptyState()
+                            showEmptyState(getString(R.string.empty_state_order_text))
                         }
                     }
                 }
@@ -59,20 +59,17 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
             viewModel.soldOrder.observe(viewLifecycleOwner) {
                 when(it) {
                     is Result.Error -> {
-                        logd("error")
                         showErrorState(it.error)
                     }
                     Result.Loading -> {
-                        logd("loading")
                         showLoadingState()
                     }
                     is Result.Success -> {
-                        logd("data => ${it.data}")
                         if (it.data.isNotEmpty()) {
                             showSuccessState()
                             sellerOrderAdapter.submitList(it.data)
                         } else {
-                            showEmptyState()
+                            showEmptyState("Belum ada produkmu yang terjual")
                         }
                     }
                 }
@@ -109,9 +106,10 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
         }
     }
 
-    private fun showEmptyState() {
+    private fun showEmptyState(emptyText: String) {
         binding.contentLoadingLayout.hide()
         binding.recyclerview.hide()
+        binding.emptyStateLayout.emptyText.text = emptyText
         binding.emptyStateLayout.root.show()
     }
 
