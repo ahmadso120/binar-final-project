@@ -9,20 +9,17 @@ object DataMapper {
         val dataList = ArrayList<BuyerProductEntity>()
         input.map {
             val categories = ArrayList<CategoryEntity>()
-            if (it.Categories?.isNotEmpty() == true) {
-                it.Categories.map { categoryResponse ->
-                    val category = CategoryEntity(
-                        categoryResponse.id, categoryResponse.name
-                    )
-                    categories.add(category)
-                }
-
+            it.Categories?.map { categoryResponse ->
+                val category = CategoryEntity(
+                    categoryResponse.id, categoryResponse.name
+                )
+                categories.add(category)
             }
             val buyerProducts = BuyerProductEntity(
                 it.basePrice,
                 it.createdAt,
                 it.description,
-                it.id,
+                it.id.toString(),
                 it.imageName,
                 it.imageUrl,
                 it.location,
