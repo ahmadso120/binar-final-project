@@ -54,7 +54,7 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
 
                 
                 5 -> {
-                    searchViewModel.deleteHistory()
+//                    searchViewModel.deleteHistory()
                
                     
                     builder = AlertDialog.Builder(requireContext())
