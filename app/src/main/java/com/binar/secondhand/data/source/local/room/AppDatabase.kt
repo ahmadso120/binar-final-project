@@ -15,5 +15,9 @@ import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun buyerProductDao(): BuyerProductDao
+
+    abstract fun searchHistoryDao(): SearchHistoryDao
+
     abstract fun remoteKeysDao(): RemoteKeysDao
+
 }

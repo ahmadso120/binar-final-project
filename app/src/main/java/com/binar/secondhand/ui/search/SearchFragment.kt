@@ -5,14 +5,21 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
+import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.databinding.FragmentSearchBinding
+
+import com.binar.secondhand.ui.common.AuthViewModel
+
 import com.binar.secondhand.ui.home.HomeFragmentDirections
+
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,22 +31,38 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     private val binding: FragmentSearchBinding by viewBinding()
 
+    private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var productAdapter: SearchAdapterProduct
+    private lateinit var historyAdapter: SearchHistoryAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search, container, false)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.search1Et.focusAndShowKeyboard()
 
-        binding.toolbar.setNavigationOnClickListener {
-            navController.navigateUp()
+        viewModel.history.observe(viewLifecycleOwner){
+            historyAdapter.submitList(it)
         }
+
+        val materialToolbar: MaterialToolbar = binding.materialToolbar2
+        materialToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+        adapterHistory()
+        setupAdapter()
+        doSomething(binding.search1Et)
 
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()
         }
-        setupAdapter()
-        doSomething(binding.search1Et)
     }
 
     private fun setupAdapter() {
@@ -64,6 +87,17 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         val search =binding.search1Et.text.toString()
         if(search.isNotEmpty()){
             viewModel.getData(search)
+            viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                authViewModel.isUserHasLoggedIn.collect {
+                    if (it) {
+                        val searchEntity = SearchHistory(
+                            historySearch = search
+                        )
+                        viewModel.insertHistory(searchEntity)
+                    }
+                }
+            }
+
         }else{
             view?.showShortSnackbar("isi pencarian")
         }
@@ -110,6 +144,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 getQuery()
                 showData()
+
+
                 return@OnEditorActionListener true
 
             }
@@ -119,6 +155,28 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         })
 
     }
+    private fun adapterHistory(){
+        historyAdapter = SearchHistoryAdapter{
+            viewModel.onHistoryClick(it)
+        }
+
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
+        binding.searchHistory.layoutManager = layoutManager
+
+
+        binding.searchHistory.adapter = historyAdapter
+        binding.searchHistory.visibility = View.VISIBLE
+
+        viewModel.historyClick.observe(viewLifecycleOwner,EventObserver{
+            binding.search1Et.setText(it.historySearch)
+            getQuery()
+            showData()
+        })
+
+    }
+
+
+
 
     private fun successUi(){
         binding.searchHistory.visibility = View.GONE
@@ -148,6 +206,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         binding.notfoundTv.visibility = View.GONE
         binding.contentLoadingLayout.visibility = View.GONE
+        viewModel.history.observe(viewLifecycleOwner){data->
+            historyAdapter.submitList(data)
+        }
         binding.search1Et.focusAndShowKeyboard()
     }
 }

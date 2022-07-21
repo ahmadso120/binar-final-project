@@ -12,6 +12,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentAccountBinding
 import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
+import com.binar.secondhand.ui.search.SearchViewModel
 import com.binar.secondhand.utils.LogoutProcess
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import org.koin.android.ext.android.inject
@@ -23,6 +24,9 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
     private val binding: FragmentAccountBinding by viewBinding()
 
     private val viewModel by viewModel<EditAccountViewModel>()
+
+    private val searchViewModel by viewModel<SearchViewModel>()
+   
 
     private val appLocalData: AppLocalData by inject()
     private lateinit var builder: AlertDialog.Builder
@@ -47,7 +51,12 @@ class AccountFragment : BaseFragment(R.layout.fragment_account) {
                 4 -> {
                     navController.navigate(R.id.action_accountFragment_to_accountSettingFragment2)
                 }
+
+                
                 5 -> {
+                    searchViewModel.deleteHistory()
+               
+                    
                     builder = AlertDialog.Builder(requireContext())
                     builder.setTitle("Keluar dari SecondHand")
                         .setMessage("Apakah anda ingin keluar ?")
