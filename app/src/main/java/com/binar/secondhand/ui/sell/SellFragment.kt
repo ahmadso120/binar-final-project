@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 
+
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -31,6 +32,7 @@ import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -50,7 +52,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val viewModel by viewModel<SellerViewModel>()
 
     private var categoryId: Int = 0
-
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
