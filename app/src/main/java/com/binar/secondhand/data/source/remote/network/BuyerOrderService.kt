@@ -32,5 +32,7 @@ interface BuyerOrderService {
         @Path("id") id: Int,
         @Body rebidBuyerOrderRequest: RebidBuyerOrderRequest
     ): Response<BuyerOrderResponse>
+
+    @GET("buyer/order")
     suspend fun hasProductOrdered() : Response<List<HasProductOrdered>>
 }

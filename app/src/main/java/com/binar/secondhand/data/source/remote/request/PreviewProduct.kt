@@ -10,6 +10,7 @@ data class PreviewProduct(
     var productPrice : Int,
     var productDescription: String,
     var category :String,
+    var categoryName:String,
     var location : String,
     var file : File?,
     val isBackCamera: Boolean,

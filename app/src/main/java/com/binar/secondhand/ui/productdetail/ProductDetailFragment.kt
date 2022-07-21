@@ -18,6 +18,7 @@ import com.binar.secondhand.data.source.remote.response.BuyerProductDetailRespon
 import com.binar.secondhand.databinding.FragmentProductDetailBinding
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.getInitialsName
+import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.show
@@ -68,8 +69,16 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_wishlist -> {
-                    productId?.let { productId ->
-                        viewModel.setIdProductForWishlist(productId)
+                    viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+                        authViewModel.isUserHasLoggedIn.collect { isUserHasLoggedIn ->
+                            if (!isUserHasLoggedIn) {
+                                executeRequireAuthentication()
+                            } else {
+                                productId?.let { productId ->
+                                    viewModel.setIdProductForWishlist(productId)
+                                }
+                            }
+                        }
                     }
                     true
                 }
