@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +20,8 @@
             android:id="@+id/product_image_card_view"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
             app:cardCornerRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,9 +50,11 @@
 
         <TextView
             android:id="@+id/produk_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="289dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:maxLines="2"
+            android:singleLine="true"
             android:text="Jam Tangan Casio"
             android:textColor="#000000"
             android:textSize="16sp"
@@ -73,11 +77,11 @@
             android:id="@+id/date_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="21 Juli, 11:36"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/produk_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -85,7 +89,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="56dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="Preview produk"
@@ -93,8 +97,9 @@
             android:textSize="11sp"
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/product_image_card_view"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/base_price_text_view"
+            app:layout_constraintVertical_bias="0.0"
             app:strokeColor="@color/dark_blue_04"
             app:strokeWidth="1dp" />
 
@@ -111,7 +116,18 @@
             app:cornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/preview_button"
-            app:layout_constraintTop_toBottomOf="@+id/base_price_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/base_price_text_view"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/share_imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/fi_share_blue" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

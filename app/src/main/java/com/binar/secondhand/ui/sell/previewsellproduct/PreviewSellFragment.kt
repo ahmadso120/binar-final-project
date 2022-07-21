@@ -62,7 +62,7 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
                 is Result.Success -> {
                     binding.apply {
                         brandNameTextView.text = arguments.previewProduct.productName
-                        brandCategoriesTextView.text = arguments.previewProduct.category
+                        brandCategoriesTextView.text = arguments.previewProduct.categoryName
                         brandPriceTextView.text = arguments.previewProduct.productPrice.toString()
                         descriptionTextView.text = arguments.previewProduct.productDescription
                         sellerNameTextView.text = it.data.fullName
@@ -89,11 +89,16 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
     private fun observerUi(){
         viewModelProduct.addSellerProduct.observe(viewLifecycleOwner){
             when(it){
-                is Result.Error -> {}
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), "Gagal Menambah Product", Toast.LENGTH_LONG).show()
+                }
                 Result.Loading -> {
+                    binding.saveBtn.isEnabled = false
+                    binding.saveBtn.text = "Loading ..."
                 }
                 is Result.Success -> {
                     navController.navigate(R.id.action_previewSellFragment_to_homeFragment)
+                    Toast.makeText(requireContext(), "Berhasil Menambah Product", Toast.LENGTH_LONG).show()
                 }
             }
         }
