@@ -2,6 +2,8 @@ package com.binar.secondhand.ui.account.history
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -18,9 +20,14 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
     override var bottomNavigationViewVisibility = View.GONE
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar = binding.materialToolbar2
+        toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         observeUI()
     }
     private fun observeUI() {
+
         viewModel.getAllHistory().observe(viewLifecycleOwner) {
             when(it){
                 is Result.Error -> {
