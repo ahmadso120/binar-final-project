@@ -3,6 +3,10 @@ package com.binar.secondhand.di
 
 import com.binar.secondhand.ui.account.accountsetting.AccountSettingViewModel
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
+import com.binar.secondhand.ui.buyerorder.BuyerOrderViewModel
+
+import com.binar.secondhand.ui.account.history.HistoryViewModel
+
 import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.ui.common.ConnectionViewModel
 import com.binar.secondhand.ui.home.HomeViewModel
@@ -18,6 +22,7 @@ import com.binar.secondhand.ui.sell.SellerViewModel
 import com.binar.secondhand.ui.sellerproduct.SellerProductViewModel
 import com.binar.secondhand.ui.sellerproduct.detail.SellerProductDetailViewModel
 import com.binar.secondhand.ui.sellerproduct.updateproduct.UpdateProductViewmodel
+import com.binar.secondhand.ui.wishlist.WishlistViewModel
 
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -50,9 +55,15 @@ val viewModelModule = module {
 
     viewModel { UpdateProductViewmodel(get(),get()) }
 
+    viewModel { HistoryViewModel(get()) }
 
     viewModel {SearchViewModel(get())}
 
-    viewModel { ProductDetailViewModel(get(), get()) }
+    viewModel { ProductDetailViewModel(get(), get(), get()) }
+
+    viewModel {BuyerOrderViewModel(get())}
+
+    viewModel {WishlistViewModel(get())}
+
 
 }

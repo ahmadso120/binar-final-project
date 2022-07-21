@@ -1,9 +1,7 @@
 package com.binar.secondhand.ui.search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -17,17 +15,22 @@ import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.databinding.FragmentSearchBinding
+
 import com.binar.secondhand.ui.common.AuthViewModel
+
+import com.binar.secondhand.ui.home.HomeFragmentDirections
+
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
-import com.google.android.material.appbar.MaterialToolbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override var bottomNavigationViewVisibility = View.GONE
+
     private val viewModel by viewModel<SearchViewModel>()
+
     private val binding: FragmentSearchBinding by viewBinding()
+
     private val authViewModel by viewModel<AuthViewModel>()
     private lateinit var productAdapter: SearchAdapterProduct
     private lateinit var historyAdapter: SearchHistoryAdapter
@@ -39,9 +42,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.search1Et.focusAndShowKeyboard()
+
         viewModel.history.observe(viewLifecycleOwner){
             historyAdapter.submitList(it)
         }
@@ -53,6 +58,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         adapterHistory()
         setupAdapter()
         doSomething(binding.search1Et)
+
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()

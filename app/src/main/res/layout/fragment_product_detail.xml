@@ -60,6 +60,7 @@
                 android:background="@android:color/transparent"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_collapseMode="pin"
+                app:menu="@menu/product_detail_menu"
                 app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
                 app:titleTextColor="?attr/colorOnSurface" />
 

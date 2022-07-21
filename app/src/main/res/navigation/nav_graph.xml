@@ -77,6 +77,17 @@
         <action
             android:id="@+id/action_accountFragment_to_editAccountFragment"
             app:destination="@id/editAccountFragment" />
+
+        <action
+            android:id="@+id/action_accountFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
+
+        <action
+            android:id="@+id/action_accountFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_wishlistFragment"
+            app:destination="@id/wishlistFragment" />
     </fragment>
 
     <fragment
@@ -90,6 +101,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_sellerProductFragment"
             app:destination="@id/sellerProductFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_buyerOrderFragment"
+            app:destination="@id/buyerOrderFragment" />
     </fragment>
 
     <action
@@ -209,6 +223,12 @@
             app:destination="@id/cameraFragment" />
         </fragment>
     <fragment
+
+        android:id="@+id/historyFragment"
+        android:name="com.binar.secondhand.ui.account.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
         android:id="@+id/bidderInfoFragment"
         android:name="com.binar.secondhand.ui.bidderinfo.BidderInfoFragment"
         android:label="fragment_bidder_info"
@@ -224,15 +244,48 @@
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.binar.secondhand.ui.productdetail.ProductDetailFragment"
-        android:label="ProductDetailFragment" >
+        android:label="ProductDetailFragment">
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="message"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_inputBidPriceBottomSheet"
+            app:destination="@id/inputBidPriceBottomSheet" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://secondhand.com/product/{id}" />
     </fragment>
+    <fragment
+        android:id="@+id/buyerOrderFragment"
+        android:name="com.binar.secondhand.ui.buyerorder.BuyerOrderFragment"
+        android:label="fragment_buyer_order"
+        tools:layout="@layout/fragment_buyer_order" >
+        <action
+            android:id="@+id/action_buyerOrderFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/inputBidPriceBottomSheet"
+        android:name="com.binar.secondhand.ui.productdetail.InputBidPriceBottomSheet"
+        android:label="InputBidPriceBottomSheet" >
+        <argument
+            android:name="product"
+            app:argType="com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse" />
+    </dialog>
+    <fragment
+        android:id="@+id/wishlistFragment"
+        android:name="com.binar.secondhand.ui.wishlist.WishlistFragment"
+        android:label="fragment_wishlist"
+        tools:layout="@layout/fragment_wishlist" >
+        <action
+            android:id="@+id/action_wishlistFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+
 
 </navigation>

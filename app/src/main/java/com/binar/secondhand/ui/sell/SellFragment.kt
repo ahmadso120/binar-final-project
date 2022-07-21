@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -26,6 +27,7 @@ import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.camera.CameraFragment
+import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
@@ -33,24 +35,32 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 
 class SellFragment : BaseFragment(R.layout.fragment_sell) {
     override var bottomNavigationViewVisibility = View.GONE
+
+    override var requireAuthentication = true
+
     private val binding: FragmentSellBinding by viewBinding()
+
     private val viewModel by viewModel<SellerViewModel>()
+
     private var categoryId: Int = 0
+
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
         observeUI()
         setupObserver()
@@ -90,7 +100,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         if (getFile != null) {
             logd("RESULT IS BACK CAMERA => $isBackCamera")
             logd("RESULT IS GALERY => $isImageFromGallery")
-            findNavController().navigate(
+            navController.navigate(
                 SellFragmentDirections.actionSellFragmentToPreviewSellFragment(
                     previewProduct
                 )
@@ -154,7 +164,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             .setMessage("choose Image")
             .setPositiveButton("Gallery") { _, _ -> startGallery() }
             .setNegativeButton("Camera") { _, _ ->
-                findNavController().navigate(R.id.action_sellFragment_to_cameraFragment)
+                navController.navigate(R.id.action_sellFragment_to_cameraFragment)
             }
             .show()
     }
@@ -184,7 +194,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
 
 
     private fun setupObserver() {
-        val navController = findNavController()
+        val navController = navController
         val navBackStackEntry = navController.getBackStackEntry(R.id.sellFragment)
         val window = activity?.window
         window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -218,7 +228,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         viewModel.category.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
-                    view?.showShortSnackbar("Something Wrong")
+
                 }
                 Result.Loading -> {
 
@@ -249,7 +259,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
 
                 }
                 is Result.Success -> {
-                    findNavController().navigate(R.id.action_sellFragment_to_homeFragment)
+                    navController.navigate(R.id.action_sellFragment_to_homeFragment)
                 }
             }
         }

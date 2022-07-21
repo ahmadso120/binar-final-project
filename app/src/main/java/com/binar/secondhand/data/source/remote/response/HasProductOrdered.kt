@@ -1,7 +1,8 @@
-/*
 package com.binar.secondhand.data.source.remote.response
-
 
 import com.google.gson.annotations.SerializedName
 
-class NotificationResponse : ArrayList<NotificationResponseItem>()*/
+data class HasProductOrdered(
+    @field:SerializedName("product_id")
+    val productId: Int
+)

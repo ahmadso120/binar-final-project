@@ -61,10 +61,10 @@ class SellerOrderAcceptedBottomSheet : BottomSheetDialogFragment() {
                 initialsNameTv.text = data.userResponse.fullName.getInitialsName()
                 nameTv.text = data.userResponse.fullName
                 cityTv.text = data.userResponse.city
-                productImage.loadPhotoUrl(data.product.imageUrl)
+                data.product.imageUrl?.let { productImage.loadPhotoUrl(it) }
                 productNameTv.text = data.product.name
                 basePriceTv.text = requireContext().getString(
-                    R.string.base_price_text, data.product.basePrice.currencyFormatter()
+                    R.string.base_price_text, data.product.basePrice?.currencyFormatter()
                 )
                 basePriceTv.paintFlags = basePriceTv.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 bidPriceTv.text = requireContext().getString(

@@ -1,14 +1,26 @@
 package com.binar.secondhand.utils.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
-import com.google.android.material.snackbar.Snackbar
+import android.widget.TextView
+import com.androidadvance.topsnackbar.TSnackbar
 
-
-fun View.showShortSnackbar(message: String) {
-    Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
+fun View.showShortSnackbar(message: String, isSuccess: Boolean = true) {
+    val snackbar = TSnackbar.make(
+        this,
+        message,
+        TSnackbar.LENGTH_LONG
+    )
+    val color = if (isSuccess) "#73CA5C" else "#B00020"
+    val snackbarView = snackbar.view
+    snackbarView.setBackgroundColor(Color.parseColor(color))
+    val textView =
+        snackbarView.findViewById<View>(com.androidadvance.topsnackbar.R.id.snackbar_text) as TextView
+    textView.setTextColor(Color.WHITE)
+    snackbar.show()
 }
 
 fun View.focusAndShowKeyboard() {

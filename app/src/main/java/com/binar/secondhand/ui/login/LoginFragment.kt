@@ -43,10 +43,10 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 loginBtn.isEnabled = false
             }
             registerTv.setOnClickListener {
-                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
+                navController.navigate(LoginFragmentDirections.actionLoginFragmentToRegisterFragment())
             }
             toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                navController.navigateUp()
             }
         }
 
@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             when(it) {
                 is Result.Error -> {
                     it.error?.let { err ->
-                        view?.showShortSnackbar(err)
+                        view?.showShortSnackbar(err, false)
                     }
 
                     binding.loginBtn.text = "Masuk"
@@ -75,7 +75,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     )
                     viewModel.setUserLoggedIn(userLoggedIn)
                     savedStateHandle[LOGIN_SUCCESSFUL] = true
-                    findNavController().popBackStack()
+                    navController.popBackStack()
                 }
             }
         }

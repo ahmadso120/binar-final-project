@@ -6,9 +6,8 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -28,34 +27,40 @@ import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     override var bottomNavigationViewVisibility = View.GONE
+
     private val binding: FragmentUpdateProductBinding by viewBinding()
+
     private val args: UpdateProductFragmentArgs by navArgs()
-    private var categoryId: Int = 0
+    private val categoryID = ArrayList<Int>()
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false
+
     val viewModel by viewModel<UpdateProductViewmodel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val toolbar: MaterialToolbar = binding.materialToolbar2
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
         val id = args.id
         observeUI(id)
         setupObserver()
-
         binding.productImageView.setOnClickListener {
             chooseImageDialog()
         }
@@ -63,6 +68,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
         binding.saveBtn.setOnClickListener {
             updateProduct(id)
         }
+
     }
 
     private fun observeUI(id: Int) {
@@ -78,14 +84,14 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                         product.data.apply {
                             productNameEdt.setText(name)
                             productPriceEditText.setText(basePrice.toString())
-                            if(categoryId == 0){
-                                categories.map {
-                                    categoryEditText.setText(it.name)
-                                }
+                            if (categoryID.size == 0) {
+                                categoryEditText.setText(categories.joinToString {
+                                    it.name
+                                })
                             }
                             locationEdt.setText(location)
                             descriptionEdt.setText(description)
-                            if(getFile == null) {
+                            if (getFile == null) {
                                 imageUrl?.let { productImageView.loadPhotoUrl(it) }
                             }
                         }
@@ -96,7 +102,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     }
 
     private fun setupObserver() {
-        val navController = findNavController()
+        val navController = navController
         val navBackStackEntry = navController.getBackStackEntry(R.id.updateProductFragment)
         val window = activity?.window
         window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -126,25 +132,19 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                 navBackStackEntry.lifecycle.removeObserver(observerResultKey)
             }
         })
-
-        viewModel.category.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.category.observe(viewLifecycleOwner) { item ->
+            when (item) {
                 is Result.Error -> {}
                 Result.Loading -> {}
                 is Result.Success -> {
-                    val items = it.data.plus(CategoryResponse(0, "Pilih Kategori"))
-                    val names = items.map { names -> names.name }
-                    val adapter = ArrayAdapter(requireContext(), R.layout.item_dropdown_list, names)
-                    val categoryFilterDropdownMenu =
-                        binding.categoryFilterDropdownMenu.editText as? AutoCompleteTextView
-                    categoryFilterDropdownMenu?.setAdapter(adapter)
-                    categoryFilterDropdownMenu?.setOnItemClickListener { _, _, position, _ ->
-                        val catId = items[position].id
-                        categoryId = catId
+                    binding.categoryEditText.setOnClickListener {
+                        showMultipleChoicesAlert(item.data)
                     }
+
                 }
             }
         }
+
     }
 
     private fun chooseImageDialog() {
@@ -152,7 +152,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
             .setMessage("choose Image")
             .setPositiveButton("Gallery") { _, _ -> startGallery() }
             .setNegativeButton("Camera") { _, _ ->
-                findNavController().navigate(R.id.action_updateProductFragment_to_cameraFragment)
+                navController.navigate(R.id.action_updateProductFragment_to_cameraFragment)
             }
             .show()
     }
@@ -181,85 +181,135 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     }
 
     private fun updateProduct(id: Int) {
-        binding.apply {
-            val productName = binding.productNameEdt.text.toString().createPartFromString()
-            val productPrice = binding.productPriceEditText.text.toString().createPartFromString()
-            val productDescription = binding.descriptionEdt.text.toString().createPartFromString()
-            val category = categoryId.toString().createPartFromString()
-            val location = binding.locationEdt.text.toString().createPartFromString()
-            val map = HashMap<String, RequestBody>().apply {
-                put("name", productName)
-                put("base_price", productPrice)
-                put("description", productDescription)
-                put("category_ids", category)
-                put("location", location)
-            }
-            if (getFile != null) {
-                val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
-                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "image",
-                    file.name,
-                    requestImageFile
-                )
-                val sellerProductRequest = SellerProductRequest(
-                    imageMultipart,
-                    map
-                )
-                viewModel.doUpdateProduct(sellerProductRequest, id)
-                    .observe(viewLifecycleOwner) { productResponse ->
-                        when (productResponse) {
-                            is Result.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Update Failed",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            Result.Loading -> {
+        if (categoryID.size != 0) {
+            binding.apply {
+                val productName = binding.productNameEdt.text.toString().createPartFromString()
+                val productPrice =
+                    binding.productPriceEditText.text.toString().createPartFromString()
+                val productDescription =
+                    binding.descriptionEdt.text.toString().createPartFromString()
+                val category = categoryID.toString().createPartFromString()
+                val location = binding.locationEdt.text.toString().createPartFromString()
+                val map = HashMap<String, RequestBody>().apply {
+                    put("name", productName)
+                    put("base_price", productPrice)
+                    put("description", productDescription)
+                    put("category_ids", category)
+                    put("location", location)
+                }
+                if (getFile != null) {
+                    val file = reduceFileImage(getFile as File, isBackCamera, isImageFromGallery)
+                    val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                        "image",
+                        file.name,
+                        requestImageFile
+                    )
+                    val sellerProductRequest = SellerProductRequest(
+                        imageMultipart,
+                        map
+                    )
+                    viewModel.doUpdateProduct(sellerProductRequest, id)
+                        .observe(viewLifecycleOwner) { productResponse ->
+                            when (productResponse) {
+                                is Result.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Update Failed",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                Result.Loading -> {
 
-                            }
-                            is Result.Success -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Update Success",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                                }
+                                is Result.Success -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Update Success",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                                }
                             }
                         }
-                    }
-            } else {
-                val sellerProductRequest = SellerProductRequest(
-                    file = null,
-                    map
-                )
-                viewModel.doUpdateProduct(sellerProductRequest, id)
-                    .observe(viewLifecycleOwner) { productResponse ->
-                        when (productResponse) {
-                            is Result.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Update Failed",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            Result.Loading -> {
 
-                            }
-                            is Result.Success -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Update Success",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                } else {
+                    val sellerProductRequest = SellerProductRequest(
+                        file = null,
+                        map
+                    )
+                    viewModel.doUpdateProduct(sellerProductRequest, id)
+                        .observe(viewLifecycleOwner) { productResponse ->
+                            when (productResponse) {
+                                is Result.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Update Failed",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                Result.Loading -> {
+                                }
+                                is Result.Success -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Update Success",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
+                                }
                             }
                         }
-                    }
-
+                }
             }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Pilih Minimal 1 Kategori",
+                Toast.LENGTH_SHORT
+            ).show()
 
         }
+    }
+
+    private fun showMultipleChoicesAlert(categoryResponse: List<CategoryResponse>) {
+        val selectedList = ArrayList<Int>()
+        val selectedItems = ArrayList<String>()
+        var items = arrayOf<String>()
+        var id = arrayOf<Int>()
+        for (i in categoryResponse) {
+            items = items.plus(i.name)
+            id = id.plus(i.id)
+        }
+        MaterialAlertDialogBuilder(requireContext(), R.style.MyAlertDialogTheme)
+            .setTitle("Pilih Kategori")
+            .setMultiChoiceItems(items, null) { dialog, which, isChecked ->
+                if (isChecked) {
+                    selectedList.add(which)
+                } else if (selectedList.contains(which)) {
+                    selectedList.remove(which)
+                }
+            }
+            .setPositiveButton("OK") { dialog, which ->
+                for (i in selectedList.indices) {
+                    selectedItems.add(items[selectedList[i]])
+                    categoryID.add(id[selectedList[i]])
+                }
+                binding.categoryEditText.setText(selectedItems.joinToString {
+                    it
+                })
+                Log.d("id", "$categoryID")
+            }
+            .setNegativeButton("Batal") { dialog, which ->
+                dialog.dismiss()
+            }
+            .setNeutralButton("Bersihkan Pilihan") { ialog, which ->
+                selectedItems.removeAll(selectedItems)
+                categoryID.removeAll(categoryID)
+                binding.categoryEditText.setText(selectedItems.joinToString {
+                    it
+                })
+            }
+            .show()
     }
 }

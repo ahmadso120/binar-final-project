@@ -19,8 +19,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SellerProductDetailFragment : BaseFragment(R.layout.fragment_seller_product_detail) {
     override var bottomNavigationViewVisibility = View.GONE
+
     val viewModel by viewModel<SellerProductDetailViewModel>()
+
     private val binding: FragmentSellerProductDetailBinding by viewBinding()
+
     private val args : SellerProductDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +34,7 @@ class SellerProductDetailFragment : BaseFragment(R.layout.fragment_seller_produc
 
         val toolbar: MaterialToolbar = binding.toolbar
         toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
         observeUI(args.id)
     }
@@ -49,8 +52,8 @@ class SellerProductDetailFragment : BaseFragment(R.layout.fragment_seller_produc
                     binding.apply {
                         product.data.imageUrl?.let { expandedImage.loadPhotoUrl(it) }
                         productNameTextView.text= product.data.name
-                        product.data.categories.map {
-                            categoriesTextView.text = it.name
+                        categoriesTextView.text = product.data.categories.joinToString {
+                            it.name
                         }
                         priceTextView.text = "Rp. "+ product.data.basePrice.currencyFormatter()
                         productDescTextView.text = product.data.description

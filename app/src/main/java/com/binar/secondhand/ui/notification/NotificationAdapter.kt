@@ -5,14 +5,13 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.binar.secondhand.data.source.remote.response.NotificationResponseItem
 import com.binar.secondhand.databinding.ItemNotificationBinding
-import com.binar.secondhand.storage.AppLocalData
 import com.binar.secondhand.utils.currencyFormatter
-import com.binar.secondhand.utils.logd
+import com.binar.secondhand.utils.dateTimeFormatter
 import com.binar.secondhand.utils.ui.loadPhotoUrl
-import java.text.SimpleDateFormat
 
 class NotificationAdapter(
     private val item: List<NotificationResponseItem>,
@@ -41,11 +40,7 @@ class NotificationAdapter(
             produkTextView.text = item[position].product?.name
             basePriceTextView.text = item[position].product?.basePrice?.currencyFormatter()
             bidPriceTextView.text = "Ditawar Rp." + item[position].bidPrice.currencyFormatter()
-            val inputTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            val outputTimeFormat = SimpleDateFormat("dd MMM, HH:mm")
-            val date = inputTimeFormat.parse(item[position].createdAt)
-            val dateFormat = outputTimeFormat.format(date)
-            dateTextView.text = dateFormat
+            dateTextView.text = item[position].createdAt.dateTimeFormatter()
             when (item[position].status) {
                 "bid" -> {
                     notificationTypeTextView.text = "Penawaran produk"
@@ -81,12 +76,12 @@ class NotificationAdapter(
                     if (isSeller) {
                         notificationTypeTextView.text = "Penawaran Ditolak "
                         bidPriceTextView.paintFlags =
-                            basePriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                            bidPriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                         isaccetetdTextView.text = "Kamu telah menolak harga tawar dari pembeli"
                     } else {
                         notificationTypeTextView.text = "Penawaran Ditolak "
                         bidPriceTextView.paintFlags =
-                            basePriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                            bidPriceTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                         isaccetetdTextView.text = "Harga tawaranmu ditolak oleh penjual"
                     }
                 }
@@ -99,6 +94,16 @@ class NotificationAdapter(
             holder.binding.imageView2.visibility = View.VISIBLE
         }
         holder.itemView.setOnClickListener {
+            val navController = holder.itemView.findNavController()
+           if(isSeller){
+               if (item[position].status == "create"){
+                   navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellerProductFragment())
+               }else{
+                    navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellListFragment())
+               }
+           }else{
+                    navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToBuyerOrderFragment())
+           }
             onClick.invoke(item[position])
         }
     }

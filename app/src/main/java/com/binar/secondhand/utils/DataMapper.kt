@@ -1,15 +1,22 @@
 package com.binar.secondhand.utils
 
 import com.binar.secondhand.data.source.local.entity.BuyerProductEntity
+import com.binar.secondhand.data.source.local.entity.CategoryEntity
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 
 object DataMapper {
     fun mapResponsesToBuyerProductEntities(input: List<BuyerProductResponse>): List<BuyerProductEntity> {
         val dataList = ArrayList<BuyerProductEntity>()
         input.map {
-            var category = ""
+            val categories = ArrayList<CategoryEntity>()
             if (it.Categories?.isNotEmpty() == true) {
-                category = it.Categories[0].name
+                it.Categories.map { categoryResponse ->
+                    val category = CategoryEntity(
+                        categoryResponse.id, categoryResponse.name
+                    )
+                    categories.add(category)
+                }
+
             }
             val buyerProducts = BuyerProductEntity(
                 it.basePrice,
@@ -23,7 +30,7 @@ object DataMapper {
                 it.status,
                 it.updatedAt,
                 it.userId,
-                category
+                categories
             )
             dataList.add(buyerProducts)
         }
