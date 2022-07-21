@@ -11,9 +11,8 @@ import com.binar.secondhand.databinding.HistoryItemBinding
 
 
 
-
 class SearchHistoryAdapter (
-    private var onDetailClick: (SearchHistory) -> Unit
+    private var onDetailClick: (SearchHistory) -> Unit,private var deleteClick :(SearchHistory)-> Unit
 ) : ListAdapter<SearchHistory,SearchHistoryAdapter.ProductViewHolder>(ProductDiffCallBack) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -28,12 +27,17 @@ class SearchHistoryAdapter (
 
             historyTv.text = data.historySearch
 
-            root.setOnClickListener {
+            historyTv.setOnClickListener {
                 onDetailClick(data)
+            }
+
+            deleteButton.setOnClickListener {
+                deleteClick(data)
             }
 
         }
     }
+
 
     class ProductViewHolder(
         val binding: HistoryItemBinding

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +17,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import com.binar.secondhand.databinding.FragmentSearchBinding
 
-import com.binar.secondhand.ui.common.AuthViewModel
 
-import com.binar.secondhand.ui.home.HomeFragmentDirections
 
 import com.binar.secondhand.utils.EventObserver
 import com.binar.secondhand.utils.ui.*
@@ -65,6 +62,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         binding.cancelSearch.setOnClickListener{
             binding.search1Et.setText("")
             cancel()
+            viewModel.history.observe(viewLifecycleOwner){
+                historyAdapter.submitList(it)
+            }
         }
     }
 
@@ -163,9 +163,13 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     }
     private fun adapterHistory(){
-        historyAdapter = SearchHistoryAdapter{
-            viewModel.onHistoryClick(it)
-        }
+        historyAdapter = SearchHistoryAdapter(
+            {
+                viewModel.onHistoryClick(it)
+            },{
+                viewModel.onDelete(it)
+            }
+        )
 
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         binding.searchHistory.layoutManager = layoutManager
@@ -179,6 +183,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             getQuery()
             showData()
         })
+        viewModel.deleteClick.observe(viewLifecycleOwner,EventObserver{
+            viewModel.delete(it)
+        })
+
 
     }
 

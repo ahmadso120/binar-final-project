@@ -5,7 +5,9 @@ import androidx.lifecycle.*
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.SearchRepository
 import com.binar.secondhand.data.source.local.entity.SearchHistory
+import com.binar.secondhand.data.source.remote.request.AccountSettingRequest
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
+import com.binar.secondhand.data.source.remote.response.ChangePasswordResponse
 import com.binar.secondhand.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,19 +42,29 @@ class SearchViewModel(
         _historyClick.value = Event(searchHistory)
     }
 
+    private val _deleteClick= MutableLiveData<Event<SearchHistory>>()
+    val deleteClick: LiveData<Event<SearchHistory>>
+        get() = _deleteClick
 
-    private val _history = MutableLiveData<List<SearchHistory>>()
-    val history : LiveData<List<SearchHistory>> get() = _history
-
-
-    init {
-        getSearchHistory()
+    fun onDelete(searchHistory: SearchHistory) {
+        _deleteClick.value = Event(searchHistory)
     }
-    private fun getSearchHistory() {
-        viewModelScope.launch {
-            _history.value =searchRepository.getSearchHistory()
-        }
-    }
+
+
+//    private val _history = MutableLiveData<List<SearchHistory>>()
+//    val history : LiveData<List<SearchHistory>> get() = _history
+
+    val history = searchRepository.getSearchHistory().asLiveData()
+
+
+//    init {
+//        getSearchHistory()
+//    }
+//    private fun getSearchHistory() {
+//        viewModelScope.launch {
+//            _history.value = searchRepository.getSearchHistory()
+//        }
+//    }
 
 
 
@@ -68,5 +80,11 @@ class SearchViewModel(
 
     fun deleteHistory(){
         viewModelScope.launch(Dispatchers.IO) { searchRepository.deleteAllHistory() }
+    }
+
+    fun delete(historySearch : SearchHistory){
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepository.delete(historySearch)
+        }
     }
 }

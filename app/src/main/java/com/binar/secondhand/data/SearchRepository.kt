@@ -8,14 +8,16 @@ import com.binar.secondhand.data.source.remote.SearchDataSource
 import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.utils.loge
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import org.json.JSONObject
 
 
 interface SearchRepository {
     fun search (query : String): LiveData<Result<List<BuyerProductResponse>>>
-    suspend fun getSearchHistory(): List<SearchHistory>
+    fun getSearchHistory(): Flow<List<SearchHistory>>
     suspend fun addSearchHistory(history:SearchHistory):Long
     suspend fun  deleteAllHistory()
+    suspend fun delete(historySearch : SearchHistory)
 }
 
 class SearchRepositoryImpl(
@@ -47,7 +49,7 @@ class SearchRepositoryImpl(
         }
     }
 
-    override suspend fun getSearchHistory(): List<SearchHistory> {
+    override fun getSearchHistory(): Flow<List<SearchHistory>>   {
         return searchHistoryDataSource.getSearchHistory()
     }
 
@@ -57,6 +59,10 @@ class SearchRepositoryImpl(
 
     override suspend fun deleteAllHistory() {
         return searchHistoryDataSource.deleteHistory()
+    }
+
+    override suspend fun delete(historySearch : SearchHistory) {
+        return searchHistoryDataSource.deleteHistoryId(historySearch)
     }
 
 }

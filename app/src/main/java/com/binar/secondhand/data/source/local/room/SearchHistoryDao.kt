@@ -1,20 +1,22 @@
 package com.binar.secondhand.data.source.local.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.binar.secondhand.data.source.local.entity.SearchHistory
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 @Dao
 interface SearchHistoryDao {
     @Query("SELECT * FROM search_history")
-    suspend fun getSearchHystory(): List<SearchHistory>
+    fun getSearchHistory(): Flow<List<SearchHistory>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(history: SearchHistory):Long
 
     @Query("DELETE FROM search_history")
     suspend fun deleteAllSearchHistory()
+
+   @Delete
+    suspend fun delete(historySearch : SearchHistory)
 }
