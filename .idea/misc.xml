@@ -34,12 +34,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_account_setting.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_edit_account.xml" value="0.312210200927357" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_history.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_register.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_sell_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/binar-final-project/app/src/main/res/layout/fragment_seller_product.xml" value="0.1" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/chip_outline.xml" value="0.337" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/chip_outline_selected.xml" value="0.337" />
         <entry key="..\:/Users/adity/Binar-Final-Project/binar-final-project/app/src/main/res/drawable/fi_list.xml" value="0.1955" />
@@ -78,6 +80,16 @@
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_edit_account.xml" value="0.1721014492753623" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/fragment_search.xml" value="0.13541666666666666" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/history_item.xml" value="0.33" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/item_seller_product.xml" value="0.20416666666666666" />
+        <entry key="..\:/project/final project binar/app/src/main/res/layout/list_item_product.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/ic_baseline_history_edu_24.xml" value="0.184" />
+        <entry key="app/src/main/res/drawable/ic_fi_edit.xml" value="0.184" />
+        <entry key="app/src/main/res/drawable/ic_fi_log_out.xml" value="0.122" />
+        <entry key="app/src/main/res/drawable/ic_orders.xml" value="0.122" />
+
         <entry key="app/src/main/res/drawable/chip_outline_selected.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/fi_share.xml" value="0.2975" />
         <entry key="app/src/main/res/drawable/fi_share_blue.xml" value="0.282" />
@@ -99,6 +111,7 @@
         <entry key="app/src/main/res/drawable/ic_tab_heart_selected.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/ic_tab_heart_unselected.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/ic_wishlist.xml" value="0.201" />
+
         <entry key="app/src/main/res/layout-v26/fragment_product_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout-v26/item_multi_selection_spinner.xml" value="0.2957427536231884" />
         <entry key="app/src/main/res/layout/account_item_list.xml" value="0.17603850050658562" />
@@ -121,12 +134,16 @@
         <entry key="app/src/main/res/layout/fragment_seller_product.xml" value="0.17506631299734748" />
         <entry key="app/src/main/res/layout/fragment_seller_product_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.33" />
+
         <entry key="app/src/main/res/layout/fragment_wishlist.xml" value="0.3619791666666667" />
+
         <entry key="app/src/main/res/layout/item_buyer_order.xml" value="0.39558232931726905" />
         <entry key="app/src/main/res/layout/item_dropdown_list.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_seller_product.xml" value="0.32135416666666666" />
+
         <entry key="app/src/main/res/layout/item_wishlist.xml" value="0.33" />
+
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.21041666666666667" />
         <entry key="app/src/main/res/menu/home_menu.xml" value="0.15520833333333334" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.3182291666666667" />

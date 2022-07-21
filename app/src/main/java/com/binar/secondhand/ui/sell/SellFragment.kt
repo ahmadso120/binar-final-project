@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 
+
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -50,9 +51,6 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val binding: FragmentSellBinding by viewBinding()
     private val categoryName = ArrayList<String>()
     private val viewModel by viewModel<SellerViewModel>()
-
-   // private var categoryId: Int = 0
-
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = false
     private var isBackCamera: Boolean = false

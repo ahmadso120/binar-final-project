@@ -39,7 +39,7 @@ class BuyerRepositoryImpl(
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
-                pageSize = 10
+                pageSize = 5
             ),
             remoteMediator = BuyerProductRemoteMediator(database, service, catId),
             pagingSourceFactory = {

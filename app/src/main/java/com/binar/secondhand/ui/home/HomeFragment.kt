@@ -83,7 +83,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
         viewModel.navigateToBuyerProductDetail.observe(viewLifecycleOwner, EventObserver {
-            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.buyerProductId)
+            val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.buyerProductId.toInt())
             findNavController().navigate(action)
         })
     }
