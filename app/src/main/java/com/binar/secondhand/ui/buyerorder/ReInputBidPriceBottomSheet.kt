@@ -1,27 +1,22 @@
 package com.binar.secondhand.ui.buyerorder
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.CreateMethod
-import by.kirich1409.viewbindingdelegate.internal.getRootView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.RebidBuyerOrderRequest
 import com.binar.secondhand.data.source.remote.response.BuyerOrderResponse
-import com.binar.secondhand.data.source.remote.response.BuyerProductResponse
 import com.binar.secondhand.databinding.BottomReInputBidPriceBinding
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

@@ -8,11 +8,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -46,13 +44,15 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     private val args: UpdateProductFragmentArgs by navArgs()
     private val categoryID = ArrayList<Int>()
     private var getFile: File? = null
-    private var isImageFromGallery: Boolean = false
+    private var isImageFromGallery: Boolean = true
     private var isBackCamera: Boolean = false
 
     val viewModel by viewModel<UpdateProductViewmodel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         val toolbar: MaterialToolbar = binding.materialToolbar2
         toolbar.setNavigationOnClickListener {
@@ -70,6 +70,14 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
         }
 
     }
+    override fun onResume() {
+        super.onResume()
+        logd("isgalery => $isImageFromGallery")
+        if (!isImageFromGallery){
+            logd("isg")
+            cameraResult()
+        }
+    }
 
     private fun observeUI(id: Int) {
         viewModel.getProductDetail(id).observe(viewLifecycleOwner) { product ->
@@ -85,6 +93,9 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                             productNameEdt.setText(name)
                             productPriceEditText.setText(basePrice.toString())
                             if (categoryID.size == 0) {
+                                for (i in categories){
+                                    categoryID.add(i.id)
+                                }
                                 categoryEditText.setText(categories.joinToString {
                                     it.name
                                 })
@@ -102,36 +113,6 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     }
 
     private fun setupObserver() {
-        val navController = navController
-        val navBackStackEntry = navController.getBackStackEntry(R.id.updateProductFragment)
-        val window = activity?.window
-        window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val observerResultKey = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains(CameraFragment.RESULT_KEY)
-            ) {
-                val result =
-                    navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
-                val myFile = result?.getSerializable("picture") as File
-                isBackCamera = result.getBoolean("isBackCamera", true)
-
-                getFile = myFile
-                isImageFromGallery = false
-
-                val resultFile = rotateBitmap(
-                    BitmapFactory.decodeFile(getFile?.path),
-                    isBackCamera
-                )
-                binding.productImageView.setImageBitmap(resultFile)
-            }
-        }
-        navBackStackEntry.lifecycle.addObserver(observerResultKey)
-
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
-                navBackStackEntry.lifecycle.removeObserver(observerResultKey)
-            }
-        })
         viewModel.category.observe(viewLifecycleOwner) { item ->
             when (item) {
                 is Result.Error -> {}
@@ -150,8 +131,11 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireActivity())
             .setMessage("choose Image")
-            .setPositiveButton("Gallery") { _, _ -> startGallery() }
+            .setPositiveButton("Gallery") { _, _ ->
+                isImageFromGallery = true
+                startGallery() }
             .setNegativeButton("Camera") { _, _ ->
+                isImageFromGallery = false
                 navController.navigate(R.id.action_updateProductFragment_to_cameraFragment)
             }
             .show()
@@ -291,6 +275,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                 }
             }
             .setPositiveButton("OK") { dialog, which ->
+                categoryID.removeAll(categoryID)
                 for (i in selectedList.indices) {
                     selectedItems.add(items[selectedList[i]])
                     categoryID.add(id[selectedList[i]])
@@ -311,5 +296,22 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                 })
             }
             .show()
+    }
+    private fun cameraResult(){
+        val navController = navController
+        val navBackStackEntry = navController.getBackStackEntry(R.id.updateProductFragment)
+        if(navBackStackEntry.savedStateHandle.contains(CameraFragment.RESULT_KEY)){
+            val result = navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
+            val myFile = result?.getSerializable("picture") as File
+            isBackCamera = result.getBoolean("isBackCamera", true)
+
+            getFile = myFile
+            val resultFile = rotateBitmap(
+                BitmapFactory.decodeFile(getFile?.path),
+                isBackCamera
+            )
+            binding.productImageView.setImageBitmap(resultFile)
+        }
+
     }
 }
