@@ -2,10 +2,10 @@ package com.binar.secondhand.ui.home
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -14,7 +14,6 @@ import com.binar.secondhand.databinding.FragmentHomeBinding
 import com.binar.secondhand.ui.common.ProductAdapter
 import com.binar.secondhand.ui.notification.NotificationViewModel
 import com.binar.secondhand.utils.EventObserver
-import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.RECYCLER_VIEW_CACHE_SIZE
 import com.binar.secondhand.utils.ui.setupLayoutManager
 import com.google.android.material.badge.BadgeDrawable
@@ -32,17 +31,15 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private lateinit var productAdapter: ProductAdapter
 
-    private var isRefreshing: Boolean = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.notification ->{
+            when (it.itemId) {
+                R.id.notification -> {
                     findNavController().navigate(R.id.action_homeFragment_to_notificationFragment2)
                     true
                 }
-                R.id.search ->{
+                R.id.search -> {
                     findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
                     true
                 }
@@ -59,7 +56,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 //        }
 
         setupAdapter()
-
+        initSwipeToRefresh()
         observeUi()
     }
 
@@ -107,6 +104,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             )
             setItemViewCacheSize(RECYCLER_VIEW_CACHE_SIZE)
         }
+
+        lifecycleScope.launchWhenCreated {
+            productAdapter.loadStateFlow.collect { loadStates ->
+                binding.swipeRefresh.isRefreshing = loadStates.mediator?.refresh is LoadState.Loading
+            }
+        }
+    }
+
+    private fun initSwipeToRefresh() {
+        binding.swipeRefresh.setOnRefreshListener { productAdapter.refresh() }
     }
 
     private fun showFilterBottomSheet() {

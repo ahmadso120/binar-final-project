@@ -33,7 +33,7 @@ fun String.dateTimeFormatter(): String? {
             return output.format(date)
         }
         return null
-    } catch (e: DateTimeException) {
+    } catch (e: Exception) {
         loge("dateTimeFormatter => ${e.message}")
         return null
     }
