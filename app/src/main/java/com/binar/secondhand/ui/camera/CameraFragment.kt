@@ -40,8 +40,9 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        window = activity?.window
-       window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.black)
+        val window = activity?.window
+        window?.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         if (allPermissionsGranted()) {
             startCamera()

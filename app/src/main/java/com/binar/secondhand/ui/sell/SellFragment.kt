@@ -10,16 +10,9 @@ import android.util.Log
 
 
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -29,7 +22,6 @@ import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
 import com.binar.secondhand.ui.camera.CameraFragment
-import com.binar.secondhand.ui.common.AuthViewModel
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
@@ -38,7 +30,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -52,11 +43,14 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val categoryName = ArrayList<String>()
     private val viewModel by viewModel<SellerViewModel>()
     private var getFile: File? = null
-    private var isImageFromGallery: Boolean = false
+    private var isImageFromGallery: Boolean = true
     private var isBackCamera: Boolean = false
-
+    private var imageUri : Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
@@ -64,6 +58,9 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         }
         observeUI()
         setupObserver()
+        if (imageUri != null){
+            binding.addPhotoBtn.setImageURI(imageUri)
+        }
         binding.addPhotoBtn.setOnClickListener {
             chooseImageDialog()
         }
@@ -76,6 +73,14 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             } else {
                 Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        logd("isgalery => $isImageFromGallery")
+        if (!isImageFromGallery){
+            logd("isg")
+            cameraResult()
         }
     }
 
@@ -165,8 +170,11 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireActivity())
             .setMessage("choose Image")
-            .setPositiveButton("Gallery") { _, _ -> startGallery() }
+            .setPositiveButton("Gallery") { _, _ ->
+                isImageFromGallery = true
+                startGallery() }
             .setNegativeButton("Camera") { _, _ ->
+                isImageFromGallery = false
                 navController.navigate(R.id.action_sellFragment_to_cameraFragment)
             }
             .show()
@@ -191,43 +199,13 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 binding.root.showShortSnackbar("No such file or directory")
             }
             isImageFromGallery = true
+            imageUri = selectedImg
             binding.addPhotoBtn.setImageURI(selectedImg)
         }
     }
 
 
     private fun setupObserver() {
-        val navController = navController
-        val navBackStackEntry = navController.getBackStackEntry(R.id.sellFragment)
-        val window = activity?.window
-        window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.white)
-        val observerResultKey = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains(CameraFragment.RESULT_KEY)
-            ) {
-                val result =
-                    navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
-                val myFile = result?.getSerializable("picture") as File
-                isBackCamera = result.getBoolean("isBackCamera", true)
-
-                getFile = myFile
-                isImageFromGallery = false
-
-                val resultFile = rotateBitmap(
-                    BitmapFactory.decodeFile(getFile?.path),
-                    isBackCamera
-                )
-                binding.addPhotoBtn.setImageBitmap(resultFile)
-            }
-        }
-        navBackStackEntry.lifecycle.addObserver(observerResultKey)
-
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
-                navBackStackEntry.lifecycle.removeObserver(observerResultKey)
-            }
-        })
-
         viewModel.category.observe(viewLifecycleOwner) { item ->
             when (item) {
                 is Result.Error -> {
@@ -250,6 +228,9 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             when (it) {
                 is Result.Error -> {
                     Toast.makeText(requireContext(), "Gagal Menambah Product", Toast.LENGTH_LONG).show()
+                    binding.previewBtn.isEnabled = true
+                    binding.saveBtn.isEnabled = true
+                    binding.saveBtn.text = "Simpan"
                 }
                 Result.Loading -> {
                     binding.previewBtn.isEnabled = false
@@ -306,6 +287,23 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 })
             }
             .show()
+    }
+    private fun cameraResult(){
+        val navController = navController
+        val navBackStackEntry = navController.getBackStackEntry(R.id.sellFragment)
+        if(navBackStackEntry.savedStateHandle.contains(CameraFragment.RESULT_KEY)){
+            val result = navBackStackEntry.savedStateHandle.get<Bundle>(CameraFragment.RESULT_KEY)
+            val myFile = result?.getSerializable("picture") as File
+            isBackCamera = result.getBoolean("isBackCamera", true)
+
+            getFile = myFile
+            val resultFile = rotateBitmap(
+                BitmapFactory.decodeFile(getFile?.path),
+                isBackCamera
+            )
+            binding.addPhotoBtn.setImageBitmap(resultFile)
+        }
+
     }
 }
 

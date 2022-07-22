@@ -7,12 +7,9 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -33,17 +30,17 @@ import java.io.File
 
 class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private var getFile: File? = null
-    private var isImageFromGallery: Boolean = false
+    private var isImageFromGallery: Boolean = true
     private var isBackCamera: Boolean = false
-
     private val binding: FragmentEditAccountBinding by viewBinding()
-
     override var bottomNavigationViewVisibility = View.GONE
-
     private val viewModel by viewModel<EditAccountViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
         val materialToolbar: MaterialToolbar = binding.materialToolbar2
         materialToolbar.setNavigationOnClickListener {
             navController.navigateUp()
@@ -59,10 +56,17 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         binding.saveBtn.setOnClickListener {
             updateAccount()
         }
+
         observeUI()
-        setupObserver()
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        logd("isgalery => $isImageFromGallery")
+        if (!isImageFromGallery){
+            logd("isg")
+            cameraResult()
+        }
     }
 
     private fun updateAccount() {
@@ -87,8 +91,6 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
                 requestImageFile
             )
             logd("img $imageMultipart")
-
-
             val accountRequest = AccountRequest(
                 imageMultipart,
                 map
@@ -109,8 +111,11 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
     private fun chooseImageDialog() {
         AlertDialog.Builder(requireActivity())
             .setMessage("choose Image")
-            .setPositiveButton("Gallery") { _, _ -> startGallery() }
+            .setPositiveButton("Gallery") { _, _ ->
+                isImageFromGallery = true
+                startGallery() }
             .setNegativeButton("Camera") { _, _ ->
+                isImageFromGallery = false
                 navController.navigate(R.id.action_editAccountFragment_to_cameraFragment)
             }
             .show()
@@ -142,39 +147,6 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         }
     }
 
-    private fun setupObserver() {
-        val navController = navController
-        val navBackStackEntry = navController.getBackStackEntry(R.id.editAccountFragment)
-       val window = activity?.window
-        window?.statusBarColor = ContextCompat.getColor(requireContext(),R.color.white)
-        val observerResultKey = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME
-                && navBackStackEntry.savedStateHandle.contains(RESULT_KEY)
-            ) {
-                val result = navBackStackEntry.savedStateHandle.get<Bundle>(RESULT_KEY)
-                val myFile = result?.getSerializable("picture") as File
-                isBackCamera = result.getBoolean("isBackCamera", true)
-
-                getFile = myFile
-                isImageFromGallery = false
-
-                val resultFile = rotateBitmap(
-                    BitmapFactory.decodeFile(getFile?.path),
-                    isBackCamera
-                )
-                binding.profileImageCardView.visibility = View.VISIBLE
-                binding.initialsTextView.visibility = View.GONE
-                binding.profileImageView.setImageBitmap(resultFile)
-            }
-        }
-        navBackStackEntry.lifecycle.addObserver(observerResultKey)
-
-        viewLifecycleOwner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_DESTROY) {
-                navBackStackEntry.lifecycle.removeObserver(observerResultKey)
-            }
-        })
-    }
 
     private fun observeUI() {
         viewModel.getAccount().observe(viewLifecycleOwner) {
@@ -235,5 +207,25 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
             }
         }
         }
+    }
+
+    private fun cameraResult(){
+        val navController = navController
+        val navBackStackEntry = navController.getBackStackEntry(R.id.editAccountFragment)
+        if(navBackStackEntry.savedStateHandle.contains(RESULT_KEY)){
+            val result = navBackStackEntry.savedStateHandle.get<Bundle>(RESULT_KEY)
+            val myFile = result?.getSerializable("picture") as File
+            isBackCamera = result.getBoolean("isBackCamera", true)
+
+            getFile = myFile
+            val resultFile = rotateBitmap(
+                BitmapFactory.decodeFile(getFile?.path),
+                isBackCamera
+            )
+            binding.profileImageCardView.visibility = View.VISIBLE
+            binding.initialsTextView.visibility = View.GONE
+            binding.profileImageView.setImageBitmap(resultFile)
+        }
+
     }
 }
