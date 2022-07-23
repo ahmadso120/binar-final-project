@@ -35,5 +35,7 @@ data class NotificationResponseItem(
     @SerializedName("base_price")
     val basePrice: String,
     @SerializedName("product_name")
-    val productName: String
+    val productName: String,
+    @SerializedName("order_id")
+    val orderId: Int
 )
