@@ -139,6 +139,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_buyerOrderFragment"
             app:destination="@id/buyerOrderFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_bidderInfoFragment"
+            app:destination="@id/bidderInfoFragment" />
     </fragment>
 
     <action

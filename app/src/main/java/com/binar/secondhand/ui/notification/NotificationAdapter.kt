@@ -99,7 +99,7 @@ class NotificationAdapter(
                if (item[position].status == "create"){
                    navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellerProductFragment())
                }else{
-                    navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellListFragment())
+                    navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToBidderInfoFragment(item[position].orderId))
                }
            }else{
                     navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToBuyerOrderFragment())
