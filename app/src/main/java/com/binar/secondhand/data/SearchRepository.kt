@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 
 interface SearchRepository {
-    fun search (query : String): LiveData<Result<List<BuyerProductResponse>>>
+    fun search (query : String,status: String): LiveData<Result<List<BuyerProductResponse>>>
     fun getSearchHistory(): Flow<List<SearchHistory>>
     suspend fun addSearchHistory(history:SearchHistory):Long
     suspend fun  deleteAllHistory()
@@ -24,10 +24,10 @@ class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource,
     private val searchHistoryDataSource: SearchHistoryDataSource
 ):SearchRepository{
-    override fun search(query: String):LiveData<Result<List<BuyerProductResponse>>> = liveData(Dispatchers.IO){
+    override fun search(query: String,status:String):LiveData<Result<List<BuyerProductResponse>>> = liveData(Dispatchers.IO){
         emit(Result.Loading)
         try {
-            val response = searchDataSource.searchQuery(query)
+            val response = searchDataSource.searchQuery(query,status)
 
             if (response.isSuccessful){
                 val data = response.body()
@@ -48,6 +48,8 @@ class SearchRepositoryImpl(
             emit(Result.Error(null, "Something went wrong"))
         }
     }
+
+
 
     override fun getSearchHistory(): Flow<List<SearchHistory>>   {
         return searchHistoryDataSource.getSearchHistory()
