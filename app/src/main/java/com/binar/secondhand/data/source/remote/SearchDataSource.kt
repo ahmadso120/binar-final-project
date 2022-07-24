@@ -12,5 +12,5 @@ import kotlinx.coroutines.flow.flowOn
 class SearchDataSource(
     private val searchService: SearchService
 ){
-    suspend fun searchQuery(query:String) = searchService.getBuyerProductBySearch(query)
+    suspend fun searchQuery(query:String,status:String) = searchService.getBuyerProductBySearch(query,status)
 }
