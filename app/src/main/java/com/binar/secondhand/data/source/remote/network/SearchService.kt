@@ -9,7 +9,8 @@ import retrofit2.http.Query
 interface SearchService {
     @GET("buyer/product")
     suspend fun getBuyerProductBySearch(
-        @Query("search") search: String
+        @Query("search") search: String,
+        @Query("status") status: String
     ): Response<List<BuyerProductResponse>>
 
 }

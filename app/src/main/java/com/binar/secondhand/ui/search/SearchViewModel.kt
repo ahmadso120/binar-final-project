@@ -16,10 +16,10 @@ class SearchViewModel(
     private val searchRepository: SearchRepository,
 
 ) : ViewModel() {
-
+    val status = "available"
     private val _search = MutableLiveData<String>()
     val search: LiveData<Result<List<BuyerProductResponse>>> = _search.switchMap {
-        searchRepository.search(it)
+        searchRepository.search(it,status)
     }
 
     fun getData(query:String){
