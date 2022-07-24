@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_sellFragment_to_previewSellFragment"
             app:destination="@id/previewSellFragment" />
+        <action
+            android:id="@+id/action_sellFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
     </fragment>
 
     <fragment
@@ -306,6 +309,9 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="https://secondhand.com/product/{id}" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_editAccountFragment"
+            app:destination="@id/editAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/buyerOrderFragment"
