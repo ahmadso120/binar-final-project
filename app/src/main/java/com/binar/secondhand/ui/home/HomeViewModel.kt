@@ -20,8 +20,6 @@ class HomeViewModel(
         buyerRepository.getBuyerProducts(it).cachedIn(viewModelScope)
     }
 
-//    val buyerProducts = buyerRepository.getBuyerProducts().cachedIn(viewModelScope)
-
     fun filterCategoryProduct(categoryId: Int) {
         _filterCategoryProduct.value = categoryId
     }

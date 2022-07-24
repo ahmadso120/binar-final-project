@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.DrawableRes
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -242,15 +243,14 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         binding.productDetailScrollview.hide()
         binding.interestProductButton.hide()
     }
-   private fun shareProduct(){
-       val sendIntent = Intent()
-       sendIntent.action = Intent.ACTION_SEND
-       sendIntent.putExtra(
-           Intent.EXTRA_TEXT,
-           "Hey temukan dan nego produk saya di: https://secondhand.com/product/"+productId.toString()
-       )
-       sendIntent.type = "text/plain"
-       startActivity(sendIntent)
-   }
+
+    private fun shareProduct(){
+        val shareIntent = ShareCompat.IntentBuilder(requireActivity())
+            .setText("Hey temukan dan nego produk saya di: https://secondhand.com/product/"+productId.toString())
+            .setType("text/plain")
+            .createChooserIntent()
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        startActivity(shareIntent)
+    }
 
 }
