@@ -13,6 +13,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
@@ -21,6 +22,7 @@ import com.binar.secondhand.data.source.remote.request.SellerProductRequest
 import com.binar.secondhand.data.source.remote.request.PreviewProduct
 import com.binar.secondhand.data.source.remote.response.CategoryResponse
 import com.binar.secondhand.databinding.FragmentSellBinding
+import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.camera.CameraFragment
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.showShortSnackbar
@@ -42,6 +44,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
     private val binding: FragmentSellBinding by viewBinding()
     private val categoryName = ArrayList<String>()
     private val viewModel by viewModel<SellerViewModel>()
+    private val viewModelSeller by viewModel<EditAccountViewModel>()
     private var getFile: File? = null
     private var isImageFromGallery: Boolean = true
     private var isBackCamera: Boolean = false
@@ -243,6 +246,21 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 }
             }
         }
+        viewModelSeller.getAccount().observe(viewLifecycleOwner){profile ->
+            when(profile) {
+                is Result.Error -> {
+                    Toast.makeText(requireContext(),"something went wrong", Toast.LENGTH_SHORT).show()
+                }
+                Result.Loading -> {
+
+                }
+                is Result.Success -> {
+                    if (profile.data.phoneNumber.isNullOrEmpty() || profile.data.city.isNullOrEmpty() || profile.data.address.isNullOrEmpty()){
+                        profileIsIncomplete()
+                    }
+                }
+            }
+        }
     }
     private fun showMultipleChoicesAlert(categoryResponse: List<CategoryResponse>) {
         val selectedList = ArrayList<Int>()
@@ -304,6 +322,20 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             binding.addPhotoBtn.setImageBitmap(resultFile)
         }
 
+    }
+    private fun profileIsIncomplete(){
+        binding.previewBtn.isEnabled = false
+        binding.saveBtn.isEnabled = false
+       AlertDialog.Builder(requireActivity())
+           .setCancelable(false)
+            .setMessage("Akun kamu belum lengkap nih!")
+            .setPositiveButton("Lengkapi Akun") { _, _ ->
+                findNavController().navigate(SellFragmentDirections.actionSellFragmentToEditAccountFragment())}
+            .setNegativeButton("Abaikan") { dialog, _ ->
+              dialog.dismiss()
+                findNavController().navigateUp()
+            }
+            .show()
     }
 }
 

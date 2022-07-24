@@ -1,5 +1,6 @@
 package com.binar.secondhand.ui.productdetail
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -16,9 +18,9 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.request.WishlistRequest
 import com.binar.secondhand.data.source.remote.response.BuyerProductDetailResponse
 import com.binar.secondhand.databinding.FragmentProductDetailBinding
+import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.getInitialsName
-import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.hide
 import com.binar.secondhand.utils.ui.loadPhotoUrl
 import com.binar.secondhand.utils.ui.show
@@ -32,6 +34,8 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
     private val binding: FragmentProductDetailBinding by viewBinding()
 
     private val viewModel by viewModel<ProductDetailViewModel>()
+
+    private val accountViewModel by viewModel<EditAccountViewModel>()
 
     private val args: ProductDetailFragmentArgs by navArgs()
 
@@ -101,7 +105,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
     private fun observeUi() {
         viewModel.getProductIsWishlist.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 is Result.Error -> {}
                 Result.Loading -> {}
                 is Result.Success -> {
@@ -210,12 +214,32 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
                         if (!it) {
                             executeRequireAuthentication()
                         } else {
-                            val action = ProductDetailFragmentDirections
-                                .actionProductDetailFragmentToInputBidPriceBottomSheet(data)
-                            navController.navigate(action)
+                            accountViewModel.getAccount().observe(viewLifecycleOwner) { profile ->
+                                when (profile) {
+                                    is Result.Error -> {
+
+                                    }
+                                    Result.Loading -> {
+
+                                    }
+                                    is Result.Success -> {
+                                        if (profile.data.phoneNumber.isNullOrEmpty() || profile.data.city.isNullOrEmpty() || profile.data.address.isNullOrEmpty()) {
+                                            profileIsIncomplete()
+                                        } else {
+                                            val action = ProductDetailFragmentDirections
+                                                .actionProductDetailFragmentToInputBidPriceBottomSheet(
+                                                    data
+                                                )
+                                            navController.navigate(action)
+                                        }
+                                    }
+                                }
+                            }
+
                         }
                     }
                 }
+
             }
         }
     }
@@ -242,15 +266,28 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
         binding.productDetailScrollview.hide()
         binding.interestProductButton.hide()
     }
-   private fun shareProduct(){
-       val sendIntent = Intent()
-       sendIntent.action = Intent.ACTION_SEND
-       sendIntent.putExtra(
-           Intent.EXTRA_TEXT,
-           "Hey temukan dan nego produk saya di: https://secondhand.com/product/"+productId.toString()
-       )
-       sendIntent.type = "text/plain"
-       startActivity(sendIntent)
-   }
+
+    private fun shareProduct() {
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Hey temukan dan nego produk saya di: https://secondhand.com/product/" + productId.toString()
+        )
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
+    }
+
+    private fun profileIsIncomplete() {
+        AlertDialog.Builder(requireActivity())
+            .setMessage("Akun kamu belum lengkap nih!")
+            .setPositiveButton("Lengkapi Akun") { _, _ ->
+                findNavController().navigate(ProductDetailFragmentDirections.actionProductDetailFragmentToEditAccountFragment())
+            }
+            .setNegativeButton("Abaikan") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
 
 }

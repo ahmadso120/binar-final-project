@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AccountResponse(
     @SerializedName("address")
-    val address: String,
+    val address: String?,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("email")
@@ -19,9 +19,9 @@ data class AccountResponse(
     @SerializedName("password")
     val password: String,
     @SerializedName("phone_number")
-    val phoneNumber: String,
+    val phoneNumber: String?,
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("city")
-    val city: String
+    val city: String?
 )
