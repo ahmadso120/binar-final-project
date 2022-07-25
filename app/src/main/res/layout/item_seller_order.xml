@@ -102,28 +102,14 @@
             app:layout_constraintTop_toTopOf="@+id/decline" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/status"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:visibility="gone"
-            android:layout_marginEnd="@dimen/margin_padding_size_micro"
-            app:layout_constraintEnd_toStartOf="@+id/contact"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bid_price_tv" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/contact"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Contact"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/status"
-            app:layout_constraintTop_toTopOf="@+id/status" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bid_price_tv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

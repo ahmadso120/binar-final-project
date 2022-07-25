@@ -148,7 +148,7 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                             status.visibility = View.VISIBLE
                             contact.visibility = View.VISIBLE
                             contact.setOnClickListener {
-                                data.userResponse.phoneNumber.openWhatsApp(requireContext())
+                                data.userResponse.phoneNumber?.openWhatsApp(requireContext())
                             }
                         }
                     }
@@ -164,7 +164,7 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                     )
 
                     userInfo.apply {
-                        initialsNameTv.text = data.userResponse.fullName.getInitialsName()
+                        initialsNameTv.text = data.userResponse.fullName?.getInitialsName()
                         nameTv.text = data.userResponse.fullName
                         cityTv.text = data.userResponse.city
                     }

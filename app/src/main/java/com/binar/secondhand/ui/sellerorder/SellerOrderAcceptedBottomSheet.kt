@@ -58,7 +58,7 @@ class SellerOrderAcceptedBottomSheet : BottomSheetDialogFragment() {
     private fun setupUi(item: SellerOrderResponse?) {
         binding.apply {
             item?.let { data ->
-                initialsNameTv.text = data.userResponse.fullName.getInitialsName()
+                initialsNameTv.text = data.userResponse.fullName?.getInitialsName()
                 nameTv.text = data.userResponse.fullName
                 cityTv.text = data.userResponse.city
                 data.product.imageUrl?.let { productImage.loadPhotoUrl(it) }
@@ -71,7 +71,7 @@ class SellerOrderAcceptedBottomSheet : BottomSheetDialogFragment() {
                     R.string.bid_price_text, data.price.currencyFormatter()
                 )
                 contact.setOnClickListener {
-                    data.userResponse.phoneNumber.openWhatsApp(requireContext())
+                    data.userResponse.phoneNumber?.openWhatsApp(requireContext())
                 }
             }
         }

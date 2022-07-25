@@ -7,13 +7,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserResponse(
     val id: Int,
-    val address: String,
-    val city: String,
+    val address: String?,
+    val city: String?,
     val email: String,
     @field:SerializedName("full_name")
-    val fullName: String,
+    val fullName: String?,
     @field:SerializedName("phone_number")
-    val phoneNumber: String,
+    val phoneNumber: String?,
     @field:SerializedName("image_url")
     val imageUrl: String?
 ) : Parcelable

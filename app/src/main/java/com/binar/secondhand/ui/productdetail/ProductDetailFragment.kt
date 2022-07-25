@@ -201,7 +201,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
             }
             basePriceTv.text = "Rp ${data.basePrice?.currencyFormatter()}"
             if (data.user.imageUrl.isNullOrEmpty()) {
-                initialsTv.text = data.user.fullName.getInitialsName()
+                initialsTv.text = data.user.fullName?.getInitialsName()
             } else {
                 userImage.loadPhotoUrl(data.user.imageUrl)
             }
@@ -224,7 +224,7 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
                                     }
                                     is Result.Success -> {
-                                        if (profile.data.phoneNumber.isNullOrEmpty() || profile.data.city.isNullOrEmpty() || profile.data.address.isNullOrEmpty()) {
+                                        if (profile.data.phoneNumber.isNullOrEmpty() && profile.data.city.isNullOrEmpty() && profile.data.address.isNullOrEmpty()) {
                                             profileIsIncomplete()
                                         } else {
                                             val action = ProductDetailFragmentDirections
