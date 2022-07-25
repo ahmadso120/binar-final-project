@@ -3,9 +3,7 @@ package com.binar.secondhand.ui.sell.previewsellproduct
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
@@ -38,10 +36,6 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val window = activity?.window
-        window?.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN)
         val materialToolbar: MaterialToolbar = binding.toolbar
         materialToolbar.setNavigationOnClickListener {
             navController.navigateUp()
@@ -70,7 +64,7 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
                     binding.apply {
                         productNameTv.text = arguments.previewProduct.productName
                         categoriesTv.text = arguments.previewProduct.categoryName
-                        basePriceTv.text = "Rp+ "+arguments.previewProduct.productPrice.toString()
+                        basePriceTv.text = "Rp. "+arguments.previewProduct.productPrice.toString()
                         descriptionTv.text = arguments.previewProduct.productDescription
                         userNameTv.text = it.data.fullName
                         cityTv.text = it.data.city
