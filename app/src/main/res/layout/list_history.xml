@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,13 +14,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_margin="8dp">
+        android:layout_margin="8dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/product_image_card_view"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             app:cardCornerRadius="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -32,6 +33,7 @@
                 app:srcCompat="@drawable/ic_avatar" />
 
         </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/produk_text_view"
             android:layout_width="wrap_content"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Rp. 250.000"
+            android:text="Harga tawar: Rp. 250.000"
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/product_image_card_view"
@@ -59,10 +61,26 @@
             android:id="@+id/date_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:text="21 Juli, 11:36"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/produk_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/status_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@color/dark_blue_01"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="Diterima"
+            android:textColor="@color/dark_blue_04"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -20,31 +20,48 @@ class HistoryFragment : BaseFragment(R.layout.fragment_history) {
     override var bottomNavigationViewVisibility = View.GONE
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = binding.materialToolbar2
+        val toolbar = binding.materialToolbar
         toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
         observeUI()
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            observeUI()
+        }
     }
+
     private fun observeUI() {
 
         viewModel.getAllHistory().observe(viewLifecycleOwner) {
-            when(it){
+            when (it) {
                 is Result.Error -> {
 
                 }
                 Result.Loading -> {}
                 is Result.Success -> {
-                    val layoutManager = LinearLayoutManager(
-                        requireContext(),
-                        LinearLayoutManager.VERTICAL,
-                        false
-                    )
-                    binding.recyclerview.layoutManager = layoutManager
-                    binding.recyclerview.adapter = HistoryAdapter(it.data)
+                    binding.contentLoadingLayout.visibility = View.GONE
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    if (it.data.isEmpty()) {
+                        binding.apply {
+                            noItemImageView.visibility = View.VISIBLE
+                            noItemTextView.visibility = View.VISIBLE
+                            recyclerview.visibility = View.GONE
+                        }
+                    } else {
+                        val layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        binding.recyclerview.layoutManager = layoutManager
+                        val sortIdDesc = it.data.sortedWith(compareBy {
+                            it.id
+                        }).reversed()
+                        binding.recyclerview.adapter = HistoryAdapter(sortIdDesc)
+                    }
                 }
-            }
 
+            }
         }
     }
 }

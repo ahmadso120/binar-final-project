@@ -62,9 +62,9 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         observeUI()
         setupObserver()
         if (imageUri != null){
-            binding.addPhotoBtn.setImageURI(imageUri)
+            binding.productImageView.setImageURI(imageUri)
         }
-        binding.addPhotoBtn.setOnClickListener {
+        binding.productImageView.setOnClickListener {
             chooseImageDialog()
         }
         binding.saveBtn.setOnClickListener {
@@ -203,7 +203,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             }
             isImageFromGallery = true
             imageUri = selectedImg
-            binding.addPhotoBtn.setImageURI(selectedImg)
+            binding.productImageView.setImageURI(selectedImg)
         }
     }
 
@@ -319,7 +319,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 BitmapFactory.decodeFile(getFile?.path),
                 isBackCamera
             )
-            binding.addPhotoBtn.setImageBitmap(resultFile)
+            binding.productImageView.setImageBitmap(resultFile)
         }
 
     }

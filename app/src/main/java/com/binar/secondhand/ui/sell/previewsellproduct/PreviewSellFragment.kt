@@ -3,6 +3,7 @@ package com.binar.secondhand.ui.sell.previewsellproduct
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,11 +15,9 @@ import com.binar.secondhand.data.source.remote.request.SellerProductRequest
 import com.binar.secondhand.databinding.FragmentPreviewSellBinding
 import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
-import com.binar.secondhand.utils.createPartFromString
-import com.binar.secondhand.utils.logd
-import com.binar.secondhand.utils.reduceFileImage
-import com.binar.secondhand.utils.rotateBitmap
+import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.loadPhotoUrl
+import com.google.android.material.appbar.MaterialToolbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -39,6 +38,14 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        val materialToolbar: MaterialToolbar = binding.toolbar
+        materialToolbar.setNavigationOnClickListener {
+            navController.navigateUp()
+        }
         logd("PreviewFragment : $arguments")
         logd("RESULT IS BACK CAMERA PREVIEW=> ${arguments.previewProduct.isBackCamera}")
         logd("RESULT IS GALERY PREVIEW=> ${arguments.previewProduct.isGalery}")
@@ -61,24 +68,27 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
 
                 is Result.Success -> {
                     binding.apply {
-                        brandNameTextView.text = arguments.previewProduct.productName
-                        brandCategoriesTextView.text = arguments.previewProduct.categoryName
-                        brandPriceTextView.text = arguments.previewProduct.productPrice.toString()
-                        descriptionTextView.text = arguments.previewProduct.productDescription
-                        sellerNameTextView.text = it.data.fullName
-                        sellerCityTextView.text = it.data.city
-                        it.data.imageUrl?.let { it1 -> imageSeller.loadPhotoUrl(it1) }
-//                        val resultFile = BitmapFactory.decodeFile(arguments.previewProduct?.file?.path)
+                        productNameTv.text = arguments.previewProduct.productName
+                        categoriesTv.text = arguments.previewProduct.categoryName
+                        basePriceTv.text = "Rp+ "+arguments.previewProduct.productPrice.toString()
+                        descriptionTv.text = arguments.previewProduct.productDescription
+                        userNameTv.text = it.data.fullName
+                        cityTv.text = it.data.city
+                        if(it.data.imageUrl.isNullOrEmpty()){
+                            initialsTv.text = it.data.fullName.getInitialsName()
+                        }else{
+                            userImage.loadPhotoUrl(it.data.imageUrl)
+                        }
 
                         if(arguments.previewProduct.isGalery){
                             val resultFile = BitmapFactory.decodeFile(arguments.previewProduct.file?.path)
-                            imgPhoto.setImageBitmap(resultFile)
+                            detailImage.setImageBitmap(resultFile)
 
                         }else{
                             val resultFile = rotateBitmap(
                                 BitmapFactory.decodeFile(arguments.previewProduct.file?.path),arguments.previewProduct.isBackCamera
                             )
-                            imgPhoto.setImageBitmap(resultFile)
+                            detailImage.setImageBitmap(resultFile)
                         }
 
                     }

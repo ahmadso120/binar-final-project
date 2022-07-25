@@ -1,14 +1,19 @@
 package com.binar.secondhand.ui.account.history
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.binar.secondhand.R
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.response.HistoryResponseItem
 import com.binar.secondhand.databinding.ListHistoryBinding
 import com.binar.secondhand.utils.currencyFormatter
+import com.binar.secondhand.utils.dateTimeFormatter
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 
@@ -19,27 +24,26 @@ class HistoryAdapter(private val item: List<HistoryResponseItem>) : RecyclerView
     }
     @SuppressLint("SetTextI18n", "SimpleDateFormat")
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.binding.produkTextView.text= item[position].productName
+        holder.binding.apply {
+        produkTextView.text= item[position].productName
         val url = item[position].imageUrl
         Glide.with(holder.itemView.context)
             .load(url)
-            .into(holder.binding.productImageView)
-        holder.binding.basePriceTextView.text = "Rp. "+item[position].price.currencyFormatter()
-        val inputTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val outputTimeFormat = SimpleDateFormat("dd MMM, HH:mm")
-        val date = inputTimeFormat.parse(item[position].createdAt)
-        val dateFormat = date?.let { outputTimeFormat.format(it) }
-        holder.binding.dateTextView.text = dateFormat
-//        holder.itemView.setOnClickListener {
-//            val movie = Result(
-//                posterPath = item[position].posterPath,
-//                title = item[position].title,
-//                overview = item[position].overview,
-//                releaseDate = item[position].releaseDate,
-//                adult = item[position].adult
-//            )
-//            it.findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRecomendationFragment(movie))
-//        }
+            .into(productImageView)
+        basePriceTextView.text = "Harga Tawar Rp. "+item[position].price.currencyFormatter()
+        dateTextView.text = item[position].createdAt.dateTimeFormatter()
+            when (item[position].status) {
+                "accepted" -> {
+                    statusTextView.text = "Diterima"
+                }
+                "declined" -> {
+                    statusTextView.text = "Ditolak"
+                    statusTextView.setTextColor(Color.parseColor("#b43b60"))
+                    statusTextView.setBackgroundResource(R.color.red00)
+                }
+            }
+
+    }
     }
     override fun getItemCount(): Int {
         return item.size
