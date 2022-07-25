@@ -224,7 +224,10 @@ class ProductDetailFragment : BaseFragment(R.layout.fragment_product_detail) {
 
                                     }
                                     is Result.Success -> {
-                                        if (profile.data.phoneNumber.isNullOrEmpty() && profile.data.city.isNullOrEmpty() && profile.data.address.isNullOrEmpty()) {
+                                        if (profile.data.phoneNumber.isNullOrEmpty()
+                                            || profile.data.city.isNullOrEmpty()
+                                            || profile.data.address.isNullOrEmpty()
+                                            || profile.data.imageUrl.isNullOrEmpty()) {
                                             profileIsIncomplete()
                                         } else {
                                             val action = ProductDetailFragmentDirections
