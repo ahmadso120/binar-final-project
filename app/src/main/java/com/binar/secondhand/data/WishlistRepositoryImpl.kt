@@ -74,7 +74,10 @@ class WishlistRepositoryImpl(
             if (response.isSuccessful) {
                 val data = response.body()
                 data?.let {
-                    emit(Result.Success(it))
+                    val filtered = it.filter { item ->
+                        item.product != null
+                    }
+                    emit(Result.Success(filtered))
                 }
             } else {
                 loge("getAllWishList() => Request Error")
