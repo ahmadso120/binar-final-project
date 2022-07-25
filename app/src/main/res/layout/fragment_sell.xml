@@ -158,12 +158,13 @@
                     android:layout_height="48dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="48dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Preview"
+                    app:layout_constraintEnd_toStartOf="@+id/save_btn"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/image_card_view"
                     app:strokeColor="@color/dark_blue_04"
-                    app:strokeWidth="1dp"
-                    />
+                    app:strokeWidth="1dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
