@@ -89,7 +89,6 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                 data?.let {
                     when (data.status) {
                         PENDING -> {
-                            status.visibility = View.GONE
                             contact.visibility = View.GONE
                             accept.visibility = View.VISIBLE
                             decline.visibility = View.VISIBLE
@@ -145,7 +144,6 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                         ACCEPTED -> {
                             accept.visibility = View.GONE
                             decline.visibility = View.GONE
-                            status.visibility = View.VISIBLE
                             contact.visibility = View.VISIBLE
                             contact.setOnClickListener {
                                 data.userResponse.phoneNumber?.openWhatsApp(requireContext())
