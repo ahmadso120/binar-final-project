@@ -11,8 +11,8 @@ class SellerOrderViewModel(
     private val repository: SellerOrderRepository
 ) : ViewModel() {
 
-    val interestedOrder = repository.getSellerOrder(false)
-    val soldOrder = repository.getSellerOrder(true)
+    fun interestedOrder() = repository.getSellerOrder(false)
+    fun soldOrder() = repository.getSellerOrder(true)
 
     private val _navigateToBidderInfo = MutableLiveData<Event<SellerOrderResponse>>()
     val navigateToBidderInfo: LiveData<Event<SellerOrderResponse>>

@@ -129,7 +129,7 @@ class BidderInfoFragment : BaseFragment(R.layout.fragment_bidder_info) {
                                             val result = viewModel.onUpdateStatusClicked(state)
                                             if (result) {
                                                 view?.showShortSnackbar("Berhasil menolak penawaran")
-                                                navController.navigate(R.id.action_bidderInfoFragment_to_sellListFragment)
+                                                navController.popBackStack()
                                             } else {
                                                 view?.showShortSnackbar("Gagal menolak penawaran")
                                             }

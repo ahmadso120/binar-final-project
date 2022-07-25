@@ -68,13 +68,29 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
             chooseImageDialog()
         }
         binding.saveBtn.setOnClickListener {
-            addSellerProduct()
+            val productName = binding.productNameEdt.text.toString()
+            val productPrice = binding.ProductPriceEditText.text.toString()
+            val productDescription = binding.descriptionEdt.text.toString()
+            val category = categoryID.toString()
+            val location = binding.locationEdt.text.toString()
+
+            if (
+                productName != "" &&
+                productPrice != "" &&
+                productDescription != "" &&
+                category != "" &&
+                location != ""
+            ) {
+                addSellerProduct()
+            } else {
+                it.showShortSnackbar("Lengkapi data produk", false)
+            }
         }
         binding.previewBtn.setOnClickListener {
             if (binding.productNameEdt.text.toString() != "" && binding.ProductPriceEditText.text.toString() != "" && binding.descriptionEdt.text.toString() != "" && categoryID.size != 0 && binding.locationEdt.text.toString() != "") {
                 previewProduct()
             } else {
-                Toast.makeText(requireContext(), "Something Wrong", Toast.LENGTH_SHORT).show()
+                it.showShortSnackbar("Lengkapi data produk", false)
             }
         }
     }

@@ -50,11 +50,14 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         viewModel.register.observe(viewLifecycleOwner){
             when(it){
                 is Result.Error ->{
+                    binding.registerBtn.isEnabled = true
+                    binding.registerBtn.text = "Daftar"
                     it.error?.let { error ->
                         view?.showShortSnackbar(error, false)
                     }
                 }
-                Result.Loading->{
+                Result.Loading -> {
+                    binding.registerBtn.isEnabled = false
                     binding.registerBtn.text = "loading"
                 }
                 is Result.Success ->{

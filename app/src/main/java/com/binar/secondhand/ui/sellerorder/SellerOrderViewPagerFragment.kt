@@ -34,7 +34,7 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
     private fun observeUi() {
         val isInterested = arguments?.getInt(SECTION_NUMBER)
         if (isInterested == 0) {
-            viewModel.interestedOrder.observe(viewLifecycleOwner) {
+            viewModel.interestedOrder().observe(viewLifecycleOwner) {
                 when(it) {
                     is Result.Error -> {
                         logd("error")
@@ -56,7 +56,7 @@ class SellerOrderViewPagerFragment : BaseFragment(R.layout.fragment_seller_order
                 }
             }
         } else {
-            viewModel.soldOrder.observe(viewLifecycleOwner) {
+            viewModel.soldOrder().observe(viewLifecycleOwner) {
                 when(it) {
                     is Result.Error -> {
                         showErrorState(it.error)
