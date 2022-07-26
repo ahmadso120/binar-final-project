@@ -77,7 +77,9 @@
             app:destination="@id/sellListViewPagerFragment" />
         <action
             android:id="@+id/action_sellFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/sellFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_sellFragment_to_previewSellFragment"
             app:destination="@id/previewSellFragment" />
@@ -145,6 +147,9 @@
         <action
             android:id="@+id/action_notificationFragment_to_bidderInfoFragment"
             app:destination="@id/bidderInfoFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_sellerProductDetailFragment"
+            app:destination="@id/sellerProductDetailFragment" />
     </fragment>
 
     <action

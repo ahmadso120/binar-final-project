@@ -16,6 +16,7 @@ import com.binar.secondhand.databinding.BottomReInputBidPriceBinding
 import com.binar.secondhand.utils.currencyFormatter
 import com.binar.secondhand.utils.logd
 import com.binar.secondhand.utils.ui.loadPhotoUrl
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.snackbar.Snackbar
@@ -79,14 +80,14 @@ class ReInputBidPriceBottomSheet : BottomSheetDialogFragment() {
                 when(it){
                     is Result.Error -> {
                         this.dismiss()
-                        parentFragment?.view?.let { it1 -> Snackbar.make(it1,"Nego Ulang Gagal",Snackbar.LENGTH_SHORT).show() }
+                        parentFragment?.view?.showShortSnackbar("Nego Ulang Gagal",false)
                     }
                     Result.Loading -> {
 
                     }
                     is Result.Success -> {
                         this.dismiss()
-                        parentFragment?.view?.let { it1 -> Snackbar.make(it1,"Nego Ulang Berhasil",Snackbar.LENGTH_SHORT).show() }
+                        parentFragment?.view?.showShortSnackbar("Nego Ulang Berhasil")
                     }
 
                 }

@@ -3,18 +3,16 @@ package com.binar.secondhand.ui.notification
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentNotificationBinding
-import com.binar.secondhand.storage.AppLocalData
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -29,6 +27,9 @@ class NotificationFragment : BaseFragment(R.layout.fragment_notification) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val window = activity?.window
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         val toolbar: MaterialToolbar = binding.materialToolbar2
         toolbar.setNavigationOnClickListener {

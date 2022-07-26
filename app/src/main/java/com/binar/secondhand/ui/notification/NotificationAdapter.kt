@@ -97,7 +97,7 @@ class NotificationAdapter(
             val navController = holder.itemView.findNavController()
            if(isSeller){
                if (item[position].status == "create"){
-                   navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellerProductFragment())
+                   navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToSellerProductDetailFragment(item[position].productId))
                }else{
                     navController.navigate(NotificationFragmentDirections.actionNotificationFragmentToBidderInfoFragment(item[position].orderId))
                }

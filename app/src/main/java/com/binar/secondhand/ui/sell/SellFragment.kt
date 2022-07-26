@@ -246,7 +246,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
         viewModel.addSellerProduct.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Error -> {
-                    Toast.makeText(requireContext(), "Gagal Menambah Product", Toast.LENGTH_LONG).show()
+                    view?.showShortSnackbar(it.error.toString(),false)
                     binding.previewBtn.isEnabled = true
                     binding.saveBtn.isEnabled = true
                     binding.saveBtn.text = "Simpan"
@@ -258,7 +258,7 @@ class SellFragment : BaseFragment(R.layout.fragment_sell) {
                 }
                 is Result.Success -> {
                     navController.navigate(R.id.action_sellFragment_to_homeFragment)
-                    Toast.makeText(requireContext(), "Berhasil Menambah Product", Toast.LENGTH_LONG).show()
+                    view?.showShortSnackbar("Berhasil Menambah Product")
                 }
             }
         }

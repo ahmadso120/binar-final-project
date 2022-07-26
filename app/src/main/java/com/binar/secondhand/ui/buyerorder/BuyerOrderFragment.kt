@@ -13,6 +13,7 @@ import com.binar.secondhand.data.Result
 import com.binar.secondhand.data.source.remote.response.BuyerOrderResponse
 import com.binar.secondhand.data.source.remote.response.ProductResponse
 import com.binar.secondhand.databinding.FragmentBuyerOrderBinding
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -85,21 +86,13 @@ class BuyerOrderFragment : BaseFragment(R.layout.fragment_buyer_order) {
                 viewModel.deleteOrder(id).observe(viewLifecycleOwner) {
                     when (it) {
                         is Result.Error -> {
-                            Snackbar.make(
-                                binding.root,
-                                "Order gagal dihapus",
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                      view?.showShortSnackbar("Order gagal dihapus",false)
                         }
                         Result.Loading -> {
 
                         }
                         is Result.Success -> {
-                            Snackbar.make(
-                                binding.root,
-                                "Order kamu berhasil dihapus",
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                         view?.showShortSnackbar("Order kamu berhasil dihapus")
                             observeUI()
                         }
                     }

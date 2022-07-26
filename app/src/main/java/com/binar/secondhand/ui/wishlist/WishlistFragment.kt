@@ -11,6 +11,7 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentWishlistBinding
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -78,18 +79,10 @@ class WishlistFragment : BaseFragment(R.layout.fragment_wishlist) {
                 lifecycleScope.launch {
                     val result = viewModel.deleteWishlist(id)
                     if (result) {
-                        Snackbar.make(
-                            binding.root,
-                            "Berhasil Menghapus $name dari whislist",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                   view?.showShortSnackbar("Berhasil Menghapus $name dari whislist")
                         observeUI()
                     } else {
-                        Snackbar.make(
-                            binding.root,
-                            "Gagal Menghapus $name dari whislist",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                   view?.showShortSnackbar("Gagal Menghapus $name dari whislist",false)
                     }
                 }
             }

@@ -197,21 +197,13 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                         .observe(viewLifecycleOwner) { productResponse ->
                             when (productResponse) {
                                 is Result.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Update Failed",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    view?.showShortSnackbar("Update Produk Gagal",false)
                                 }
                                 Result.Loading -> {
 
                                 }
                                 is Result.Success -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Update Success",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    view?.showShortSnackbar("Update Produk Berhasil")
                                     findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                                 }
                             }
@@ -226,20 +218,13 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                         .observe(viewLifecycleOwner) { productResponse ->
                             when (productResponse) {
                                 is Result.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Update Failed",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    view?.showShortSnackbar("Update Produk Gagal",false)
                                 }
                                 Result.Loading -> {
+
                                 }
                                 is Result.Success -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Update Success",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    view?.showShortSnackbar("Update Produk Berhasil")
                                     findNavController().navigate(UpdateProductFragmentDirections.actionUpdateProductFragmentToSellerProductFragment())
                                 }
                             }
@@ -247,11 +232,7 @@ class UpdateProductFragment : BaseFragment(R.layout.fragment_update_product) {
                 }
             }
         } else {
-            Toast.makeText(
-                requireContext(),
-                "Pilih Minimal 1 Kategori",
-                Toast.LENGTH_SHORT
-            ).show()
+            view?.showShortSnackbar("Pilih Minimal 1 Kategori",false)
 
         }
     }
