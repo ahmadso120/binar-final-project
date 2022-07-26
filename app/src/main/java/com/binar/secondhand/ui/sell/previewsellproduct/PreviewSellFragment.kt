@@ -15,6 +15,7 @@ import com.binar.secondhand.ui.account.editaccount.EditAccountViewModel
 import com.binar.secondhand.ui.sell.SellerViewModel
 import com.binar.secondhand.utils.*
 import com.binar.secondhand.utils.ui.loadPhotoUrl
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.appbar.MaterialToolbar
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -92,17 +93,20 @@ class PreviewSellFragment : BaseFragment(R.layout.fragment_preview_sell) {
     }
     private fun observerUi(){
         viewModelProduct.addSellerProduct.observe(viewLifecycleOwner){
-            when(it){
+            when (it) {
                 is Result.Error -> {
-                    Toast.makeText(requireContext(), "Gagal Menambah Product", Toast.LENGTH_LONG).show()
+                    view?.showShortSnackbar(it.error.toString(),false)
+                    binding.saveBtn.isEnabled = true
+                    binding.saveBtn.text = "Terbitkan"
                 }
                 Result.Loading -> {
                     binding.saveBtn.isEnabled = false
                     binding.saveBtn.text = "Loading ..."
                 }
                 is Result.Success -> {
+                    view?.showShortSnackbar("Berhasil Menambah Product")
                     navController.navigate(R.id.action_previewSellFragment_to_homeFragment)
-                    Toast.makeText(requireContext(), "Berhasil Menambah Product", Toast.LENGTH_LONG).show()
+
                 }
             }
         }

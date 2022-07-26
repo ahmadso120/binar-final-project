@@ -13,6 +13,7 @@ import com.binar.secondhand.R
 import com.binar.secondhand.base.BaseFragment
 import com.binar.secondhand.data.Result
 import com.binar.secondhand.databinding.FragmentSellerProductBinding
+import com.binar.secondhand.utils.ui.showShortSnackbar
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -68,11 +69,7 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                             item = sortIdDesc,
                             onCardClicked = {
                                 if (it.status == "sold"){
-                                    Snackbar.make(
-                                        binding.root,
-                                        "Produkmu Telah Terjual",
-                                        Snackbar.LENGTH_LONG
-                                    ).show()
+                                    view?.showShortSnackbar("Produkmu Telah Terjual",false)
                                 }else{
                                     navController.navigate(SellerProductFragmentDirections.actionSellerProductFragmentToUpdateProductFragment(it.id))
                                 }
@@ -108,21 +105,13 @@ class SellerProductFragment : BaseFragment(R.layout.fragment_seller_product) {
                 viewModel.doDeleteProduct(id).observe(viewLifecycleOwner) {
                     when (it) {
                         is Result.Error -> {
-                            Snackbar.make(
-                                binding.root,
-                                "Produkmu gagal dihapus, periksa penawaran",
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            view?.showShortSnackbar("Produkmu gagal dihapus, periksa penawaran",false)
                         }
                         Result.Loading -> {
 
                         }
                         is Result.Success -> {
-                            Snackbar.make(
-                                binding.root,
-                                "Produkmu berhasil dihapus",
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                           view?.showShortSnackbar("Produkmu berhasil dihapus")
                             observeUI()
                         }
                     }

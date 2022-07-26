@@ -56,7 +56,7 @@ class SellerProductRepositoryImpl(
                 }
             } catch (e: Exception) {
                 loge("addProduct() => ${e.message}")
-                emit(Result.Error(null, "Something went wrong"))
+                emit(Result.Error(null, "Gagal Menambah Product: ${e.message}"))
             }
         }
 

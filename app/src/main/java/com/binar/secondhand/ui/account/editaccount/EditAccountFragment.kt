@@ -187,7 +187,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
         viewModel.updateAccount.observe(viewLifecycleOwner){
         when(it){
             is Result.Error -> {
-                Toast.makeText(requireContext(),"Update Failed",Toast.LENGTH_SHORT).show()
+                view?.showShortSnackbar("Update Akun Gagal",false)
                 binding.apply {
                     saveBtn.text = "Simpan"
                     saveBtn.isEnabled = true
@@ -202,7 +202,7 @@ class EditAccountFragment : BaseFragment(R.layout.fragment_edit_account) {
 
             }
             is Result.Success ->{
-                Toast.makeText(requireContext(),"Update Success",Toast.LENGTH_SHORT).show()
+                view?.showShortSnackbar("Update Akun Berhasil")
                 navController.navigate(R.id.action_editAccountFragment_to_homeFragment)
             }
         }
